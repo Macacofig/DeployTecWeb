@@ -1,0 +1,16 @@
+.env
+
+# Frontend
+finalproject/node_modules
+finalproject/.next
+
+# Backend
+shopwavefusionbackend/shopwavefusionbackend/target
+
+# IDE
+.idea
+.vscode
+
+# OS
+.DS_Store
+Thumbs.db
