@@ -1,5 +1,8 @@
 .env
 
+# Dependencies
+/node_modules
+
 # Frontend
 finalproject/node_modules
 finalproject/.next

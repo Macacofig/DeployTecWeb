@@ -1,66 +1,66 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import Link from "next/link";
+
+const featureCards = [
+  {
+    title: "Arquitectura modular",
+    description: "Rutas, servicios, contextos y guards separados para crecer en equipo sin acoplamiento innecesario.",
+  },
+  {
+    title: "JWT listo para backend",
+    description: "Axios centralizado con soporte para el token emitido por Spring Boot en el header Authorization.",
+  },
+  {
+    title: "Tailwind configurado",
+    description: "Base visual limpia, reusable y rápida para construir vistas de productos, carrito y administración.",
+  },
+];
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="mx-auto flex min-h-screen w-full max-w-7xl flex-col px-6 py-10 lg:px-10">
+      <section className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-soft backdrop-blur">
+        <div className="max-w-3xl space-y-6">
+          <span className="inline-flex items-center rounded-full border border-brand-400/30 bg-brand-400/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-brand-200">
+            ShopWave Fusion Frontend
+          </span>
+          <h1 className="text-4xl font-semibold tracking-tight text-white md:text-6xl">
+            Arquitectura profesional para escalar en equipo.
+          </h1>
+          <p className="max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
+            Base organizada con Next.js App Router, TypeScript, Tailwind, Axios y una capa preparada para integrar autenticación JWT, catálogo, carrito, checkout y administración.
           </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/products" className="rounded-full bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-400">
+              Ver productos
+            </Link>
+            <Link href="/login" className="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">
+              Iniciar sesión
+            </Link>
+          </div>
         </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </section>
+
+      <section className="grid gap-4 py-8 md:grid-cols-3">
+        {featureCards.map((card) => (
+          <article key={card.title} className="rounded-2xl border border-white/10 bg-slate-900/80 p-6">
+            <h2 className="text-lg font-semibold text-white">{card.title}</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-300">{card.description}</p>
+          </article>
+        ))}
+      </section>
+
+      <section className="grid gap-4 pb-6 md:grid-cols-2 xl:grid-cols-4">
+        {[
+          ["/login", "Login"],
+          ["/register", "Registro"],
+          ["/cart", "Carrito"],
+          ["/admin", "Admin"],
+        ].map(([href, label]) => (
+          <Link key={href} href={href} className="rounded-2xl border border-white/10 bg-white/5 p-5 text-sm font-medium text-white transition hover:border-brand-400/40 hover:bg-white/10">
+            {label}
+          </Link>
+        ))}
+      </section>
+    </main>
   );
 }
