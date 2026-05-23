@@ -1,6 +1,6 @@
 import type { AuthCredentials, AuthSession, User } from "../models/user.model";
 import { apiClient } from "../lib/axios";
-import { clearStoredUser, clearToken, setStoredUser, setToken } from "../utils/token.util";
+import { clearStoredUser, removeToken, saveToken, setStoredUser } from "../utils/token.util";
 
 export async function signIn(credentials: AuthCredentials): Promise<AuthSession> {
   const response = await apiClient.get<User>("/auth/signin", {
@@ -13,7 +13,7 @@ export async function signIn(credentials: AuthCredentials): Promise<AuthSession>
   const token = response.headers["authorization"] ?? null;
 
   if (token) {
-    setToken(token);
+    saveToken(token);
   }
 
   setStoredUser(response.data);
@@ -29,7 +29,7 @@ export async function registerUser(user: User): Promise<AuthSession> {
   const token = response.headers["authorization"] ?? null;
 
   if (token) {
-    setToken(token);
+    saveToken(token);
   }
 
   setStoredUser(response.data);
@@ -46,6 +46,6 @@ export async function getCurrentUser() {
 }
 
 export function signOut() {
-  clearToken();
+  removeToken();
   clearStoredUser();
 }
