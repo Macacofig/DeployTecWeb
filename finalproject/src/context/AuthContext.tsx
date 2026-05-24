@@ -1,10 +1,10 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import type { AuthCredentials, AuthSession, User } from "../models/user.model";
 import { getCurrentUser, registerUser, signIn as signInRequest, signOut as signOutRequest } from "../services/auth.service";
-import { clearStoredUser, clearToken, getStoredUser, getToken, setStoredUser } from "../utils/token.util";
+import { clearStoredUser, getStoredUser, getToken, isTokenExpired, removeToken, saveToken, setStoredUser } from "../utils/token.util";
 
 interface AuthContextValue {
   user: User | null;
@@ -20,9 +20,24 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(() => getStoredUser<User>());
-  const [token, setTokenState] = useState<string | null>(() => getToken());
-  const [loading] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [token, setTokenState] = useState<string | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const storedToken = getToken();
+    const storedUser = getStoredUser<User>();
+
+    if (storedToken && !isTokenExpired(storedToken) && storedUser) {
+      setTokenState(storedToken);
+      setUser(storedUser);
+    } else {
+      removeToken();
+      clearStoredUser();
+    }
+
+    setLoading(false);
+  }, []);
 
   async function refreshUser() {
     const currentUser = await getCurrentUser();
@@ -35,6 +50,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const session = await signInRequest(credentials);
     setUser(session.user);
     setTokenState(session.token);
+    if (session.token) {
+      saveToken(session.token);
+    }
     setStoredUser(session.user);
     return session;
   }
@@ -43,16 +61,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const session = await registerUser(userPayload);
     setUser(session.user);
     setTokenState(session.token);
+    if (session.token) {
+      saveToken(session.token);
+    }
     setStoredUser(session.user);
     return session;
   }
 
   function signOut() {
     signOutRequest();
-    clearToken();
+    removeToken();
     clearStoredUser();
     setUser(null);
     setTokenState(null);
+    setLoading(false);
   }
 
   return (
@@ -61,7 +83,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         user,
         token,
         loading,
-        isAuthenticated: Boolean(user || token),
+        isAuthenticated: Boolean(user && token && !isTokenExpired(token)),
         signIn,
         register,
         signOut,
