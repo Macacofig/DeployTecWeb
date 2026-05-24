@@ -20,6 +20,16 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Installation Notes
+
+The frontend dependencies are declared in `finalproject/package.json` and locked in `finalproject/package-lock.json`. They include `next`, `react`, `react-dom`, `axios`, `tailwindcss`, `postcss`, `autoprefixer`, `typescript`, and the ESLint packages listed there.
+
+When you run `docker compose up --build`, Docker installs those dependencies inside the image, so you do not need to install them globally on your machine just to run the project in Docker.
+
+The local installs that were redundant were the `node_modules` folders on your machine and the root-level npm setup, because the frontend Docker build does not use the root `package.json`.
+
+If you run the app locally without Docker, install the frontend dependencies inside `finalproject` with `npm install` and then use `npm run dev`.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
