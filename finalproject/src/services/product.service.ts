@@ -1,24 +1,36 @@
-import type { Product, ProductPage } from "../models/product.model";
+import type { Product, ProductFilters, ProductPage } from "../models/product.model";
 import { apiClient } from "../lib/axios";
 
-export async function getProducts(): Promise<Product[]> {
-  const response = await apiClient.get<Product[]>("/products");
-  return response.data;
-}
+const ProductService = {
+  async getProducts(filters?: ProductFilters): Promise<ProductPage> {
+    const params: Record<string, string> = {};
+    if (filters) {
+      if (filters.category) params.category = filters.category;
+      if (filters.colors) params.colors = filters.colors;
+      if (filters.sizes) params.sizes = filters.sizes;
+      if (filters.minPrice !== undefined) params.minPrice = String(filters.minPrice);
+      if (filters.maxPrice !== undefined) params.maxPrice = String(filters.maxPrice);
+      if (filters.minDiscount !== undefined) params.minDiscount = String(filters.minDiscount);
+      if (filters.sort) params.sort = filters.sort;
+      if (filters.stock) params.stock = filters.stock;
+      if (filters.pageNumber !== undefined) params.pageNumber = String(filters.pageNumber);
+      if (filters.pageSize !== undefined) params.pageSize = String(filters.pageSize);
+    }
+    const response = await apiClient.get<ProductPage>("/products/all", { params });
+    return response.data;
+  },
 
-export async function getProductById(productId: number): Promise<Product> {
-  const response = await apiClient.get<Product>(`/products/${productId}`);
-  return response.data;
-}
+  async getProductById(id: number): Promise<Product> {
+    const response = await apiClient.get<Product>(`/products/${id}`);
+    return response.data;
+  },
 
-export async function searchProducts(query: string): Promise<Product[]> {
-  const response = await apiClient.get<Product[]>("/products/products/search", {
-    params: { q: query },
-  });
-  return response.data;
-}
+  async searchProducts(query: string): Promise<Product[]> {
+    const response = await apiClient.get<Product[]>("/products/search", {
+      params: { q: query },
+    });
+    return response.data;
+  },
+};
 
-export async function getProductsPage(): Promise<ProductPage> {
-  const response = await apiClient.get<ProductPage>("/products/all");
-  return response.data;
-}
+export default ProductService;
