@@ -27,6 +27,8 @@ services:
   frontend:
     build:
       context: ./finalproject
+      args:
+        NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://localhost:8081}
     container_name: shopwavefusion-frontend
     restart: always
     depends_on:

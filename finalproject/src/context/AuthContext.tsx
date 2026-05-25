@@ -25,18 +25,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedToken = getToken();
-    const storedUser = getStoredUser<User>();
+    const timeoutId = setTimeout(() => {
+      const storedToken = getToken();
+      const storedUser = getStoredUser<User>();
 
-    if (storedToken && !isTokenExpired(storedToken) && storedUser) {
-      setTokenState(storedToken);
-      setUser(storedUser);
-    } else {
-      removeToken();
-      clearStoredUser();
-    }
+      if (storedToken && !isTokenExpired(storedToken) && storedUser) {
+        setTokenState(storedToken);
+        setUser(storedUser);
+      } else {
+        removeToken();
+        clearStoredUser();
+      }
 
-    setLoading(false);
+      setLoading(false);
+    }, 0);
+
+    return () => clearTimeout(timeoutId);
   }, []);
 
   async function refreshUser() {
