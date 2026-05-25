@@ -1,24 +1,39 @@
 "use client";
 
 import type { FormEvent } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../hooks/useAuth";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { signIn, loading } = useAuth();
+  const { signIn, loading, isAuthenticated } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.replace("/");
+    }
+  }, [isAuthenticated, router]);
+
+  if (isAuthenticated) {
+    return <main className="mx-auto flex min-h-screen w-full max-w-md items-center px-6 py-12 text-slate-300">Redirigiendo al inicio...</main>;
+  }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
 
     try {
-      await signIn({ email, password });
+      const session = await signIn({ email, password });
+
+      if (!session.token) {
+        throw new Error("La contraseña no es válida o la sesión no pudo iniciarse.");
+      }
+
       router.push("/");
     } catch (requestError) {
       setError(requestError instanceof Error ? requestError.message : "No se pudo iniciar sesión");

@@ -3,6 +3,7 @@ import ProductService from "../services/product.service";
 import type { Product } from "../models/product.model";
 import ProductGrid from "../components/products/ProductGrid";
 import SearchBar from "../components/products/SearchBar";
+import HomeHero from "../components/layout/HomeHero";
 
 async function getFeaturedProducts(): Promise<Product[]> {
   try {
@@ -25,40 +26,24 @@ export default async function HomePage() {
 
   return (
     <main className="mx-auto min-h-screen w-full max-w-7xl px-6 py-10 lg:px-10">
-      {/* Hero */}
-      <section className="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-soft backdrop-blur mb-10">
-        <div className="max-w-3xl space-y-6">
-          <span className="inline-flex items-center rounded-full border border-brand-400/30 bg-brand-400/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.2em] text-brand-200">
-            ShopWave Fusion
-          </span>
-          <h1 className="text-4xl font-semibold tracking-tight text-white md:text-6xl">
-            Los mejores productos, al mejor precio.
-          </h1>
-          <p className="max-w-2xl text-base leading-7 text-slate-300">
-            Descubre nuestro catálogo completo con filtros, búsqueda y las mejores ofertas.
-          </p>
+      <div className="mb-10">
+        <HomeHero featuredCount={featuredProducts.length} />
+        <div className="mt-6 max-w-lg">
           <SearchBar className="max-w-lg" />
-          <div className="flex flex-wrap gap-3 pt-2">
-            <Link
-              href="/products"
-              className="rounded-full bg-brand-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-brand-400"
-            >
-              Ver catálogo
-            </Link>
-            <Link
-              href="/login"
-              className="rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-            >
-              Iniciar sesión
-            </Link>
-          </div>
         </div>
-      </section>
+      </div>
 
-      {/* Categories */}
       <section className="mb-10">
-        <h2 className="text-xl font-semibold text-white mb-4">Categorías</h2>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="mb-4 flex items-end justify-between gap-4">
+          <div>
+            <p className="text-sm font-medium uppercase tracking-[0.2em] text-brand-200">Categorías</p>
+            <h2 className="text-xl font-semibold text-white">Explora por tipo de producto</h2>
+          </div>
+          <Link href="/products" className="hidden text-sm text-brand-300 underline md:block">
+            Ver catálogo completo
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
           {CATEGORIES.map((cat) => (
             <Link
               key={cat.value}
@@ -72,7 +57,6 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Featured Products */}
       <section>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold text-white">Productos Destacados</h2>

@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { AuthCredentials, AuthSession, User } from "../models/user.model";
 import { getCurrentUser, registerUser, signIn as signInRequest, signOut as signOutRequest } from "../services/auth.service";
-import { clearStoredUser, getStoredUser, getToken, isTokenExpired, removeToken, saveToken, setStoredUser } from "../utils/token.util";
+import { clearStoredUser, getStoredUser, getToken, isTokenExpired, removeToken, setStoredUser } from "../utils/token.util";
 
 interface AuthContextValue {
   user: User | null;
@@ -25,18 +25,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const storedToken = getToken();
-    const storedUser = getStoredUser<User>();
+    const timeoutId = setTimeout(() => {
+      const storedToken = getToken();
+      const storedUser = getStoredUser<User>();
 
-    if (storedToken && !isTokenExpired(storedToken) && storedUser) {
-      setTokenState(storedToken);
-      setUser(storedUser);
-    } else {
-      removeToken();
-      clearStoredUser();
-    }
+      if (storedToken && !isTokenExpired(storedToken) && storedUser) {
+        setTokenState(storedToken);
+        setUser(storedUser);
+      } else {
+        removeToken();
+        clearStoredUser();
+      }
 
-    setLoading(false);
+      setLoading(false);
+    }, 0);
+
+    return () => clearTimeout(timeoutId);
   }, []);
 
   async function refreshUser() {
@@ -50,9 +54,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const session = await signInRequest(credentials);
     setUser(session.user);
     setTokenState(session.token);
-    if (session.token) {
-      saveToken(session.token);
-    }
     setStoredUser(session.user);
     return session;
   }
@@ -61,9 +62,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const session = await registerUser(userPayload);
     setUser(session.user);
     setTokenState(session.token);
-    if (session.token) {
-      saveToken(session.token);
-    }
     setStoredUser(session.user);
     return session;
   }
