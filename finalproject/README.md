@@ -30,6 +30,31 @@ The local installs that were redundant were the `node_modules` folders on your m
 
 If you run the app locally without Docker, install the frontend dependencies inside `finalproject` with `npm install` and then use `npm run dev`.
 
+## Project Notes
+
+This frontend talks to the backend at `http://localhost:8081` by default. The active environment variables are:
+
+- `NEXT_PUBLIC_API_URL=http://localhost:8081`
+- `FRONTEND_URL=http://localhost:3000`
+
+When running with Docker Compose, the frontend build receives `NEXT_PUBLIC_API_URL` as a build argument, so the browser points to the correct backend port.
+
+The authentication flow no longer allows guest access.
+
+- If there is no valid session, the app redirects to `/login`.
+- The login only succeeds when the backend returns a token.
+- If the password is incorrect, the session is not created and the user stays on the login page.
+
+Protected routes require an authenticated session:
+
+- `/cart`
+- `/checkout`
+- `/profile`
+- `/orders`
+- `/admin`
+
+The header is shown only for authenticated users, and the home page adapts to the session state.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
@@ -41,6 +66,6 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
