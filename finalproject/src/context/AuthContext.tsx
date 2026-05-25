@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { createContext, useContext, useEffect, useState } from "react";
 import type { AuthCredentials, AuthSession, User } from "../models/user.model";
 import { getCurrentUser, registerUser, signIn as signInRequest, signOut as signOutRequest } from "../services/auth.service";
-import { clearStoredUser, getStoredUser, getToken, isTokenExpired, removeToken, saveToken, setStoredUser } from "../utils/token.util";
+import { clearStoredUser, getStoredUser, getToken, isTokenExpired, removeToken, setStoredUser } from "../utils/token.util";
 
 interface AuthContextValue {
   user: User | null;
@@ -54,9 +54,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const session = await signInRequest(credentials);
     setUser(session.user);
     setTokenState(session.token);
-    if (session.token) {
-      saveToken(session.token);
-    }
     setStoredUser(session.user);
     return session;
   }
@@ -65,9 +62,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const session = await registerUser(userPayload);
     setUser(session.user);
     setTokenState(session.token);
-    if (session.token) {
-      saveToken(session.token);
-    }
     setStoredUser(session.user);
     return session;
   }

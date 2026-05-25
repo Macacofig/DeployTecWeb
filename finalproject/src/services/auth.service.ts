@@ -12,9 +12,11 @@ export async function signIn(credentials: AuthCredentials): Promise<AuthSession>
 
   const token = response.headers["authorization"] ?? null;
 
-  if (token) {
-    saveToken(token);
+  if (!token) {
+    throw new Error("No se pudo validar la contraseña. Revisa tus credenciales e inténtalo otra vez.");
   }
+
+  saveToken(token);
 
   setStoredUser(response.data);
 
@@ -28,9 +30,11 @@ export async function registerUser(user: User): Promise<AuthSession> {
   const response = await apiClient.post<User>("/auth/signup", user);
   const token = response.headers["authorization"] ?? null;
 
-  if (token) {
-    saveToken(token);
+  if (!token) {
+    throw new Error("No se pudo crear la sesión. Intenta registrarte otra vez.");
   }
+
+  saveToken(token);
 
   setStoredUser(response.data);
 
