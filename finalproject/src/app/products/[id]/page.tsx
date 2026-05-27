@@ -42,7 +42,7 @@ export default function ProductDetailPage() {
     );
   }
 
-  const availableSizes = product.size?.filter((s) => s.quantity > 0) ?? [];
+  const availableSizes = product.sizes?.filter((s) => s.quantity > 0) ?? [];
 
   const handleAddToCart = async () => {
     if (availableSizes.length > 0 && !selectedSize) {
@@ -171,9 +171,9 @@ export default function ProductDetailPage() {
             {adding ? "Agregando..." : product.quantity === 0 ? "Sin stock" : "Agregar al carrito"}
           </button>
 
-          <p className="text-xs text-slate-500">
+          {/* <p className="text-xs text-slate-500">
             {product.topLevelCategory} › {product.secondLevelCategory} › {product.thirdLevelCategory}
-          </p>
+          </p> */}
         </div>
       </div>
     </main>

@@ -49,3 +49,31 @@ export interface ProductFilters {
   pageNumber?: number;
   pageSize?: number;
 }
+
+export interface CreateProductRequest {
+  title: string;
+
+  description?: string;
+
+  price: number;
+
+  discountedPrice?: number;
+
+  discountPersent: number;
+
+  quantity: number;
+
+  brand?: string;
+
+  color?: string;
+
+  size: ProductSize[];
+
+  imageUrl?: string;
+
+  topLevelCategory: string;
+
+  secondLevelCategory: string;
+
+  thirdLevelCategory: string;
+}
