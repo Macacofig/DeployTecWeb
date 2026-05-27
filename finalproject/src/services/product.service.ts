@@ -31,6 +31,21 @@ const ProductService = {
     });
     return response.data;
   },
+
+  async updateProduct(id: number, product: Product): Promise<Product> {
+    const response = await apiClient.put<Product>(
+      `/admin/products/${id}/update`,
+      product
+    );
+    return response.data;
+  },
+
+  async deleteProduct(id: number): Promise<{ message: string; success: boolean }> {
+    const response = await apiClient.delete<{ message: string; success: boolean }>(
+      `/admin/products/${id}/delete`
+    );
+    return response.data;
+  },
 };
 
 export default ProductService;

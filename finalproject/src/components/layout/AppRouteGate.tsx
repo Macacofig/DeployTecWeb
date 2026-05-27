@@ -11,7 +11,7 @@ const PUBLIC_ROUTES = new Set(["/login", "/register"]);
 export default function AppRouteGate({ children }: { children: ReactNode }) {
   const router = useRouter();
   const pathname = usePathname();
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, user } = useAuth();
 
   const isPublicRoute = pathname ? PUBLIC_ROUTES.has(pathname) : false;
 
@@ -26,9 +26,10 @@ export default function AppRouteGate({ children }: { children: ReactNode }) {
     }
 
     if (isPublicRoute && isAuthenticated) {
-      router.replace("/");
+      const redirectPath = user?.role === "ROLE_ADMIN" ? "/admin" : "/";
+      router.replace(redirectPath);
     }
-  }, [isAuthenticated, isPublicRoute, loading, router]);
+  }, [isAuthenticated, isPublicRoute, loading, router, user?.role]);
 
   if (loading) {
     return <div className="flex min-h-screen items-center justify-center text-slate-300">Validando sesión...</div>;
