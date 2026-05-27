@@ -70,10 +70,14 @@ export default function ProductTable() {
   }
 
   return (
-    <Table
-      columns={columns}
-      data={products}
-      keyExtractor={(p) => String(p.id ?? Math.random())}
-    />
+    <div className="p-6">
+      <div className="overflow-auto max-h-[75vh] rounded-xl border border-slate-800">
+        <Table
+          columns={columns}
+          data={products}
+          keyExtractor={(p) => String(p.id ?? Math.random())}
+        />
+      </div>
+    </div>
   );
 }

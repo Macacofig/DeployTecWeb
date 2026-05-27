@@ -13,7 +13,7 @@ const links = [
 export default function Sidebar() {
   const pathname = usePathname();
   return (
-    <aside className="w-64 bg-slate-900 border-r border-slate-800 min-h-screen p-4">
+    <aside className="fixed left-0 top-0 w-64 h-screen bg-slate-900 border-r border-slate-800 p-4 pt-24 overflow-y-auto">
       <h2 className="text-lg font-semibold text-white mb-4">Panel Admin</h2>
       <nav className="flex flex-col gap-2">
         {links.map((link) => (
