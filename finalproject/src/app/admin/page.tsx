@@ -17,19 +17,6 @@ export default function AdminPage() {
           <p className="mt-2 text-slate-300">Accede a las herramientas clave para administrar productos y pedidos.</p>
         </header>
 
-        <section className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {adminAreas.map((area) => (
-            <Link
-              key={area.href}
-              href={area.href}
-              className="rounded-3xl border border-white/10 bg-white/5 p-8 text-white transition hover:bg-white/10"
-            >
-              <p className="text-sm uppercase tracking-[0.2em] text-brand-200">{area.title}</p>
-              <p className="mt-4 text-lg font-semibold">Ir al módulo</p>
-            </Link>
-          ))}
-        </section>
-
         <section className="mt-10 rounded-3xl border border-white/10 bg-slate-900/80 p-8 text-slate-300">
           <h2 className="text-2xl font-semibold text-white">Resumen rápido</h2>
           <p className="mt-3 leading-7">
