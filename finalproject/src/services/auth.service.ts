@@ -13,7 +13,7 @@ export async function signIn(credentials: AuthCredentials): Promise<AuthSession>
   // Extraer el header de forma robusta (axios normaliza a minúsculas,
   // pero verificamos varias formas y descartamos un posible Basic)
   // eslint-disable-next-line no-console
-  console.log("/auth/signin response headers:", response.headers);
+  //console.log("/auth/signin response headers:", response.headers);
 
   const rawHeader = response.headers["authorization"] ?? response.headers["Authorization"] ?? null;
 
