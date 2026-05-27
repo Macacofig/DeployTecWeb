@@ -1,4 +1,4 @@
-import type { Product, ProductFilters, ProductPage } from "../models/product.model";
+import type { CreateProductRequest, Product, ProductFilters, ProductPage } from "../models/product.model";
 import { apiClient } from "../lib/axios";
 
 const ProductService = {
@@ -29,6 +29,43 @@ const ProductService = {
     const response = await apiClient.get<Product[]>("/products/search", {
       params: { q: query },
     });
+    return response.data;
+  },
+
+  async updateProduct(id: number, product: Product): Promise<Product> {
+    const response = await apiClient.put<Product>(
+      `/admin/products/${id}/update`,
+      product
+    );
+    return response.data;
+  },
+
+  async deleteProduct(id: number): Promise<{ message: string; success: boolean }> {
+    const response = await apiClient.delete<{ message: string; success: boolean }>(
+      `/admin/products/${id}/delete`
+    );
+    return response.data;
+  },
+
+  async createProduct(
+    product: CreateProductRequest
+  ): Promise<Product> {
+
+    const response = await apiClient.post<Product>(
+      "/admin/products/",
+      product
+    );
+    return response.data;
+  },
+
+  async createMultipleProducts(
+    products: CreateProductRequest[]
+  ): Promise<{ message: string; success: boolean }> {
+    const response = await apiClient.post(
+      "/admin/products/creates",
+      products
+    );
+
     return response.data;
   },
 };

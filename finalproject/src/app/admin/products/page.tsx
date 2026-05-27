@@ -1,4 +1,5 @@
 import { AdminGuard } from "../../../guards/AdminGuard";
+import ProductTable from "@/components/admin/ProductTable";
 
 export default function AdminProductsPage() {
   return (
@@ -10,7 +11,7 @@ export default function AdminProductsPage() {
           <p className="mt-2 text-slate-300">Estructura para crear, editar, eliminar y publicar catálogo.</p>
         </header>
         <section className="mt-8 rounded-2xl border border-white/10 bg-white/5 p-8 text-slate-300">
-          Tabla administrativa preparada para integrar acciones CRUD.
+          <ProductTable />
         </section>
       </main>
     </AdminGuard>

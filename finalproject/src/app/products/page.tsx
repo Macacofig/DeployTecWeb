@@ -66,7 +66,7 @@ function ProductsContent() {
                   key={i}
                   onClick={() => handlePageChange(i)}
                   className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                    pagination.pageNumber === i
+                    pagination.number === i
                       ? "bg-brand-500 text-white"
                       : "border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10"
                   }`}

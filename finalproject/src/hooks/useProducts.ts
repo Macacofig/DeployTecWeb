@@ -18,6 +18,7 @@ export function useProducts(initialFilters?: ProductFilters) {
     setError(null);
     try {
       const result = await ProductService.getProducts(filters);
+      
       setProducts(result.content);
       const { content: _content, ...rest } = result;
       setPagination(rest);
