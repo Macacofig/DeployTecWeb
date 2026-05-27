@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import AdminLayout from "@/components/layout/AdminLayout";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
 import { AdminGuard } from "@/guards/AdminGuard";
@@ -39,15 +38,12 @@ export default function CreateProductPage() {
 
   return (
     <AdminGuard>
-      <AdminLayout>
-        <div className="max-w-2xl mx-auto p-6">
-          <h1 className="text-3xl font-semibold text-white mb-6">
-            Crear Producto
-          </h1>
-          <form
-            onSubmit={handleSubmit}
-            className="bg-slate-800 rounded-xl border border-slate-700 p-6 space-y-4"
-          >
+      <div className="max-w-2xl mx-auto p-6">
+        <h1 className="text-3xl font-semibold text-white mb-6">Crear Producto</h1>
+        <form
+          onSubmit={handleSubmit}
+          className="bg-slate-800 rounded-xl border border-slate-700 p-6 space-y-4"
+        >
             <Input
               label="Nombre"
               value={title}
@@ -79,8 +75,7 @@ export default function CreateProductPage() {
               Guardar Producto
             </Button>
           </form>
-        </div>
-      </AdminLayout>
+      </div>
     </AdminGuard>
   );
 }

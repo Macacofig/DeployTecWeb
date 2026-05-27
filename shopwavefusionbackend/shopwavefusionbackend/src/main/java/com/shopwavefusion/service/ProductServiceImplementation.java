@@ -197,7 +197,7 @@ public class ProductServiceImplementation implements ProductService {
 		List<Product> products = productRepository.filterProducts(category, minPrice, maxPrice, minDiscount, sort);
 		
 		
-		if (!colors.isEmpty()) {
+		if (colors != null && !colors.isEmpty()) {
 			products = products.stream()
 			        .filter(p -> colors.stream().anyMatch(c -> c.equalsIgnoreCase(p.getColor())))
 			        .collect(Collectors.toList());

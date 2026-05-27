@@ -8,16 +8,17 @@ import { useAuth } from "../../hooks/useAuth";
 
 export default function LoginPage() {
   const router = useRouter();
-  const { signIn, loading, isAuthenticated } = useAuth();
+  const { signIn, loading, isAuthenticated, user } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.replace("/");
+      const target = user?.role === "ROLE_ADMIN" ? "/admin" : "/";
+      router.replace(target);
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, user?.role, router]);
 
   if (isAuthenticated) {
     return <main className="mx-auto flex min-h-screen w-full max-w-md items-center px-6 py-12 text-slate-300">Redirigiendo al inicio...</main>;
@@ -34,7 +35,7 @@ export default function LoginPage() {
         throw new Error("La contraseña no es válida o la sesión no pudo iniciarse.");
       }
 
-      router.push("/");
+      router.push(session.user.role === "ROLE_ADMIN" ? "/admin" : "/");
     } catch (requestError) {
       setError(requestError instanceof Error ? requestError.message : "No se pudo iniciar sesión");
     }

@@ -9,15 +9,22 @@ export interface Product {
   description?: string;
   price: number;
   discountedPrice: number;
-  discountPersent: number;        
+  discountPersent: number;
   quantity: number;
+
   brand?: string;
   color?: string;
-  size: ProductSize[];
+
+  sizes: ProductSize[];
+
   imageUrl?: string;
-  topLevelCategory?: string;
-  secondLevelCategory?: string;
-  thirdLevelCategory?: string;
+
+  category?: {
+    id: number;
+    name: string;
+    level: number;
+  };
+
   createdAt?: string;
 }
 
