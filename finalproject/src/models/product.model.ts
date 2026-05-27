@@ -30,13 +30,15 @@ export interface Product {
 
 export interface ProductPage {
   content: Product[];
+
   totalPages: number;
   totalElements: number;
-  pageNumber: number;
-  pageSize: number;
+
+  number: number;
+  size: number;
+
   last: boolean;
 }
-
 export interface ProductFilters {
   category?: string;
   colors?: string;
