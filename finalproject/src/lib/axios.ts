@@ -9,11 +9,15 @@ export const apiClient = axios.create({
   withCredentials: true,
 });
 
-apiClient.interceptors.request.use((config: InternalAxiosRequestConfig) => {
+// Interceptor:
+// se ejecuta ANTES de cada request
+apiClient.interceptors.request.use((config) => {
   const token = getToken();
 
   if (token) {
-    config.headers.set("Authorization", token);
+    config.headers = config.headers ?? {};
+    // agregamos auth automática
+    config.headers.Authorization = token;
   }
 
   return config;

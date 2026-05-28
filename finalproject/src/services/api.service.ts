@@ -1,5 +1,7 @@
 export { apiClient } from "../lib/axios";
 
-export function buildApiPath(path: string): string {
-  return path.startsWith("/") ? path : `/${path}`;
+// acepta un path y lo normaliza para que siempre comience con "/"
+// si tiene / lo deja si no lo agrega
+export function buildApiPath(path: string) {
+    return path.startsWith("/") ? path : `/${path}`;
 }
