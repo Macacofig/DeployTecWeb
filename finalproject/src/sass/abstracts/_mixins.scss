@@ -1,0 +1,12 @@
+@use "./variables" as *;
+@use "sass:map";
+
+@mixin up($breakpoint) {
+  @media (min-width: map.get($breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@function color-tone($group, $tone) {
+  @return map.get(map.get($colors, $group), $tone);
+}

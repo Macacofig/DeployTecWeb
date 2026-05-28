@@ -1,0 +1,53 @@
+@use "../abstracts/variables" as *;
+
+.app-shell {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.surface {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1.5rem;
+  box-shadow: $shadow-soft;
+  backdrop-filter: blur(24px);
+}
+
+.surface--soft {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.page-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.page-container--wide {
+  max-width: 80rem;
+}
+
+.page-container--medium {
+  max-width: 72rem;
+}
+
+.page-container--narrow {
+  max-width: 64rem;
+}
+
+.page-stack > * + * {
+  margin-top: 1.5rem;
+}
+
+.sidebar-shell {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 16rem;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid rgba(30, 41, 59, 1);
+  background: #0f172a;
+}

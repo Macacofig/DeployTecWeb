@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../sass/main.scss";
 import Providers from "./providers";
 import AppRouteGate from "../components/layout/AppRouteGate";
 
@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "ShopWave Fusion",
-  description: "Frontend escalable de e-commerce con Next.js, Tailwind y JWT.",
+  description: "Frontend escalable de e-commerce con Next.js, Sass y JWT.",
 };
 
 export default function RootLayout({
