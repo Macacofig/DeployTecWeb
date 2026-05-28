@@ -23,7 +23,7 @@ export default function RegisterPage() {
   }, [isAuthenticated, router]);
 
   if (isAuthenticated) {
-    return <main className="mx-auto flex min-h-screen w-full max-w-md items-center px-6 py-12 text-slate-300">Redirigiendo al inicio...</main>;
+    return <main className="auth-page"><div className="auth-status">Redirigiendo al inicio...</div></main>;
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -39,51 +39,81 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-md items-center px-6 py-12">
-      <form onSubmit={handleSubmit} className="w-full rounded-3xl border border-white/10 bg-white/5 p-8 shadow-soft backdrop-blur">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-brand-200">Registro</p>
-        <h1 className="mt-3 text-3xl font-semibold text-white">Crear cuenta</h1>
-        <p className="mt-2 text-sm leading-6 text-slate-300">Estructura preparada para onboarding de usuarios con Spring Boot.</p>
+    <main className="auth-page">
+      <section className="auth-card">
+        <aside className="auth-panel">
+          <p className="auth-panel__eyebrow">ShopWave Fusion</p>
+          <h1 className="auth-panel__title">Crear cuenta</h1>
+          <p className="auth-panel__lead">Prepara un onboarding limpio para usuarios nuevos con una experiencia visual más sólida y coherente con el resto de la app.</p>
 
-        <div className="mt-6 grid gap-4 sm:grid-cols-2">
-          <label className="block text-sm font-medium text-slate-200">
-            Nombre
-            <input value={firstName} onChange={(event) => setFirstName(event.target.value)} type="text" className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500 focus:border-brand-400" placeholder="Ana" />
-          </label>
-          <label className="block text-sm font-medium text-slate-200">
-            Apellido
-            <input value={lastName} onChange={(event) => setLastName(event.target.value)} type="text" className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500 focus:border-brand-400" placeholder="Lopez" />
-          </label>
-        </div>
+          <div className="auth-benefits">
+            <article className="auth-benefit">
+              <p className="auth-benefit__label">Perfil</p>
+              <p className="auth-benefit__value">Datos organizados</p>
+              <p className="auth-benefit__text">Nombre, correo y teléfono en una sola vista clara.</p>
+            </article>
+            <article className="auth-benefit">
+              <p className="auth-benefit__label">Acceso</p>
+              <p className="auth-benefit__value">Listo para comprar</p>
+              <p className="auth-benefit__text">Entra al catálogo y guarda tu sesión sin fricción.</p>
+            </article>
+          </div>
 
-        <label className="mt-4 block text-sm font-medium text-slate-200">
-          Correo electrónico
-          <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500 focus:border-brand-400" placeholder="correo@empresa.com" />
-        </label>
+          <div className="auth-panel__footer">
+            <span className="auth-pill">Onboarding</span>
+            <span className="auth-pill">Perfil</span>
+            <span className="auth-pill">Checkout</span>
+          </div>
+        </aside>
 
-        <label className="mt-4 block text-sm font-medium text-slate-200">
-          Teléfono
-          <input value={mobile} onChange={(event) => setMobile(event.target.value)} type="text" className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500 focus:border-brand-400" placeholder="300 000 0000" />
-        </label>
+        <form onSubmit={handleSubmit} className="auth-form">
+          <p className="auth-form__eyebrow">Registro</p>
+          <h2 className="auth-form__title">Crea tu usuario</h2>
+          <p className="auth-form__description">Completa tus datos para activar tu cuenta en ShopWave Fusion.</p>
 
-        <label className="mt-4 block text-sm font-medium text-slate-200">
-          Contraseña
-          <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" className="mt-2 w-full rounded-xl border border-white/10 bg-slate-950/60 px-4 py-3 text-white outline-none placeholder:text-slate-500 focus:border-brand-400" placeholder="********" />
-        </label>
+          <div className="auth-fields">
+            <div className="auth-field-group">
+              <label className="auth-field">
+                <span className="auth-label">Nombre</span>
+                <input value={firstName} onChange={(event) => setFirstName(event.target.value)} type="text" className="auth-input" placeholder="Ana" />
+              </label>
 
-        {error ? <p className="mt-4 rounded-xl border border-red-400/30 bg-red-400/10 px-4 py-3 text-sm text-red-200">{error}</p> : null}
+              <label className="auth-field">
+                <span className="auth-label">Apellido</span>
+                <input value={lastName} onChange={(event) => setLastName(event.target.value)} type="text" className="auth-input" placeholder="Lopez" />
+              </label>
+            </div>
 
-        <button disabled={loading} type="submit" className="mt-6 w-full rounded-xl bg-brand-500 px-4 py-3 font-semibold text-white transition hover:bg-brand-400 disabled:cursor-not-allowed disabled:opacity-70">
-          Registrarme
-        </button>
+            <label className="auth-field">
+              <span className="auth-label">Correo electrónico</span>
+              <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" className="auth-input" placeholder="correo@empresa.com" />
+            </label>
 
-        <p className="mt-4 text-sm text-slate-300">
-          ¿Ya tienes cuenta?{" "}
-          <Link className="text-brand-200 hover:text-brand-100" href="/login">
-            Entrar
-          </Link>
-        </p>
-      </form>
+            <label className="auth-field">
+              <span className="auth-label">Teléfono</span>
+              <input value={mobile} onChange={(event) => setMobile(event.target.value)} type="text" className="auth-input" placeholder="300 000 0000" />
+            </label>
+
+            <label className="auth-field">
+              <span className="auth-label">Contraseña</span>
+              <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" className="auth-input" placeholder="********" />
+            </label>
+          </div>
+
+          {error ? <p className="auth-error">{error}</p> : null}
+
+          <button disabled={loading} type="submit" className="auth-button">
+            Registrarme
+          </button>
+
+          <p className="auth-footnote">
+            ¿Ya tienes cuenta?{" "}
+            <Link className="auth-link" href="/login">
+              Entrar
+            </Link>
+          </p>
+        </form>
+      </section>
     </main>
   );
 }

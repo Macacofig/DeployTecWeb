@@ -1,0 +1,321 @@
+@use "sass:map";
+@use "../abstracts/variables" as *;
+
+.auth-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 2rem 1.5rem;
+  isolation: isolate;
+  background:
+    radial-gradient(circle at top left, rgba(96, 165, 250, 0.14), transparent 30%),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(2, 6, 23, 0.92), rgba(15, 23, 42, 0.98));
+}
+
+.auth-page::before,
+.auth-page::after {
+  content: "";
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  filter: blur(70px);
+  opacity: 0.45;
+}
+
+.auth-page::before {
+  top: -6rem;
+  left: -4rem;
+  width: 18rem;
+  height: 18rem;
+  background: rgba(59, 130, 246, 0.12);
+}
+
+.auth-page::after {
+  right: -5rem;
+  bottom: -7rem;
+  width: 20rem;
+  height: 20rem;
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.auth-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 72rem);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2rem;
+  background: rgba(2, 6, 23, 0.72);
+  box-shadow: $shadow-soft;
+  backdrop-filter: blur(28px);
+}
+
+.auth-panel {
+  position: relative;
+  padding: 3rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+    radial-gradient(circle at top right, rgba(96, 165, 250, 0.08), transparent 40%);
+}
+
+.auth-panel__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.8rem;
+  border: 1px solid rgba(147, 197, 253, 0.28);
+  border-radius: 9999px;
+  background: rgba(96, 165, 250, 0.08);
+  color: map.get(map.get($colors, brand), 200);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.auth-panel__title {
+  margin-top: 1.2rem;
+  margin-bottom: 0;
+  font-size: 3rem;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: map.get($colors, white);
+}
+
+.auth-panel__lead {
+  margin-top: 1rem;
+  max-width: 34rem;
+  color: map.get(map.get($colors, slate), 300);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.auth-benefits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.auth-benefit {
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.25rem;
+  background: rgba(2, 6, 23, 0.4);
+}
+
+.auth-benefit__label {
+  margin: 0;
+  color: map.get(map.get($colors, slate), 500);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.auth-benefit__value {
+  margin: 0.55rem 0 0;
+  color: map.get($colors, white);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.auth-benefit__text {
+  margin: 0.35rem 0 0;
+  color: map.get(map.get($colors, slate), 400);
+  font-size: 0.88rem;
+  line-height: 1.5;
+}
+
+.auth-panel__footer {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.auth-pill {
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: map.get(map.get($colors, slate), 200);
+  font-size: 0.84rem;
+}
+
+.auth-form {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.auth-form__eyebrow {
+  margin: 0;
+  color: map.get(map.get($colors, brand), 200);
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.auth-form__title {
+  margin: 0.9rem 0 0;
+  color: map.get($colors, white);
+  font-size: 2.25rem;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.auth-form__description {
+  margin: 0.9rem 0 0;
+  color: map.get(map.get($colors, slate), 300);
+  font-size: 0.98rem;
+  line-height: 1.65;
+}
+
+.auth-fields {
+  margin-top: 1.6rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.auth-field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.auth-label {
+  color: map.get(map.get($colors, slate), 200);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  background: rgba(2, 6, 23, 0.72);
+  color: map.get($colors, white);
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease, background-color 150ms ease;
+}
+
+.auth-input::placeholder {
+  color: map.get(map.get($colors, slate), 500);
+}
+
+.auth-input:focus {
+  border-color: rgba(96, 165, 250, 0.75);
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.16);
+  background: rgba(2, 6, 23, 0.9);
+}
+
+.auth-error {
+  margin-top: 1rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  border-radius: 1rem;
+  background: rgba(248, 113, 113, 0.1);
+  color: map.get(map.get($colors, red), 200);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.auth-button {
+  margin-top: 1.25rem;
+  width: 100%;
+  padding: 0.95rem 1.2rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, map.get(map.get($colors, brand), 500), map.get(map.get($colors, brand), 600));
+  color: map.get($colors, white);
+  font-size: 0.98rem;
+  font-weight: 700;
+  box-shadow: 0 18px 28px rgba(59, 130, 246, 0.22);
+  transition: transform 150ms ease, filter 150ms ease, opacity 150ms ease, background-color 150ms ease;
+}
+
+.auth-button:hover {
+  filter: brightness(1.06);
+}
+
+.auth-button:active {
+  transform: translateY(1px);
+}
+
+.auth-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+}
+
+.auth-footnote {
+  margin: 1rem 0 0;
+  color: map.get(map.get($colors, slate), 300);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+
+.auth-link {
+  color: map.get(map.get($colors, brand), 200);
+  font-weight: 600;
+  transition: color 150ms ease;
+}
+
+.auth-link:hover {
+  color: map.get(map.get($colors, brand), 100);
+}
+
+.auth-status {
+  color: map.get(map.get($colors, slate), 300);
+
+.auth-field-group {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 640px) {
+  .auth-field-group {
+    grid-template-columns: 1fr;
+  }
+}
+}
+
+@media (max-width: 1024px) {
+  .auth-card {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-panel {
+    border-right: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+}
+
+@media (max-width: 640px) {
+  .auth-page {
+    padding: 1rem;
+  }
+
+  .auth-panel,
+  .auth-form {
+    padding: 1.35rem;
+  }
+
+  .auth-panel__title,
+  .auth-form__title {
+    font-size: 1.9rem;
+  }
+
+  .auth-benefits {
+    grid-template-columns: 1fr;
+  }
+}

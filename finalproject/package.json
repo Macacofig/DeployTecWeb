@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "watch:sass": "sass --watch src/sass/main.scss dist/css/main.css",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -22,7 +23,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.6",
     "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.17",
+    "sass": "^1.100.0",
     "typescript": "^5"
   }
 }

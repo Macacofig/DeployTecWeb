@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import type { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
 import Button from "@/components/ui/Button";
@@ -94,13 +95,17 @@ export default function CreateProductPage() {
       await ProductService.createProduct(payload);
 
       router.push("/admin/products");
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("ERROR FRONT:", err);
 
-      setError(
-        err?.response?.data?.message ||
-        "Error al crear producto"
-      );
+      let message = "Error al crear producto";
+
+      if (err instanceof Error) message = err.message;
+
+      const axiosErr = err as AxiosError<{ message?: string }>;
+      message = axiosErr?.response?.data?.message ?? message;
+
+      setError(message);
     } finally {
       setLoading(false);
     }

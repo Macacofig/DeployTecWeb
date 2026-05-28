@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import type { AxiosError } from "axios";
 import { useRouter, useParams } from "next/navigation";
 import Button from "@/components/ui/Button";
 import Input from "@/components/ui/Input";
@@ -27,9 +28,13 @@ export default function EditProductPage() {
       try {
         const product = await ProductService.getProductById(productId);
         setFormData(product);
-      } catch (err: any) {
-        setError(err?.response?.data?.message || "Error al cargar el producto");
-      } finally {
+      } catch (err: unknown) {
+          let message = "Error al cargar el producto";
+          if (err instanceof Error) message = err.message;
+          const axiosErr = err as AxiosError<{ message?: string }>;
+          message = axiosErr?.response?.data?.message ?? message;
+          setError(message);
+        } finally {
         setLoading(false);
       }
     };
@@ -57,8 +62,12 @@ export default function EditProductPage() {
     try {
       await ProductService.updateProduct(productId, formData as Product);
       router.push("/admin/products");
-    } catch (err: any) {
-      setError(err?.response?.data?.message || "Error al actualizar producto");
+    } catch (err: unknown) {
+      let message = "Error al actualizar producto";
+      if (err instanceof Error) message = err.message;
+      const axiosErr = err as AxiosError<{ message?: string }>;
+      message = axiosErr?.response?.data?.message ?? message;
+      setError(message);
     } finally {
       setSubmitting(false);
     }

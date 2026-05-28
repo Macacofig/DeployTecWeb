@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Table from "@/components/ui/Table";
 import Button from "@/components/ui/Button";
-import { Product, ProductPage } from "@/models/product.model";
-import { apiClient } from "@/services/api.service";
+import type { Product, ProductPage } from "@/models/product.model";
+import type { AxiosError } from "axios";
 import ProductService from "@/services/product.service";
 
 export default function ProductTable() {
@@ -13,13 +13,20 @@ export default function ProductTable() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    apiClient
-      .get<ProductPage>("/products/all")
-      .then((res: { data: ProductPage }) => {
-        const data = res.data.content ?? res.data;
+    ProductService.getProducts()
+      .then((result) => {
+        const data = result?.content ?? [];
         setProducts(Array.isArray(data) ? data : []);
       })
-      .catch((err: unknown) => console.error("Error al cargar productos:", err))
+      .catch((err: unknown) => {
+        console.error("Error al cargar productos:", err);
+
+        const axiosErr = err as AxiosError<{ message?: string }>;
+        // opcional: podrías mostrar un toast o setear un estado de error
+        if (axiosErr?.response?.data?.message) {
+          console.error("API message:", axiosErr.response.data.message);
+        }
+      })
       .finally(() => setLoading(false));
   }, []);
 

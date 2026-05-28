@@ -1,0 +1,49 @@
+@use "../abstracts/variables" as *;
+
+body {
+  overflow-x: hidden;
+  color: #e2e8f0;
+  background:
+    radial-gradient(circle at top, rgba(59, 130, 246, 0.14), transparent 30%),
+    linear-gradient(180deg, #020617 0%, #0f172a 100%);
+  font-family: $font-sans;
+}
+
+.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}

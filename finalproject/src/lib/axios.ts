@@ -1,4 +1,5 @@
 import axios from "axios";
+import type { InternalAxiosRequestConfig } from "axios";
 import { getToken } from "../utils/token.util";
 
 // URL base backend
