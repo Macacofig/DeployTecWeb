@@ -20,8 +20,11 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+  //user logueado
   const [user, setUser] = useState<User | null>(null);
+  //jwt actual
   const [token, setTokenState] = useState<string | null>(null);
+  //si auth sigue verificando
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

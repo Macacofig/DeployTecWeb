@@ -2,10 +2,13 @@ import axios from "axios";
 import type { InternalAxiosRequestConfig } from "axios";
 import { getToken } from "../utils/token.util";
 
+// URL base backend
 const baseURL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8081";
 
+// Creamos instancia axios custom
 export const apiClient = axios.create({
   baseURL,
+  // permite cookies/sesiones
   withCredentials: true,
 });
 
