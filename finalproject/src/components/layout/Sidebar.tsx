@@ -46,30 +46,31 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
             ×
           </button>
         </div>
-      <nav className="admin-sidebar__nav">
-        {links.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className={`admin-sidebar__link ${pathname === link.href ? "admin-sidebar__link--active" : ""}`}
-            onClick={onClose}
-          >
-            {link.label}
-          </Link>
-        ))}
-        <div className="app-header__actions">
-          <Link href="/profile" className="app-header__button app-header__button--ghost">
-            Perfil
-          </Link>
-          <button
-            type="button"
-            onClick={handleSignOut}
-            className="app-header__button app-header__button--solid"
-          >
-            Cerrar sesión
-          </button>
-        </div>
-      </nav>
+        <nav className="admin-sidebar__nav">
+          {links.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              className={`admin-sidebar__link ${pathname === link.href ? "admin-sidebar__link--active" : ""}`}
+              onClick={onClose}
+            >
+              {link.label}
+            </Link>
+          ))}
+
+          <div className="admin-sidebar__actions">
+            <Link href="/profile" className="app-header__button app-header__button--ghost">
+              Perfil
+            </Link>
+            <button
+              type="button"
+              onClick={handleSignOut}
+              className="app-header__button app-header__button--solid"
+            >
+              Cerrar sesión
+            </button>
+          </div>
+        </nav>
       </aside>
     </>
   );
