@@ -1,3 +1,6 @@
+import type { UserRole } from "../types/role.type";
+
+// representa un usuario del sistema
 export interface User {
   id?: number;
   firstName: string;
@@ -5,15 +8,17 @@ export interface User {
   email: string;
   mobile?: string;
   password?: string;
-  role?: string;
+  role?: UserRole;
   createdAt?: string;
 }
 
+// datos para autenticación
 export interface AuthCredentials {
   email: string;
   password: string;
 }
 
+// respuesta del backend al iniciar sesión o registrarse
 export interface AuthSession {
   user: User;
   token: string | null;

@@ -1,5 +1,6 @@
 "use client";
 
+import type { FormState } from "@/types/form-state.type";
 import { useMemo, useState } from "react";
 import type { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
@@ -17,6 +18,7 @@ export default function CreateProductPage() {
   const router = useRouter();
 
   const [loading, setLoading] = useState(false);
+  const [formState, setFormState] = useState<FormState>("idle");
 
   const [error, setError] = useState("");
 
@@ -34,7 +36,7 @@ export default function CreateProductPage() {
       brand: "",
       color: "",
 
-      size: [],
+      sizes: [],
 
       imageUrl: "",
 
@@ -83,6 +85,7 @@ export default function CreateProductPage() {
     e.preventDefault();
 
     setLoading(true);
+    setFormState("submitting");
 
     setError("");
 
@@ -105,6 +108,7 @@ export default function CreateProductPage() {
       const axiosErr = err as AxiosError<{ message?: string }>;
       message = axiosErr?.response?.data?.message ?? message;
 
+      setFormState("error");
       setError(message);
     } finally {
       setLoading(false);
@@ -113,17 +117,29 @@ export default function CreateProductPage() {
 
   return (
     <AdminGuard>
-      <main className="page-shell page-shell--medium admin-page">
-        <header className="admin-page__header">
-          <p className="page-header__eyebrow">Admin / Productos</p>
-          <h1 className="page-header__title page-header__title--medium">
+      <div className="max-w-4xl mx-auto p-6">
+        <div className="mb-6">
+          <h1 className="text-3xl font-semibold text-white">
             Crear Producto
           </h1>
-          <p className="page-header__description">Agrega un nuevo producto</p>
-        </header>
 
-        <form onSubmit={handleSubmit} className="admin-form surface-card">
-          <div className="admin-form__grid">
+          <p className="text-slate-400 mt-2">
+            Agrega un nuevo producto
+          </p>
+        </div>
+
+        <form
+          onSubmit={handleSubmit}
+          className="
+            bg-slate-800
+            border
+            border-slate-700
+            rounded-2xl
+            p-6
+            space-y-6
+          "
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
               label="Nombre"
               name="title"
@@ -140,19 +156,33 @@ export default function CreateProductPage() {
             />
           </div>
 
-          <div className="admin-form__field">
-            <label className="admin-form__label">Descripción</label>
+          <div>
+            <label className="block text-sm font-medium text-slate-300 mb-2">
+              Descripción
+            </label>
 
             <textarea
               name="description"
               value={formData.description || ""}
               onChange={handleChange}
               rows={4}
-              className="admin-form__textarea"
+              className="
+                w-full
+                rounded-lg
+                border
+                border-slate-600
+                bg-slate-700
+                px-3
+                py-2
+                text-white
+                placeholder-slate-400
+                focus:outline-none
+                focus:border-blue-500
+              "
             />
           </div>
 
-          <div className="admin-form__grid">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Input
               label="Precio"
               name="price"
@@ -179,7 +209,7 @@ export default function CreateProductPage() {
             />
           </div>
 
-          <div className="admin-form__grid">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <Input
               label="Cantidad"
               name="quantity"
@@ -197,7 +227,7 @@ export default function CreateProductPage() {
             />
           </div>
 
-          <div className="admin-form__grid">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Input
               label="Categoría Principal"
               name="topLevelCategory"
@@ -227,12 +257,16 @@ export default function CreateProductPage() {
             onChange={handleChange}
           />
 
-          {error && <p className="admin-form__error">{error}</p>}
+          {error && (
+            <p className="text-red-400 text-sm">
+              {error}
+            </p>
+          )}
 
-          <div className="admin-form__actions">
+          <div className="flex gap-4">
             <Button
               type="submit"
-              isLoading={loading}
+              isLoading={formState === "submitting"}
             >
               Crear Producto
             </Button>
@@ -248,7 +282,7 @@ export default function CreateProductPage() {
             </Button>
           </div>
         </form>
-      </main>
+      </div>
     </AdminGuard>
   );
 }

@@ -1,8 +1,5 @@
-export interface ProductSize {
-  name: string;
-  quantity: number;
-}
 
+//producto que viene del backend
 export interface Product {
   id: number;
   title: string;
@@ -15,7 +12,7 @@ export interface Product {
   brand?: string;
   color?: string;
 
-  sizes: ProductSize[];
+  sizes?: [{ name: string ; quantity: number }];
 
   imageUrl?: string;
 
@@ -28,6 +25,7 @@ export interface Product {
   createdAt?: string;
 }
 
+// respuesta del backend al pedir uproductos
 export interface ProductPage {
   content: Product[];
 
@@ -39,6 +37,8 @@ export interface ProductPage {
 
   last: boolean;
 }
+
+// filtros para pedir productos al backend
 export interface ProductFilters {
   category?: string;
   colors?: string;
@@ -52,6 +52,7 @@ export interface ProductFilters {
   pageSize?: number;
 }
 
+// Producto para crear o actualizar, que se envía al backend
 export interface CreateProductRequest {
   title: string;
 
@@ -69,7 +70,7 @@ export interface CreateProductRequest {
 
   color?: string;
 
-  size: ProductSize[];
+  sizes: string[];
 
   imageUrl?: string;
 

@@ -1,6 +1,8 @@
 "use client";
 
 import type { FormEvent } from "react";
+import type { FormState } from "@/types/form-state.type";
+import type { UserRole } from "@/types/role.type";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,10 +14,12 @@ export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [formState, setFormState] = useState<FormState>("idle");
+  const ADMIN_ROLE: UserRole = "ROLE_ADMIN";
 
   useEffect(() => {
     if (isAuthenticated) {
-      const target = user?.role === "ROLE_ADMIN" ? "/admin" : "/";
+      const target = user?.role === ADMIN_ROLE ? "/admin" : "/";
       router.replace(target);
     }
   }, [isAuthenticated, user?.role, router]);
@@ -27,6 +31,7 @@ export default function LoginPage() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+    setFormState("submitting");
 
     try {
       const session = await signIn({ email, password });
@@ -35,8 +40,10 @@ export default function LoginPage() {
         throw new Error("La contraseña no es válida o la sesión no pudo iniciarse.");
       }
 
-      router.push(session.user.role === "ROLE_ADMIN" ? "/admin" : "/");
+      setFormState("success");
+      router.push(session.user.role === ADMIN_ROLE ? "/admin" : "/");
     } catch (requestError) {
+      setFormState("error");
       setError(requestError instanceof Error ? requestError.message : "No se pudo iniciar sesión");
     }
   }
@@ -88,7 +95,7 @@ export default function LoginPage() {
 
           {error ? <p className="auth-error">{error}</p> : null}
 
-          <button disabled={loading} type="submit" className="auth-button">
+          <button disabled={loading || formState === "submitting"} type="submit" className="auth-button">
             Entrar
           </button>
 

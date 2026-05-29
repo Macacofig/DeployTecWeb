@@ -1,10 +1,10 @@
 "use client";
 
 import type { FormEvent } from "react";
+import type { FormState } from "@/types/form-state.type";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Modal from "../../components/ui/Modal";
 import { useAuth } from "../../hooks/useAuth";
 
 export default function RegisterPage() {
@@ -16,7 +16,7 @@ export default function RegisterPage() {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [successOpen, setSuccessOpen] = useState(false);
+  const [formState, setFormState] = useState<FormState>("idle");
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -31,18 +31,16 @@ export default function RegisterPage() {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+    setFormState("submitting");
 
     try {
       await register({ firstName, lastName, email, mobile, password });
-      setSuccessOpen(true);
+      setFormState("success");
+      router.push("/");
     } catch (requestError) {
+      setFormState("error");
       setError(requestError instanceof Error ? requestError.message : "No se pudo registrar el usuario");
     }
-  }
-
-  function handleSuccessClose() {
-    setSuccessOpen(false);
-    router.push("/login");
   }
 
   return (
@@ -109,7 +107,7 @@ export default function RegisterPage() {
 
           {error ? <p className="auth-error">{error}</p> : null}
 
-          <button disabled={loading} type="submit" className="auth-button">
+          <button disabled={loading || formState === "submitting"} type="submit" className="auth-button">
             Registrarme
           </button>
 
@@ -121,15 +119,6 @@ export default function RegisterPage() {
           </p>
         </form>
       </section>
-
-      <Modal isOpen={successOpen} onClose={handleSuccessClose} title="Registro completado">
-        <p className="auth-status">El usuario se registró correctamente. Ahora puedes iniciar sesión.</p>
-        <div className="section-actions auth-modal__actions">
-          <button type="button" onClick={handleSuccessClose} className="ui-button ui-button--primary">
-            Ir a iniciar sesión
-          </button>
-        </div>
-      </Modal>
     </main>
   );
 }
