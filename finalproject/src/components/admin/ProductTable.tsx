@@ -7,6 +7,7 @@ import Button from "@/components/ui/Button";
 import type { Product, ProductPage } from "@/models/product.model";
 import type { AxiosError } from "axios";
 import ProductService from "@/services/product.service";
+import type { ApiErrorPayload } from "@/types/api-error-payload.type";
 
 export default function ProductTable() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -21,10 +22,10 @@ export default function ProductTable() {
       .catch((err: unknown) => {
         console.error("Error al cargar productos:", err);
 
-        const axiosErr = err as AxiosError<{ message?: string }>;
+        const axiosErr = err as AxiosError<ApiErrorPayload>;
         // opcional: podrías mostrar un toast o setear un estado de error
-        if (axiosErr?.response?.data?.message) {
-          console.error("API message:", axiosErr.response.data.message);
+        if (axiosErr?.response?.data?.message || axiosErr?.response?.data?.error) {
+          console.error("API message:", axiosErr.response.data.message ?? axiosErr.response.data.error);
         }
       })
       .finally(() => setLoading(false));

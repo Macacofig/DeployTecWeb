@@ -2,12 +2,7 @@ import type { AuthCredentials, AuthSession, User } from "../models/user.model";
 import { apiClient } from "../lib/axios";
 import { clearStoredUser, removeToken, saveToken, setStoredUser } from "../utils/token.util";
 import type { AxiosError } from "axios";
-
-type ApiErrorPayload = {
-  error?: string;
-  message?: string;
-  details?: string;
-};
+import type { ApiErrorPayload } from "../types/api-error-payload.type";
 
 function extractApiErrorMessage(err: unknown, fallback: string) {
   const axiosErr = err as AxiosError<ApiErrorPayload>;

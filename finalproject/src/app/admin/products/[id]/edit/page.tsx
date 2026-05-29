@@ -8,6 +8,10 @@ import Input from "@/components/ui/Input";
 import { AdminGuard } from "@/guards/AdminGuard";
 import { Product } from "@/models/product.model";
 import ProductService from "@/services/product.service";
+import type { ApiErrorPayload } from "@/types/api-error-payload.type";
+import type { ProductNumericField } from "@/types/product-numeric-field.type";
+
+const numericProductFields: ProductNumericField[] = ["price", "discountedPrice", "discountPersent", "quantity"];
 
 export default function EditProductPage() {
   const router = useRouter();
@@ -31,8 +35,9 @@ export default function EditProductPage() {
       } catch (err: unknown) {
           let message = "Error al cargar el producto";
           if (err instanceof Error) message = err.message;
-          const axiosErr = err as AxiosError<{ message?: string }>;
+          const axiosErr = err as AxiosError<ApiErrorPayload>;
           message = axiosErr?.response?.data?.message ?? message;
+          message = axiosErr?.response?.data?.error ?? message;
           setError(message);
         } finally {
         setLoading(false);
@@ -48,7 +53,7 @@ export default function EditProductPage() {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: ["price", "discountedPrice", "discountPersent", "quantity"].includes(name)
+      [name]: numericProductFields.includes(name as ProductNumericField)
         ? Number(value)
         : value,
     }));
@@ -65,8 +70,9 @@ export default function EditProductPage() {
     } catch (err: unknown) {
       let message = "Error al actualizar producto";
       if (err instanceof Error) message = err.message;
-      const axiosErr = err as AxiosError<{ message?: string }>;
+      const axiosErr = err as AxiosError<ApiErrorPayload>;
       message = axiosErr?.response?.data?.message ?? message;
+      message = axiosErr?.response?.data?.error ?? message;
       setError(message);
     } finally {
       setSubmitting(false);
