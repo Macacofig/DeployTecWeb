@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -16,15 +16,32 @@ export default function ProductDetailPage() {
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
 
+  const availableSizes = useMemo(
+    () => product?.sizes?.filter((s) => s.quantity > 0) ?? [],
+    [product?.sizes]
+  );
+
+  const totalStock = product?.quantity ?? 0;
+  const stockStatus = totalStock > 0 ? "En stock" : "Sin stock";
+  const stockTone = totalStock > 0 ? "product-detail__stock-pill--success" : "product-detail__stock-pill--danger";
+  const createdAtLabel = product?.createdAt
+    ? new Intl.DateTimeFormat("es-BO", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }).format(new Date(product.createdAt))
+    : "No disponible";
+
   if (loading) {
     return (
-      <main className="mx-auto max-w-5xl px-6 py-12 lg:px-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 animate-pulse">
-          <div className="aspect-square bg-white/10 rounded-3xl" />
-          <div className="space-y-4">
-            <div className="h-4 bg-white/10 rounded w-1/3" />
-            <div className="h-8 bg-white/10 rounded w-2/3" />
-            <div className="h-6 bg-white/10 rounded w-1/4" />
+      <main className="page-shell page-shell--narrow product-detail">
+        <div className="product-detail__layout">
+          <div className="product-skeleton">
+            <div className="product-skeleton__media" />
+          </div>
+          <div className="product-skeleton__body">
+            <div className="product-skeleton__line product-skeleton__line--short" />
+            <div className="product-skeleton__line product-skeleton__line--hero" />
+            <div className="product-skeleton__line product-skeleton__line--narrow" />
           </div>
         </div>
       </main>
@@ -33,16 +50,14 @@ export default function ProductDetailPage() {
 
   if (error || !product) {
     return (
-      <main className="mx-auto max-w-5xl px-6 py-24 text-center">
-        <p className="text-2xl text-slate-400 mb-4"> Producto no encontrado</p>
-        <Link href="/products" className="text-brand-300 underline text-sm">
+      <main className="page-shell page-shell--narrow product-detail">
+        <p className="empty-state">Producto no encontrado</p>
+        <Link href="/products" className="section-link">
           Volver al catálogo
         </Link>
       </main>
     );
   }
-
-  const availableSizes = product.sizes?.filter((s) => s.quantity > 0) ?? [];
 
   const handleAddToCart = async () => {
     if (availableSizes.length > 0 && !selectedSize) {
@@ -60,79 +75,107 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-5xl px-6 py-10 lg:px-10">
-      {/* Breadcrumb */}
-      <nav className="text-sm text-slate-400 mb-8 flex items-center gap-2">
-        <Link href="/" className="hover:text-white transition-colors">Inicio</Link>
+    <main className="page-shell page-shell--narrow product-detail">
+      <nav className="breadcrumb">
+        <Link href="/" className="breadcrumb__link">Inicio</Link>
         <span>/</span>
-        <Link href="/products" className="hover:text-white transition-colors">Productos</Link>
+        <Link href="/products" className="breadcrumb__link">Productos</Link>
         <span>/</span>
-        <span className="text-slate-200 truncate max-w-xs">{product.title}</span>
+        <span className="breadcrumb__current">{product.title}</span>
       </nav>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-        {/* Imagen */}
-        <div className="relative aspect-square rounded-3xl overflow-hidden border border-white/10 bg-white/5">
+      <div className="product-detail__layout">
+        <div className="product-detail__gallery">
           {product.imageUrl ? (
             <Image
               src={product.imageUrl}
               alt={product.title}
               fill
-              className="object-cover"
+              className="product-detail__image"
               priority
               sizes="(max-width: 768px) 100vw, 50vw"
             />
           ) : (
-            <div className="flex items-center justify-center h-full text-6xl">🛍️</div>
+            <div className="product-detail__placeholder">🛍️</div>
           )}
           {product.discountPersent > 0 && (
-            <span className="absolute top-4 left-4 bg-red-500 text-white text-sm font-bold px-3 py-1 rounded-full">
+            <span className="product-detail__badge">
               -{product.discountPersent}%
             </span>
           )}
         </div>
 
-        {/* Info */}
-        <div className="flex flex-col gap-5">
+        <div className="product-detail__info">
           <div>
-            <p className="text-xs font-medium uppercase tracking-[0.2em] text-brand-200 mb-1">
+            <p className="product-detail__brand">
               {product.brand}
             </p>
-            <h1 className="text-3xl font-semibold text-white leading-snug">{product.title}</h1>
+            <h1 className="product-detail__title">{product.title}</h1>
+            <p className="product-detail__subtitle">
+              {product.category?.name ? `${product.category.name} · Nivel ${product.category.level}` : "Detalle de producto"}
+            </p>
           </div>
 
-          {/* Precio */}
-          <div className="flex items-baseline gap-3">
-            <span className="text-3xl font-bold text-brand-200">
+          <div className="product-detail__price-row">
+            <span className="product-detail__price">
               {formatPrice(product.discountedPrice)}
             </span>
             {product.discountPersent > 0 && (
-              <span className="text-lg text-slate-400 line-through">{formatPrice(product.price)}</span>
+              <span className="product-detail__price-old">{formatPrice(product.price)}</span>
             )}
           </div>
 
-          <p className="text-slate-300 text-sm leading-relaxed">{product.description}</p>
+          <p className="product-detail__description">{product.description}</p>
 
-          {product.color && (
-            <p className="text-sm text-slate-300">
-              <span className="font-semibold text-white">Color:</span> {product.color}
+          <div className="product-detail__summary-grid">
+            <article className="product-detail__summary-card">
+              <span className="product-detail__meta-label">Estado</span>
+              <strong className={`product-detail__stock-pill ${stockTone}`}>{stockStatus}</strong>
+            </article>
+
+            <article className="product-detail__summary-card">
+              <span className="product-detail__meta-label">Stock total</span>
+              <strong>{totalStock} unidades</strong>
+            </article>
+
+            <article className="product-detail__summary-card">
+              <span className="product-detail__meta-label">Fecha</span>
+              <strong>{createdAtLabel}</strong>
+            </article>
+
+            <article className="product-detail__summary-card">
+              <span className="product-detail__meta-label">ID</span>
+              <strong>#{product.id}</strong>
+            </article>
+          </div>
+
+          <div className="product-detail__meta-list">
+            {product.color && (
+              <p className="product-detail__meta-item">
+                <span className="product-detail__meta-label">Color:</span> {product.color}
+              </p>
+            )}
+
+            {product.category?.name && (
+              <p className="product-detail__meta-item">
+                <span className="product-detail__meta-label">Categoría:</span> {product.category.name}
+              </p>
+            )}
+
+            <p className="product-detail__meta-item">
+              <span className="product-detail__meta-label">Cantidad máxima:</span> {product.quantity}
             </p>
-          )}
+          </div>
 
-          {/* Tallas */}
           {availableSizes.length > 0 && (
             <div>
-              <p className="text-sm font-semibold text-white mb-2">Talla:</p>
-              <div className="flex flex-wrap gap-2">
+              <p className="product-detail__meta-label">Talla:</p>
+              <div className="product-detail__size-grid">
                 {availableSizes.map((s) => (
                   <button
                     key={s.name}
                     onClick={() => setSelectedSize(s.name)}
-                    className={`px-4 py-2 rounded-xl border text-sm font-medium transition-all ${
-                      selectedSize === s.name
-                        ? "bg-brand-500 text-white border-brand-500"
-                        : "border-white/15 text-slate-300 hover:border-brand-400/50"
-                    }`}
+                    className={`product-detail__size-button ${selectedSize === s.name ? "product-detail__size-button--active" : ""}`}
                   >
                     {s.name}
                   </button>
@@ -141,39 +184,54 @@ export default function ProductDetailPage() {
             </div>
           )}
 
-          {/* Cantidad */}
+          {availableSizes.length > 0 && (
+            <div className="product-detail__size-detail">
+              <p className="product-detail__meta-label">Disponibilidad por talla</p>
+              <div className="product-detail__size-list">
+                {availableSizes.map((size) => (
+                  <span key={size.name} className="product-detail__size-chip">
+                    {size.name} · {size.quantity}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="product-detail__notice">
+            <p className="product-detail__meta-label">Información útil</p>
+            <p className="product-detail__description">
+              Esta vista sirve para usuario y admin: permite revisar el detalle comercial,
+              la disponibilidad y el stock antes de comprar o gestionar el producto.
+            </p>
+          </div>
+
           <div>
-            <p className="text-sm font-semibold text-white mb-2">Cantidad:</p>
-            <div className="flex items-center gap-3">
+            <p className="product-detail__meta-label">Cantidad:</p>
+            <div className="product-detail__quantity">
               <button
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                className="w-9 h-9 rounded-xl border border-white/15 text-lg font-bold text-white hover:bg-white/10 transition-colors"
+                className="product-detail__quantity-button"
               >
                 −
               </button>
-              <span className="w-8 text-center font-medium text-white">{quantity}</span>
+              <span className="product-detail__quantity-value">{quantity}</span>
               <button
                 onClick={() => setQuantity((q) => Math.min(product.quantity, q + 1))}
-                className="w-9 h-9 rounded-xl border border-white/15 text-lg font-bold text-white hover:bg-white/10 transition-colors"
+                className="product-detail__quantity-button"
               >
                 +
               </button>
-              <span className="text-sm text-slate-400">({product.quantity} disponibles)</span>
+              <span className="product-detail__meta">({product.quantity} disponibles)</span>
             </div>
           </div>
 
-          {/* CTA */}
           <button
             onClick={handleAddToCart}
             disabled={product.quantity === 0 || adding}
-            className="w-full py-3 bg-brand-500 text-white font-semibold rounded-2xl hover:bg-brand-400 active:scale-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+            className="product-detail__cta-button"
           >
             {adding ? "Agregando..." : product.quantity === 0 ? "Sin stock" : "Agregar al carrito"}
           </button>
-
-          {/* <p className="text-xs text-slate-500">
-            {product.topLevelCategory} › {product.secondLevelCategory} › {product.thirdLevelCategory}
-          </p> */}
         </div>
       </div>
     </main>

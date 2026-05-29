@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -10,24 +11,47 @@ const links = [
   { href: "/admin/orders", label: "Órdenes" },
 ];
 
-export default function Sidebar() {
+interface SidebarProps {
+  open: boolean;
+  onClose: () => void;
+}
+
+export default function Sidebar({ open, onClose }: SidebarProps) {
   const pathname = usePathname();
+
+  useEffect(() => {
+    onClose();
+  }, [pathname, onClose]);
+
   return (
-    <aside className="fixed left-0 top-0 w-64 h-screen bg-slate-900 border-r border-slate-800 p-4 pt-24 overflow-y-auto">
-      <h2 className="text-lg font-semibold text-white mb-4">Panel Admin</h2>
-      <nav className="flex flex-col gap-2">
+    <>
+      <button
+        type="button"
+        className={`admin-sidebar__overlay ${open ? "admin-sidebar__overlay--open" : ""}`}
+        onClick={onClose}
+        aria-label="Cerrar menú administrativo"
+      />
+
+      <aside className={`admin-sidebar ${open ? "admin-sidebar--open" : ""}`}>
+        <div className="admin-sidebar__header">
+          <h2 className="admin-sidebar__title">Panel Admin</h2>
+          <button type="button" className="admin-sidebar__close" onClick={onClose} aria-label="Cerrar menú administrativo">
+            ×
+          </button>
+        </div>
+      <nav className="admin-sidebar__nav">
         {links.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className={`px-3 py-2 rounded hover:bg-slate-800 transition-colors ${
-              pathname === link.href ? "bg-slate-800 text-white" : "text-slate-400"
-            }`}
+            className={`admin-sidebar__link ${pathname === link.href ? "admin-sidebar__link--active" : ""}`}
+            onClick={onClose}
           >
             {link.label}
           </Link>
         ))}
       </nav>
-    </aside>
+      </aside>
+    </>
   );
 }

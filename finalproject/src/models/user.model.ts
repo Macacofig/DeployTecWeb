@@ -1,3 +1,5 @@
+import type { UserRole } from "../types/role.type";
+
 // representa un usuario del sistema
 export interface User {
   id?: number;
@@ -6,7 +8,7 @@ export interface User {
   email: string;
   mobile?: string;
   password?: string;
-  role?: string;
+  role?: UserRole;
   createdAt?: string;
 }
 

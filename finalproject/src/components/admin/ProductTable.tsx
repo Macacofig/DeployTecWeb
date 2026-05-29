@@ -7,6 +7,8 @@ import Button from "@/components/ui/Button";
 import type { Product, ProductPage } from "@/models/product.model";
 import type { AxiosError } from "axios";
 import ProductService from "@/services/product.service";
+import type { ApiErrorPayload } from "@/types/api-error-payload.type";
+import { formatPrice } from "@/utils/currency.util";
 
 export default function ProductTable() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -21,10 +23,10 @@ export default function ProductTable() {
       .catch((err: unknown) => {
         console.error("Error al cargar productos:", err);
 
-        const axiosErr = err as AxiosError<{ message?: string }>;
+        const axiosErr = err as AxiosError<ApiErrorPayload>;
         // opcional: podrías mostrar un toast o setear un estado de error
-        if (axiosErr?.response?.data?.message) {
-          console.error("API message:", axiosErr.response.data.message);
+        if (axiosErr?.response?.data?.message || axiosErr?.response?.data?.error) {
+          console.error("API message:", axiosErr.response.data.message ?? axiosErr.response.data.error);
         }
       })
       .finally(() => setLoading(false));
@@ -50,19 +52,19 @@ export default function ProductTable() {
     { header: "Nombre", accessor: "title" as keyof Product },
     {
       header: "Precio",
-      accessor: (p: Product) => `$${Number(p.price).toFixed(2)}`,
+      accessor: (p: Product) => formatPrice(Number(p.price)),
     },
     { header: "Stock", accessor: "quantity" as keyof Product },
     {
       header: "Acciones",
       accessor: (p: Product) => (
-        <div className="flex gap-2">
+        <div className="admin-table-actions">
           <Link href={`/admin/products/${p.id}/edit`}>
             <Button variant="outline">Editar</Button>
           </Link>
           <Button
             variant="outline"
-            className="text-red-600 hover:bg-red-50"
+            className="ui-button--danger"
             onClick={() => handleDelete(p.id)}
           >
             Eliminar
@@ -73,12 +75,12 @@ export default function ProductTable() {
   ];
 
   if (loading) {
-    return <p className="text-slate-400">Cargando productos...</p>;
+    return <p className="admin-table-loading">Cargando productos...</p>;
   }
 
   return (
-    <div className="p-6">
-      <div className="overflow-auto max-h-[75vh] rounded-xl border border-slate-800">
+    <div className="admin-table-shell">
+      <div className="admin-table-shell__inner">
         <Table
           columns={columns}
           data={products}

@@ -1,12 +1,19 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "../../hooks/useAuth";
 
 export default function AppHeader() {
   const router = useRouter();
+  const pathname = usePathname();
   const { user, isAuthenticated, loading, signOut } = useAuth();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
 
   if (loading || !isAuthenticated) {
     return null;
@@ -18,42 +25,86 @@ export default function AppHeader() {
   };
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-slate-950/80 backdrop-blur-xl">
-      <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-4 px-6 py-4 lg:px-10">
-        <Link href="/" className="flex items-center gap-3">
-          <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-brand-500/20 text-lg font-bold text-brand-100 ring-1 ring-brand-400/30">
+    <header className="app-header">
+      <div className="app-header__inner">
+        <Link href="/" className="app-header__brand">
+          <span className="app-header__brand-mark">
             SW
           </span>
-          <div>
-            <p className="text-sm font-semibold text-white">ShopWave Fusion</p>
-            <p className="text-xs text-slate-400">E-commerce inteligente</p>
+          <div className="app-header__brand-copy">
+            <p className="app-header__brand-title">ShopWave Fusion</p>
+            <p className="app-header__brand-subtitle">E-commerce inteligente</p>
           </div>
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
-          <Link href="/products" className="text-sm text-slate-300 transition hover:text-white">
+        <button
+          type="button"
+          className="app-header__mobile-toggle"
+          onClick={() => setMenuOpen((value) => !value)}
+          aria-expanded={menuOpen}
+          aria-label="Abrir menú de navegación"
+        >
+          <span />
+          <span />
+          <span />
+        </button>
+
+        <nav className="app-header__nav">
+          <Link href="/products" className="app-header__nav-link">
             Catálogo
           </Link>
-          <Link href="/cart" className="text-sm text-slate-300 transition hover:text-white">
+          <Link href="/cart" className="app-header__nav-link">
             Carrito
           </Link>
-          <Link href="/orders" className="text-sm text-slate-300 transition hover:text-white">
+          <Link href="/orders" className="app-header__nav-link">
             Pedidos
           </Link>
         </nav>
 
-        <div className="flex items-center gap-3">
-          <div className="hidden text-right sm:block">
-            <p className="text-xs uppercase tracking-[0.2em] text-slate-500">Sesión activa</p>
-            <p className="text-sm font-medium text-slate-100">{user?.firstName ?? "Usuario"}</p>
+        <div className="app-header__actions">
+          <div className="app-header__user">
+            <p className="app-header__user-label">Sesión activa</p>
+            <p className="app-header__user-name">{user?.firstName ?? "Usuario"}</p>
           </div>
-          <Link href="/profile" className="rounded-full border border-white/10 px-4 py-2 text-sm text-slate-200 transition hover:bg-white/10">
+          <Link href="/profile" className="app-header__button app-header__button--ghost">
             Perfil
           </Link>
           <button
             type="button"
             onClick={handleSignOut}
-            className="rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/15"
+            className="app-header__button app-header__button--solid"
+          >
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+
+      <div className={`app-header__mobile-menu ${menuOpen ? "app-header__mobile-menu--open" : ""}`}>
+        <div className="app-header__mobile-user">
+          <p className="app-header__user-label">Sesión activa</p>
+          <p className="app-header__user-name">{user?.firstName ?? "Usuario"}</p>
+        </div>
+
+        <nav className="app-header__mobile-nav">
+          <Link href="/products" className="app-header__mobile-link">
+            Catálogo
+          </Link>
+          <Link href="/cart" className="app-header__mobile-link">
+            Carrito
+          </Link>
+          <Link href="/orders" className="app-header__mobile-link">
+            Pedidos
+          </Link>
+        </nav>
+
+        <div className="app-header__mobile-actions">
+          <Link href="/profile" className="app-header__button app-header__button--ghost">
+            Perfil
+          </Link>
+          <button
+            type="button"
+            onClick={handleSignOut}
+            className="app-header__button app-header__button--solid"
           >
             Cerrar sesión
           </button>

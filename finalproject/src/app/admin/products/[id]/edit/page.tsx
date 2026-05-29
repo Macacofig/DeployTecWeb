@@ -8,6 +8,10 @@ import Input from "@/components/ui/Input";
 import { AdminGuard } from "@/guards/AdminGuard";
 import { Product } from "@/models/product.model";
 import ProductService from "@/services/product.service";
+import type { ApiErrorPayload } from "@/types/api-error-payload.type";
+import type { ProductNumericField } from "@/types/product-numeric-field.type";
+
+const numericProductFields: ProductNumericField[] = ["price", "discountedPrice", "discountPersent", "quantity"];
 
 export default function EditProductPage() {
   const router = useRouter();
@@ -31,8 +35,9 @@ export default function EditProductPage() {
       } catch (err: unknown) {
           let message = "Error al cargar el producto";
           if (err instanceof Error) message = err.message;
-          const axiosErr = err as AxiosError<{ message?: string }>;
+          const axiosErr = err as AxiosError<ApiErrorPayload>;
           message = axiosErr?.response?.data?.message ?? message;
+          message = axiosErr?.response?.data?.error ?? message;
           setError(message);
         } finally {
         setLoading(false);
@@ -48,7 +53,7 @@ export default function EditProductPage() {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: ["price", "discountedPrice", "discountPersent", "quantity"].includes(name)
+      [name]: numericProductFields.includes(name as ProductNumericField)
         ? Number(value)
         : value,
     }));
@@ -65,8 +70,9 @@ export default function EditProductPage() {
     } catch (err: unknown) {
       let message = "Error al actualizar producto";
       if (err instanceof Error) message = err.message;
-      const axiosErr = err as AxiosError<{ message?: string }>;
+      const axiosErr = err as AxiosError<ApiErrorPayload>;
       message = axiosErr?.response?.data?.message ?? message;
+      message = axiosErr?.response?.data?.error ?? message;
       setError(message);
     } finally {
       setSubmitting(false);
@@ -76,18 +82,18 @@ export default function EditProductPage() {
   if (loading) {
     return (
       <AdminGuard>
-        <div className="max-w-2xl mx-auto p-6">
-          <p className="text-slate-400">Cargando producto...</p>
-        </div>
+        <main className="page-shell page-shell--narrow admin-page">
+          <p className="admin-table-loading">Cargando producto...</p>
+        </main>
       </AdminGuard>
     );
   }
 
   return (
     <AdminGuard>
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="flex items-center justify-between mb-6">
-          <h1 className="text-3xl font-semibold text-white">
+      <main className="page-shell page-shell--medium admin-page">
+        <div className="catalog-toolbar admin-toolbar">
+          <h1 className="page-header__title page-header__title--medium">
             Editar Producto - {formData.title}
           </h1>
           <Button
@@ -98,25 +104,19 @@ export default function EditProductPage() {
           </Button>
         </div>
 
-        <form
-          onSubmit={handleSubmit}
-          className="bg-slate-800 rounded-xl border border-slate-700 p-6 space-y-4"
-        >
-
-          <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">
-              Descripción
-            </label>
+        <form onSubmit={handleSubmit} className="admin-form surface-card">
+          <div className="admin-form__field">
+            <label className="admin-form__label">Descripción</label>
             <textarea
               name="description"
               value={formData.description || ""}
               onChange={handleInputChange}
-              className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+              className="admin-form__textarea"
               rows={4}
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="admin-form__grid">
             <Input
               label="Stock"
               name="quantity"
@@ -127,9 +127,9 @@ export default function EditProductPage() {
             />
           </div>
 
-          {error && <p className="text-red-400 text-sm">{error}</p>}
+          {error && <p className="admin-form__error">{error}</p>}
 
-          <div className="flex gap-4">
+          <div className="admin-form__actions">
             <Button type="submit" isLoading={submitting}>
               Guardar Cambios
             </Button>
@@ -142,7 +142,7 @@ export default function EditProductPage() {
             </Button>
           </div>
         </form>
-      </div>
+      </main>
     </AdminGuard>
   );
 }

@@ -23,7 +23,7 @@ export function AuthGuard({ children }: { children: ReactNode }) {
 
   // mientras valida auth
   if (loading || !isAuthenticated) {
-    return <div className="flex min-h-[50vh] items-center justify-center text-slate-300">Validando sesión...</div>;
+    return <div className="route-status">Validando sesión...</div>;
   }
 
   return <>{children}</>;

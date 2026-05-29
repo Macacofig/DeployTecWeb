@@ -275,6 +275,7 @@
 
 .auth-status {
   color: map.get(map.get($colors, slate), 300);
+}
 
 .auth-field-group {
   display: grid;
@@ -286,7 +287,6 @@
   .auth-field-group {
     grid-template-columns: 1fr;
   }
-}
 }
 
 @media (max-width: 1024px) {
@@ -317,5 +317,42 @@
 
   .auth-benefits {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .auth-page {
+    padding: 0.75rem;
+  }
+
+  .auth-card {
+    border-radius: 1.5rem;
+  }
+
+  .auth-panel,
+  .auth-form {
+    padding: 1.25rem;
+  }
+
+  .auth-panel__title,
+  .auth-form__title {
+    font-size: 1.85rem;
+  }
+
+  .auth-panel__lead,
+  .auth-form__description {
+    font-size: 0.94rem;
+  }
+
+  .auth-benefits {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-panel__footer {
+    gap: 0.5rem;
+  }
+
+  .auth-pill {
+    font-size: 0.8rem;
   }
 }

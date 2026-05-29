@@ -1,3 +1,4 @@
+
 //producto que viene del backend
 export interface Product {
   id: number;
@@ -11,7 +12,7 @@ export interface Product {
   brand?: string;
   color?: string;
 
-  sizes?: string[];
+  sizes?: [{ name: string ; quantity: number }];
 
   imageUrl?: string;
 

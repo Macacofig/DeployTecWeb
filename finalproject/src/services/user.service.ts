@@ -3,7 +3,7 @@ import { apiClient } from "../lib/axios";
 
 // get usando apiClient, que ya tiene el token automático
 export async function getUserProfile(): Promise<User> {
-  const response = await apiClient.get<User>("/auth/signin");
+  const response = await apiClient.get<User>("/users/profile");
   return response.data;
 }
 

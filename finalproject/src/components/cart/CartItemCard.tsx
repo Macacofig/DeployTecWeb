@@ -1,4 +1,5 @@
 import type { CartItem } from "../../models/cart.model";
+import { formatPrice } from "../../utils/currency.util";
 
 interface Props {
   item: CartItem;
@@ -23,43 +24,41 @@ export function CartItemCard({
 
   return (
 
-    <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 p-6">
-
+    <div className="cart-item">
       <div>
-
-        <h2 className="text-lg font-semibold text-white">
+        <h2 className="cart-item__title">
           {item.product.title}
         </h2>
 
-        <p className="mt-2 text-slate-300">
+        <p className="cart-item__meta">
           Cantidad: {item.quantity}
         </p>
 
-        <p className="mt-1 text-slate-300">
-          Precio: ${price}
+        <p className="cart-item__meta">
+          Precio: {formatPrice(price)}
         </p>
 
       </div>
 
-      <div className="flex items-center gap-3">
+      <div className="cart-item__actions">
 
         <button
           onClick={onDecrease}
-          className="rounded-lg bg-white/10 px-3 py-2 text-white hover:bg-white/20"
+          className="cart-item__button"
         >
           -
         </button>
 
         <button
           onClick={onIncrease}
-          className="rounded-lg bg-white/10 px-3 py-2 text-white hover:bg-white/20"
+          className="cart-item__button"
         >
           +
         </button>
 
         <button
           onClick={onRemove}
-          className="rounded-lg bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+          className="cart-item__button cart-item__button--danger"
         >
           Eliminar
         </button>

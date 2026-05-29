@@ -1,10 +1,12 @@
 "use client";
 
+import type { FormState } from "@/types/form-state.type";
 import { useState } from "react";
 
 import { useRouter } from "next/navigation";
 
 import { AuthGuard } from "../../guards/AuthGuard";
+import { formatPrice } from "../../utils/currency.util";
 
 import { useCart } from "../../hooks/useCart";
 
@@ -20,7 +22,8 @@ export default function CheckoutPage() {
     clearLocalCart,
   } = useCart();
 
-  const [loading, setLoading] = useState(false);
+  const [formState, setFormState] = useState<FormState>("idle");
+  const loading = formState === "submitting";
 
   const [form, setForm] = useState({
     firstName: "",
@@ -35,7 +38,7 @@ export default function CheckoutPage() {
 
     try {
 
-      setLoading(true);
+      setFormState("submitting");
 
       await createOrder({
         orderItems: items,
@@ -54,17 +57,15 @@ export default function CheckoutPage() {
 
       clearLocalCart();
 
+      setFormState("success");
       router.push("/orders");
 
     } catch (error) {
 
       console.error(error);
 
+      setFormState("error");
       alert("Error al crear la orden");
-
-    } finally {
-
-      setLoading(false);
     }
   }
 
@@ -209,8 +210,7 @@ export default function CheckoutPage() {
                   </div>
 
                   <p className="text-white">
-                    $
-                    {
+                    {formatPrice(
                       (
                         item.discountedPrice ??
                         item.price ??
@@ -218,7 +218,7 @@ export default function CheckoutPage() {
                         item.product.price ??
                         0
                       ) * item.quantity
-                    }
+                    )}
                   </p>
 
                 </div>
@@ -233,7 +233,7 @@ export default function CheckoutPage() {
               </h3>
 
               <p className="text-3xl font-bold text-white">
-                ${totalPrice}
+                {formatPrice(totalPrice)}
               </p>
 
             </div>

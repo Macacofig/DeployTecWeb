@@ -1,12 +1,14 @@
 "use client";
 
 import type { ReactNode } from "react";
+import type { UserRole } from "@/types/role.type";
 import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "../../hooks/useAuth";
 import AppHeader from "./AppHeader";
 
 const PUBLIC_ROUTES = new Set(["/login", "/register"]);
+const ADMIN_ROLE: UserRole = "ROLE_ADMIN";
 
 export default function AppRouteGate({ children }: { children: ReactNode }) {
   const router = useRouter();
@@ -14,6 +16,7 @@ export default function AppRouteGate({ children }: { children: ReactNode }) {
   const { isAuthenticated, loading, user } = useAuth();
 
   const isPublicRoute = pathname ? PUBLIC_ROUTES.has(pathname) : false;
+  const isAdminRoute = pathname?.startsWith("/admin") ?? false;
 
   useEffect(() => {
     if (loading) {
@@ -26,27 +29,31 @@ export default function AppRouteGate({ children }: { children: ReactNode }) {
     }
 
     if (isPublicRoute && isAuthenticated) {
-      const redirectPath = user?.role === "ROLE_ADMIN" ? "/admin" : "/";
+      const redirectPath = user?.role === ADMIN_ROLE ? "/admin" : "/";
       router.replace(redirectPath);
     }
   }, [isAuthenticated, isPublicRoute, loading, router, user?.role]);
 
   if (loading) {
-    return <div className="flex min-h-screen items-center justify-center text-slate-300">Validando sesión...</div>;
+    return <div className="route-status">Validando sesión...</div>;
   }
 
   if (!isPublicRoute && !isAuthenticated) {
-    return <div className="flex min-h-screen items-center justify-center text-slate-300">Redirigiendo al inicio de sesión...</div>;
+    return <div className="route-status">Redirigiendo al inicio de sesión...</div>;
   }
 
   if (isPublicRoute) {
     return <>{children}</>;
   }
 
+  if (isAdminRoute) {
+    return <>{children}</>;
+  }
+
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="app-shell">
       <AppHeader />
-      <div className="flex-1">{children}</div>
+      <div>{children}</div>
     </div>
   );
 }
