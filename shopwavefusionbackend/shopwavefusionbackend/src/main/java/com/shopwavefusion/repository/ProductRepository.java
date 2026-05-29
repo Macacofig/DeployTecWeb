@@ -25,7 +25,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	
 	@Query("SELECT p FROM Product p " +
 	        "WHERE (:category IS NULL OR p.category.name = :category) " +
-	        "AND ((:minPrice IS NULL AND :maxPrice IS NULL) OR (p.discountedPrice BETWEEN :minPrice AND :maxPrice)) " +
+	        "AND ((:minPrice IS NULL AND :maxPrice IS NULL) " +
+	        "OR (:minPrice IS NULL AND p.discountedPrice <= :maxPrice) " +
+	        "OR (:maxPrice IS NULL AND p.discountedPrice >= :minPrice) " +
+	        "OR (p.discountedPrice BETWEEN :minPrice AND :maxPrice)) " +
 		    "AND (:minDiscount IS NULL OR p.discountPersent >= :minDiscount) " +
 		    "ORDER BY " +
 		    "CASE WHEN :sort = 'price_low' THEN p.discountedPrice END ASC, " +

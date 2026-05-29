@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { AuthCredentials, AuthSession, User } from "../models/user.model";
 import { getCurrentUser, registerUser, signIn as signInRequest, signOut as signOutRequest } from "../services/auth.service";
 import { clearStoredUser, getStoredUser, getToken, isTokenExpired, removeToken, setStoredUser } from "../utils/token.util";
@@ -46,22 +46,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => clearTimeout(timeoutId);
   }, []);
 
-  async function refreshUser() {
+  const refreshUser = useCallback(async () => {
     const currentUser = await getCurrentUser();
     setUser(currentUser);
     setStoredUser(currentUser);
     setTokenState(getToken());
-  }
+  }, []);
 
-  async function signIn(credentials: AuthCredentials) {
+  const signIn = useCallback(async (credentials: AuthCredentials) => {
     const session = await signInRequest(credentials);
     setUser(session.user);
     setTokenState(session.token);
     setStoredUser(session.user);
     return session;
-  }
+  }, []);
 
-  async function register(userPayload: User) {
+  const register = useCallback(async (userPayload: User) => {
     const session = await registerUser(userPayload);
     if (session.token) {
       setUser(session.user);
@@ -69,32 +69,33 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setStoredUser(session.user);
     }
     return session;
-  }
+  }, []);
 
-  function signOut() {
+  const signOut = useCallback(() => {
     signOutRequest();
     removeToken();
     clearStoredUser();
     setUser(null);
     setTokenState(null);
     setLoading(false);
-  }
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({
+      user,
+      token,
+      loading,
+      isAuthenticated: Boolean(user && token && !isTokenExpired(token)),
+      signIn,
+      register,
+      signOut,
+      refreshUser,
+    }),
+    [loading, register, refreshUser, signIn, signOut, token, user]
+  );
 
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        token,
-        loading,
-        isAuthenticated: Boolean(user && token && !isTokenExpired(token)),
-        signIn,
-        register,
-        signOut,
-        refreshUser,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 }
 

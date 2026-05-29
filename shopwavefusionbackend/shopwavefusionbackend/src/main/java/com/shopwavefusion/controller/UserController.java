@@ -1,5 +1,8 @@
 package com.shopwavefusion.controller;
 
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,6 +30,15 @@ public class UserController {
 		System.out.println("/api/users/profile");
 		User user=userService.findUserProfileByJwt(jwt);
 		return new ResponseEntity<User>(user,HttpStatus.ACCEPTED);
+	}
+
+	@PutMapping("/profile")
+	public ResponseEntity<User> updateUserProfileHandler(
+			@RequestHeader("Authorization") String jwt,
+			@RequestBody User user) throws UserException {
+
+		User updatedUser = userService.updateUserProfileByJwt(jwt, user);
+		return new ResponseEntity<User>(updatedUser, HttpStatus.OK);
 	}
 
 }
