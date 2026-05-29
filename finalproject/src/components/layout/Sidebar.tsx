@@ -13,16 +13,14 @@ const links = [
 export default function Sidebar() {
   const pathname = usePathname();
   return (
-    <aside className="fixed left-0 top-0 w-64 h-screen bg-slate-900 border-r border-slate-800 p-4 pt-24 overflow-y-auto">
-      <h2 className="text-lg font-semibold text-white mb-4">Panel Admin</h2>
-      <nav className="flex flex-col gap-2">
+    <aside className="admin-sidebar">
+      <h2 className="admin-sidebar__title">Panel Admin</h2>
+      <nav className="admin-sidebar__nav">
         {links.map((link) => (
           <Link
             key={link.href}
             href={link.href}
-            className={`px-3 py-2 rounded hover:bg-slate-800 transition-colors ${
-              pathname === link.href ? "bg-slate-800 text-white" : "text-slate-400"
-            }`}
+            className={`admin-sidebar__link ${pathname === link.href ? "admin-sidebar__link--active" : ""}`}
           >
             {link.label}
           </Link>

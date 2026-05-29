@@ -30,29 +30,29 @@ function ProductsContent() {
   };
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-7xl px-6 py-10 lg:px-10">
-      <header className="max-w-3xl mb-8">
-        <p className="text-sm font-medium uppercase tracking-[0.2em] text-brand-200">Catálogo</p>
-        <h1 className="mt-3 text-4xl font-semibold text-white">Productos</h1>
-        <div className="mt-4">
-          <SearchBar initialValue={searchQuery} className="max-w-lg" />
+    <main className="page-shell page-shell--wide products-page">
+      <header className="page-header products-page__header">
+        <p className="page-header__eyebrow">Catálogo</p>
+        <h1 className="page-header__title">Productos</h1>
+        <div className="search-bar-shell search-bar-shell--wide search-bar-shell--spaced">
+          <SearchBar initialValue={searchQuery} />
         </div>
       </header>
 
-      <div className="flex flex-col lg:flex-row gap-8">
-        <div className="lg:w-56 shrink-0">
+      <div className="catalog-layout">
+        <div className="catalog-sidebar">
           <ProductFiltersPanel filters={filters} onFilterChange={setFilters} />
         </div>
 
-        <div className="flex-1">
+        <div className="catalog-content">
           {error && (
-            <div className="mb-6 rounded-xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-300">
+            <div className="catalog-error">
               {error}
             </div>
           )}
 
-          <div className="flex items-center justify-between mb-4">
-            <p className="text-sm text-slate-400">
+          <div className="catalog-toolbar catalog-toolbar--spaced">
+            <p className="catalog-results__text">
               {pagination ? `${pagination.totalElements} productos encontrados` : ""}
             </p>
           </div>
@@ -60,16 +60,12 @@ function ProductsContent() {
           <ProductGrid products={products} loading={loading} />
 
           {pagination && pagination.totalPages > 1 && (
-            <div className="flex justify-center gap-2 mt-10 flex-wrap">
+            <div className="catalog-pagination catalog-pagination--spaced">
               {Array.from({ length: pagination.totalPages }).map((_, i) => (
                 <button
                   key={i}
                   onClick={() => handlePageChange(i)}
-                  className={`px-4 py-2 rounded-xl text-sm font-medium transition-all ${
-                    pagination.number === i
-                      ? "bg-brand-500 text-white"
-                      : "border border-white/10 bg-white/5 text-slate-300 hover:bg-white/10"
-                  }`}
+                  className={`catalog-pagination__button ${pagination.number === i ? "catalog-pagination__button--active" : ""}`}
                 >
                   {i + 1}
                 </button>
@@ -85,12 +81,14 @@ function ProductsContent() {
 export default function ProductsPage() {
   return (
     <Suspense fallback={
-      <main className="mx-auto min-h-screen w-full max-w-7xl px-6 py-10 lg:px-10">
-        <div className="animate-pulse space-y-4">
-          <div className="h-8 bg-white/10 rounded w-1/4" />
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+      <main className="page-shell page-shell--wide products-page">
+        <div className="section-stack">
+          <div className="product-skeleton__line product-skeleton__line--title" />
+          <div className="product-grid product-grid--loading">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="aspect-square bg-white/10 rounded-2xl" />
+              <div key={i} className="product-skeleton">
+                <div className="product-skeleton__media" />
+              </div>
             ))}
           </div>
         </div>

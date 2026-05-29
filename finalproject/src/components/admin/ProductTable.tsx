@@ -56,13 +56,13 @@ export default function ProductTable() {
     {
       header: "Acciones",
       accessor: (p: Product) => (
-        <div className="flex gap-2">
+        <div className="admin-table-actions">
           <Link href={`/admin/products/${p.id}/edit`}>
             <Button variant="outline">Editar</Button>
           </Link>
           <Button
             variant="outline"
-            className="text-red-600 hover:bg-red-50"
+            className="ui-button--danger"
             onClick={() => handleDelete(p.id)}
           >
             Eliminar
@@ -73,12 +73,12 @@ export default function ProductTable() {
   ];
 
   if (loading) {
-    return <p className="text-slate-400">Cargando productos...</p>;
+    return <p className="admin-table-loading">Cargando productos...</p>;
   }
 
   return (
-    <div className="p-6">
-      <div className="overflow-auto max-h-[75vh] rounded-xl border border-slate-800">
+    <div className="admin-table-shell">
+      <div className="admin-table-shell__inner">
         <Table
           columns={columns}
           data={products}

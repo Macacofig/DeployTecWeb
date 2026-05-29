@@ -4,6 +4,7 @@ import type { FormEvent } from "react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Modal from "../../components/ui/Modal";
 import { useAuth } from "../../hooks/useAuth";
 
 export default function RegisterPage() {
@@ -15,6 +16,7 @@ export default function RegisterPage() {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [successOpen, setSuccessOpen] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -32,10 +34,15 @@ export default function RegisterPage() {
 
     try {
       await register({ firstName, lastName, email, mobile, password });
-      router.push("/");
+      setSuccessOpen(true);
     } catch (requestError) {
       setError(requestError instanceof Error ? requestError.message : "No se pudo registrar el usuario");
     }
+  }
+
+  function handleSuccessClose() {
+    setSuccessOpen(false);
+    router.push("/login");
   }
 
   return (
@@ -114,6 +121,15 @@ export default function RegisterPage() {
           </p>
         </form>
       </section>
+
+      <Modal isOpen={successOpen} onClose={handleSuccessClose} title="Registro completado">
+        <p className="auth-status">El usuario se registró correctamente. Ahora puedes iniciar sesión.</p>
+        <div className="section-actions auth-modal__actions">
+          <button type="button" onClick={handleSuccessClose} className="ui-button ui-button--primary">
+            Ir a iniciar sesión
+          </button>
+        </div>
+      </Modal>
     </main>
   );
 }

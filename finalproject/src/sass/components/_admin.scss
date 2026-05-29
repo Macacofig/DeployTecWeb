@@ -1,0 +1,348 @@
+@use "sass:map";
+@use "../abstracts/variables" as *;
+
+.admin-layout {
+  display: grid;
+}
+
+.admin-page {
+  display: grid;
+  gap: 2rem;
+}
+
+.admin-page__header,
+.products-page__header,
+.profile-page__header,
+.orders-page__header,
+.cart-page__header,
+.checkout-page__header {
+  max-width: 48rem;
+}
+
+.admin-sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 16rem;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid rgba(30, 41, 59, 1);
+  background: #0f172a;
+}
+
+.admin-sidebar__title {
+  margin: 0 0 1rem;
+  color: map.get($colors, white);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.admin-sidebar__nav {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.admin-sidebar__link {
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.75rem;
+  color: map.get(map.get($colors, slate), 400);
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.admin-sidebar__link:hover,
+.admin-sidebar__link--active {
+  background: rgba(30, 41, 59, 1);
+  color: map.get($colors, white);
+}
+
+.admin-content {
+  margin-left: 16rem;
+  min-height: 100vh;
+}
+
+.admin-card,
+.admin-form,
+.admin-table-shell {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-card {
+  padding: 1.5rem;
+}
+
+.admin-table-shell {
+  overflow: auto;
+  max-height: 75vh;
+  border-radius: 1rem;
+}
+
+.admin-table-shell__inner {
+  min-width: 100%;
+}
+
+.admin-table-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.admin-table-loading {
+  border-color: rgba(148, 163, 184, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  color: map.get(map.get($colors, slate), 400);
+}
+
+.auth-status {
+  margin: 0;
+  color: map.get(map.get($colors, slate), 200);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.auth-modal__actions {
+  margin-top: 1.25rem;
+}
+
+.admin-form {
+  display: grid;
+  gap: 1.25rem;
+  padding: 1.5rem;
+}
+
+.admin-form__grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.admin-form__field {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.admin-form__label,
+.ui-input__label {
+  color: map.get(map.get($colors, slate), 300);
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.admin-form__textarea {
+  width: 100%;
+  min-height: 9rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  background: rgba(2, 6, 23, 0.72);
+  color: map.get($colors, white);
+  outline: none;
+  resize: vertical;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.admin-form__textarea::placeholder {
+  color: map.get(map.get($colors, slate), 500);
+}
+
+.admin-form__textarea:focus {
+  border-color: rgba(59, 130, 246, 0.75);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+}
+
+.admin-form__error,
+.ui-input__error,
+.status-banner--error {
+  color: map.get(map.get($colors, red), 300);
+  font-size: 0.9rem;
+}
+
+.admin-form__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.ui-button,
+.admin-form__submit,
+.admin-form__cancel,
+.ui-button--ghost,
+.ui-button--outline,
+.ui-button--secondary,
+.ui-button--danger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: transform 150ms ease, opacity 150ms ease, background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.ui-button {
+  padding: 0.8rem 1rem;
+  background: linear-gradient(180deg, map.get(map.get($colors, brand), 500), map.get(map.get($colors, brand), 600));
+  color: map.get($colors, white);
+}
+
+.admin-form__submit,
+.ui-button--primary {
+  padding: 0.85rem 1rem;
+  background: linear-gradient(180deg, map.get(map.get($colors, brand), 500), map.get(map.get($colors, brand), 600));
+  color: map.get($colors, white);
+}
+
+.ui-button--secondary,
+.admin-form__cancel,
+.ui-button--ghost,
+.ui-button--outline {
+  padding: 0.85rem 1rem;
+  border-color: rgba(255, 255, 255, 0.15);
+  background: transparent;
+  color: map.get($colors, white);
+}
+
+.ui-button--outline:hover,
+.admin-form__cancel:hover,
+.ui-button--ghost:hover,
+.ui-button--secondary:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.ui-button--danger {
+  padding: 0.85rem 1rem;
+  background: map.get(map.get($colors, red), 600);
+  color: map.get($colors, white);
+}
+
+.ui-button:disabled,
+.admin-form__submit:disabled,
+.admin-form__cancel:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.ui-input {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+
+.ui-input__control,
+.filter-panel__select,
+.filter-panel__input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  background: rgba(2, 6, 23, 0.72);
+  color: map.get($colors, white);
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.ui-input__control::placeholder,
+.filter-panel__input::placeholder {
+  color: map.get(map.get($colors, slate), 500);
+}
+
+.ui-input__control:focus,
+.filter-panel__select:focus,
+.filter-panel__input:focus {
+  border-color: rgba(59, 130, 246, 0.75);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+}
+
+.ui-input__control--error {
+  border-color: rgba(239, 68, 68, 0.75);
+}
+
+.ui-table {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+}
+
+.ui-table__head,
+.ui-table__row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.ui-table__th,
+.ui-table__td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+}
+
+.ui-table__th {
+  color: map.get(map.get($colors, slate), 300);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ui-table__td {
+  color: map.get(map.get($colors, slate), 200);
+  font-size: 0.92rem;
+}
+
+.ui-table__line {
+  height: 0.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.ui-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: rgba(2, 6, 23, 0.6);
+}
+
+.ui-modal__panel {
+  width: min(100%, 32rem);
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem;
+  background: rgba(15, 23, 42, 0.96);
+}
+
+.ui-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.ui-modal__title {
+  margin: 0;
+  color: map.get($colors, white);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.ui-modal__close {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: map.get($colors, white);
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.ui-modal__close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

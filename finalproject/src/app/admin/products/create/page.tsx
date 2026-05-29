@@ -113,29 +113,17 @@ export default function CreateProductPage() {
 
   return (
     <AdminGuard>
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="mb-6">
-          <h1 className="text-3xl font-semibold text-white">
+      <main className="page-shell page-shell--medium admin-page">
+        <header className="admin-page__header">
+          <p className="page-header__eyebrow">Admin / Productos</p>
+          <h1 className="page-header__title page-header__title--medium">
             Crear Producto
           </h1>
+          <p className="page-header__description">Agrega un nuevo producto</p>
+        </header>
 
-          <p className="text-slate-400 mt-2">
-            Agrega un nuevo producto
-          </p>
-        </div>
-
-        <form
-          onSubmit={handleSubmit}
-          className="
-            bg-slate-800
-            border
-            border-slate-700
-            rounded-2xl
-            p-6
-            space-y-6
-          "
-        >
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form onSubmit={handleSubmit} className="admin-form surface-card">
+          <div className="admin-form__grid">
             <Input
               label="Nombre"
               name="title"
@@ -152,33 +140,19 @@ export default function CreateProductPage() {
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">
-              Descripción
-            </label>
+          <div className="admin-form__field">
+            <label className="admin-form__label">Descripción</label>
 
             <textarea
               name="description"
               value={formData.description || ""}
               onChange={handleChange}
               rows={4}
-              className="
-                w-full
-                rounded-lg
-                border
-                border-slate-600
-                bg-slate-700
-                px-3
-                py-2
-                text-white
-                placeholder-slate-400
-                focus:outline-none
-                focus:border-blue-500
-              "
+              className="admin-form__textarea"
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="admin-form__grid">
             <Input
               label="Precio"
               name="price"
@@ -205,7 +179,7 @@ export default function CreateProductPage() {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="admin-form__grid">
             <Input
               label="Cantidad"
               name="quantity"
@@ -223,7 +197,7 @@ export default function CreateProductPage() {
             />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="admin-form__grid">
             <Input
               label="Categoría Principal"
               name="topLevelCategory"
@@ -253,13 +227,9 @@ export default function CreateProductPage() {
             onChange={handleChange}
           />
 
-          {error && (
-            <p className="text-red-400 text-sm">
-              {error}
-            </p>
-          )}
+          {error && <p className="admin-form__error">{error}</p>}
 
-          <div className="flex gap-4">
+          <div className="admin-form__actions">
             <Button
               type="submit"
               isLoading={loading}
@@ -278,7 +248,7 @@ export default function CreateProductPage() {
             </Button>
           </div>
         </form>
-      </div>
+      </main>
     </AdminGuard>
   );
 }

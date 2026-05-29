@@ -27,30 +27,25 @@ export default function CartPage() {
 
   return (
     <AuthGuard>
-
-      <main className="mx-auto min-h-screen w-full max-w-6xl px-6 py-10 lg:px-10">
-
-        <header>
-
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-brand-200">
+      <main className="page-shell page-shell--medium cart-page">
+        <header className="cart-page__header">
+          <p className="page-header__eyebrow">
             Carrito
           </p>
 
-          <h1 className="mt-3 text-4xl font-semibold text-white">
+          <h1 className="page-header__title">
             Tu carrito
           </h1>
 
-          <p className="mt-2 text-slate-300">
+          <p className="page-header__description">
             Productos agregados a tu carrito.
           </p>
-
         </header>
 
-        <section className="mt-8 space-y-4">
+        <section className="cart-list">
 
           {items.length === 0 && (
-
-            <div className="rounded-2xl border border-white/10 bg-white/5 p-8 text-slate-300">
+            <div className="surface-card admin-card">
               Tu carrito está vacío.
             </div>
           )}
@@ -80,10 +75,7 @@ export default function CartPage() {
 
         </section>
 
-        <CartSummary
-          totalPrice={totalPrice}
-        />
-
+        <CartSummary totalPrice={totalPrice} />
       </main>
 
     </AuthGuard>

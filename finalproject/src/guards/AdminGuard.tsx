@@ -16,7 +16,7 @@ export function AdminGuard({ children }: { children: ReactNode }) {
   }, [isAuthenticated, loading, router, user?.role]);
 
   if (loading || !isAuthenticated || user?.role !== "ROLE_ADMIN") {
-    return <div className="flex min-h-[50vh] items-center justify-center text-slate-300">Validando permisos...</div>;
+    return <div className="route-status">Validando permisos...</div>;
   }
 
   return <>{children}</>;

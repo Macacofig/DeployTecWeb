@@ -60,9 +60,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function register(userPayload: User) {
     const session = await registerUser(userPayload);
-    setUser(session.user);
-    setTokenState(session.token);
-    setStoredUser(session.user);
+    if (session.token) {
+      setUser(session.user);
+      setTokenState(session.token);
+      setStoredUser(session.user);
+    }
     return session;
   }
 

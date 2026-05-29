@@ -32,11 +32,11 @@ export default function AppRouteGate({ children }: { children: ReactNode }) {
   }, [isAuthenticated, isPublicRoute, loading, router, user?.role]);
 
   if (loading) {
-    return <div className="flex min-h-screen items-center justify-center text-slate-300">Validando sesión...</div>;
+    return <div className="route-status">Validando sesión...</div>;
   }
 
   if (!isPublicRoute && !isAuthenticated) {
-    return <div className="flex min-h-screen items-center justify-center text-slate-300">Redirigiendo al inicio de sesión...</div>;
+    return <div className="route-status">Redirigiendo al inicio de sesión...</div>;
   }
 
   if (isPublicRoute) {
@@ -44,9 +44,9 @@ export default function AppRouteGate({ children }: { children: ReactNode }) {
   }
 
   return (
-    <div className="flex min-h-screen flex-col">
+    <div className="app-shell">
       <AppHeader />
-      <div className="flex-1">{children}</div>
+      <div>{children}</div>
     </div>
   );
 }

@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="min-h-screen bg-slate-950 text-slate-50 antialiased">
+      <body className="app-shell antialiased">
         <Providers>
           <AppRouteGate>{children}</AppRouteGate>
         </Providers>

@@ -70,34 +70,28 @@ export default function CheckoutPage() {
 
   return (
     <AuthGuard>
-
-      <main className="mx-auto min-h-screen w-full max-w-5xl px-6 py-10 lg:px-10">
-
-        <header>
-
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-brand-200">
+      <main className="page-shell page-shell--narrow checkout-page">
+        <header className="checkout-page__header">
+          <p className="page-header__eyebrow">
             Checkout
           </p>
 
-          <h1 className="mt-3 text-4xl font-semibold text-white">
+          <h1 className="page-header__title">
             Finalizar compra
           </h1>
 
-          <p className="mt-2 text-slate-300">
+          <p className="page-header__description">
             Completa tu información para crear la orden.
           </p>
-
         </header>
 
-        <section className="mt-8 grid gap-8 lg:grid-cols-2">
-
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
-
-            <h2 className="text-2xl font-semibold text-white">
+        <section className="checkout-grid">
+          <div className="checkout-address">
+            <h2 className="checkout-panel__title">
               Dirección
             </h2>
 
-            <div className="mt-6 space-y-4">
+            <div className="checkout-fields">
 
               <input
                 type="text"
@@ -109,7 +103,7 @@ export default function CheckoutPage() {
                     firstName: e.target.value,
                   })
                 }
-                className="w-full rounded-xl bg-black/20 p-4 text-white outline-none"
+                className="checkout-input"
               />
 
               <input
@@ -122,7 +116,7 @@ export default function CheckoutPage() {
                     lastName: e.target.value,
                   })
                 }
-                className="w-full rounded-xl bg-black/20 p-4 text-white outline-none"
+                className="checkout-input"
               />
 
               <input
@@ -135,7 +129,7 @@ export default function CheckoutPage() {
                     streetAddress: e.target.value,
                   })
                 }
-                className="w-full rounded-xl bg-black/20 p-4 text-white outline-none"
+                className="checkout-input"
               />
 
               <input
@@ -148,7 +142,7 @@ export default function CheckoutPage() {
                     city: e.target.value,
                   })
                 }
-                className="w-full rounded-xl bg-black/20 p-4 text-white outline-none"
+                className="checkout-input"
               />
 
               <input
@@ -161,7 +155,7 @@ export default function CheckoutPage() {
                     state: e.target.value,
                   })
                 }
-                className="w-full rounded-xl bg-black/20 p-4 text-white outline-none"
+                className="checkout-input"
               />
 
               <input
@@ -174,41 +168,40 @@ export default function CheckoutPage() {
                     zipCode: e.target.value,
                   })
                 }
-                className="w-full rounded-xl bg-black/20 p-4 text-white outline-none"
+                className="checkout-input"
               />
 
             </div>
 
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
-
-            <h2 className="text-2xl font-semibold text-white">
+          <div className="checkout-summary">
+            <h2 className="checkout-summary__title">
               Resumen
             </h2>
 
-            <div className="mt-6 space-y-4">
+            <div className="checkout-summary__list">
 
               {items.map((item) => (
 
                 <div
                   key={item.id}
-                  className="flex items-center justify-between"
+                  className="checkout-summary__line-item"
                 >
 
                   <div>
 
-                    <p className="text-white">
+                    <p className="checkout-summary__item-name">
                       {item.product.title}
                     </p>
 
-                    <p className="text-sm text-slate-400">
+                    <p className="checkout-summary__meta">
                       Cantidad: {item.quantity}
                     </p>
 
                   </div>
 
-                  <p className="text-white">
+                  <p className="checkout-summary__item-price">
                     $
                     {
                       (
@@ -226,13 +219,13 @@ export default function CheckoutPage() {
 
             </div>
 
-            <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
+            <div className="checkout-summary__row checkout-summary__row--total">
 
-              <h3 className="text-2xl font-semibold text-white">
+              <h3 className="checkout-summary__title">
                 Total
               </h3>
 
-              <p className="text-3xl font-bold text-white">
+              <p className="checkout-summary__total">
                 ${totalPrice}
               </p>
 
@@ -241,7 +234,7 @@ export default function CheckoutPage() {
             <button
               onClick={handleCheckout}
               disabled={loading}
-              className="mt-8 w-full rounded-xl bg-brand-200 px-6 py-4 font-semibold text-black transition hover:opacity-90 disabled:opacity-50"
+              className="checkout-summary__button"
             >
               {loading
                 ? "Procesando..."

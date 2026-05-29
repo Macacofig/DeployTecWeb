@@ -13,13 +13,13 @@ export default function Modal({
 }: ModalProps) {
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-60">
-      <div className="bg-slate-800 rounded-lg shadow-xl w-full max-w-md p-6 border border-slate-700">
-        <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold text-white">{title}</h2>
+    <div className="ui-modal">
+      <div className="ui-modal__panel">
+        <div className="ui-modal__header">
+          <h2 className="ui-modal__title">{title}</h2>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white text-2xl leading-none"
+            className="ui-modal__close"
           >
             &times;
           </button>

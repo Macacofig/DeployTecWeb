@@ -1,67 +1,83 @@
 import type { AuthCredentials, AuthSession, User } from "../models/user.model";
 import { apiClient } from "../lib/axios";
 import { clearStoredUser, removeToken, saveToken, setStoredUser } from "../utils/token.util";
+import type { AxiosError } from "axios";
+
+type ApiErrorPayload = {
+  error?: string;
+  message?: string;
+  details?: string;
+};
+
+function extractApiErrorMessage(err: unknown, fallback: string) {
+  const axiosErr = err as AxiosError<ApiErrorPayload>;
+  const payload = axiosErr?.response?.data;
+
+  return payload?.error ?? payload?.message ?? fallback;
+}
 
 export async function signIn(credentials: AuthCredentials): Promise<AuthSession> {
-  const response = await apiClient.get<User>("/auth/signin", {
-    auth: {
-      username: credentials.email,
-      password: credentials.password,
-    },
-  });
+  try {
+    const response = await apiClient.get<User>("/auth/signin", {
+      auth: {
+        username: credentials.email,
+        password: credentials.password,
+      },
+    });
 
-  // Extraer el header de forma robusta (axios normaliza a minúsculas,
-  // pero verificamos varias formas y descartamos un posible Basic)
-  // eslint-disable-next-line no-console
-  console.log("/auth/signin response headers:", response.headers);
+    // Extraer el header de forma robusta (axios normaliza a minúsculas,
+    // pero verificamos varias formas y descartamos un posible Basic)
+    // eslint-disable-next-line no-console
+    console.log("/auth/signin response headers:", response.headers);
 
-  const rawHeader = response.headers["authorization"] ?? response.headers["Authorization"] ?? null;
+    const rawHeader = response.headers["authorization"] ?? response.headers["Authorization"] ?? null;
 
-  if (!rawHeader) {
-    throw new Error("No se pudo validar la contraseña. Revisa tus credenciales e inténtalo otra vez.");
+    if (!rawHeader) {
+      throw new Error("No se pudo validar la contraseña. Revisa tus credenciales e inténtalo otra vez.");
+    }
+
+    // Si por alguna razón el header contiene Basic (por request echo), ignorarlo.
+    const token = typeof rawHeader === "string" && rawHeader.startsWith("Basic ") ? null : rawHeader;
+
+    if (!token) {
+      // No tenemos JWT válido en headers
+      throw new Error("La respuesta no incluye un token JWT válido.");
+    }
+
+    saveToken(token);
+    setStoredUser(response.data);
+
+    return {
+      user: response.data,
+      token,
+    };
+  } catch (err) {
+    throw new Error(extractApiErrorMessage(err, "No se pudo iniciar sesión. Verifica tus credenciales."));
   }
-
-  // Si por alguna razón el header contiene Basic (por request echo), ignorarlo.
-  const token = typeof rawHeader === "string" && rawHeader.startsWith("Basic ") ? null : rawHeader;
-
-  if (!token) {
-    // No tenemos JWT válido en headers
-    throw new Error("La respuesta no incluye un token JWT válido.");
-  }
-
-  saveToken(token);
-  setStoredUser(response.data);
-
-  return {
-    user: response.data,
-    token,
-  };
 }
 
 export async function registerUser(user: User): Promise<AuthSession> {
-  const response = await apiClient.post<User>("/auth/signup", user);
-  // eslint-disable-next-line no-console
-  console.log("/auth/signup response headers:", response.headers);
+  try {
+    const response = await apiClient.post<User>("/auth/signup", user);
+    // eslint-disable-next-line no-console
+    console.log("/auth/signup response headers:", response.headers);
 
-  const rawHeader = response.headers["authorization"] ?? response.headers["Authorization"] ?? null;
+    const rawHeader = response.headers["authorization"] ?? response.headers["Authorization"] ?? null;
 
-  if (!rawHeader) {
-    throw new Error("No se pudo crear la sesión. Intenta registrarte otra vez.");
+    const token = typeof rawHeader === "string" && rawHeader.startsWith("Basic ") ? null : rawHeader;
+
+    if (token) {
+      saveToken(token);
+      setStoredUser(response.data);
+    }
+
+    return {
+      user: response.data,
+      token: token ?? null,
+    };
+  } catch (err) {
+    throw new Error(extractApiErrorMessage(err, "No se pudo registrar el usuario."));
   }
-
-  const token = typeof rawHeader === "string" && rawHeader.startsWith("Basic ") ? null : rawHeader;
-
-  if (!token) {
-    throw new Error("La respuesta no incluye un token JWT válido.");
-  }
-
-  saveToken(token);
-  setStoredUser(response.data);
-
-  return {
-    user: response.data,
-    token,
-  };
 }
 
 export async function getCurrentUser() {

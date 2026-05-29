@@ -45,55 +45,47 @@ export default function HomePage() {
   }, []);
 
   return (
-    <main className="mx-auto min-h-screen w-full max-w-7xl px-6 py-10 lg:px-10">
-      <div className="mb-10">
+    <main className="page-shell page-shell--wide products-page">
+      <div className="section-stack">
         <HomeHero featuredCount={featuredProducts.length} />
 
-        <div className="mt-6 max-w-lg">
-          <SearchBar className="max-w-lg" />
+        <div className="search-bar-shell search-bar-shell--wide">
+          <SearchBar />
         </div>
       </div>
 
-      <section className="mb-10">
-        <div className="mb-4 flex items-end justify-between gap-4">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-[0.2em] text-brand-200">
+      <section className="section-stack">
+        <div className="catalog-toolbar">
+          <div className="page-header">
+            <p className="page-header__eyebrow">
               Categorías
             </p>
 
-            <h2 className="text-xl font-semibold text-white">
+              <h2 className="section-title section-title--compact">
               Explora por tipo de producto
             </h2>
           </div>
 
           <Link
             href="/products"
-            className="hidden text-sm text-brand-300 underline md:block"
+            className="section-action section-action--secondary"
           >
             Ver catálogo completo
           </Link>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        <div className="category-grid">
           {CATEGORIES.map((cat) => (
             <Link
               key={cat.value}
               href={`/products?category=${cat.value}`}
-              className="
-                flex flex-col items-center justify-center gap-2
-                py-6 rounded-2xl
-                border border-white/10
-                bg-white/5
-                hover:bg-white/10
-                hover:border-brand-400/40
-                transition-all group
-              "
+              className="category-card"
             >
-              <span className="text-3xl group-hover:scale-110 transition-transform">
+              <span className="category-card__emoji">
                 {cat.emoji}
               </span>
 
-              <span className="text-sm font-semibold text-slate-200">
+              <span className="category-card__label">
                 {cat.label}
               </span>
             </Link>
@@ -101,15 +93,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-white">
+      <section className="section-stack">
+        <div className="catalog-toolbar">
+              <h2 className="section-title section-title--compact">
             Productos Destacados
           </h2>
 
           <Link
             href="/products"
-            className="text-sm text-brand-300 hover:text-brand-200 underline"
+            className="section-action section-action--secondary"
           >
             Ver todos →
           </Link>

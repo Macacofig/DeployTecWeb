@@ -1,0 +1,392 @@
+@use "sass:map";
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins";
+
+.product-detail {
+  display: grid;
+  gap: 2rem;
+}
+
+.product-detail__layout {
+  display: grid;
+  gap: 2rem;
+}
+
+.product-detail__title-row {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.product-detail__breadcrumb,
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  color: map.get(map.get($colors, slate), 400);
+  font-size: 0.88rem;
+}
+
+.product-detail__breadcrumb-link,
+.breadcrumb__link {
+  color: inherit;
+  transition: color 150ms ease;
+}
+
+.product-detail__breadcrumb-link:hover,
+.breadcrumb__link:hover {
+  color: map.get($colors, white);
+}
+
+.product-detail__gallery {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.product-detail__image {
+  object-fit: cover;
+}
+
+.product-detail__placeholder {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  color: map.get(map.get($colors, slate), 400);
+  font-size: 3.75rem;
+}
+
+.product-detail__info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.product-detail__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(147, 197, 253, 0.3);
+  border-radius: 9999px;
+  background: rgba(96, 165, 250, 0.08);
+  color: map.get(map.get($colors, brand), 200);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.product-detail__brand {
+  margin: 0;
+  color: map.get(map.get($colors, brand), 200);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.product-detail__title {
+  margin: 0;
+  color: map.get($colors, white);
+  font-size: clamp(2rem, 3vw, 2.75rem);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.product-detail__description,
+.cart-item__meta,
+.order-card__meta,
+.checkout-summary__meta {
+  margin: 0;
+  color: map.get(map.get($colors, slate), 300);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.product-detail__price {
+  margin: 0;
+  color: map.get(map.get($colors, brand), 200);
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+.product-detail__size-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(4.5rem, max-content));
+}
+
+.product-detail__size-button,
+.filter-panel__tag,
+.catalog-pagination__button {
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: map.get(map.get($colors, slate), 300);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.product-detail__size-button--active,
+.filter-panel__tag--active,
+.catalog-pagination__button--active {
+  border-color: rgba(59, 130, 246, 0.9);
+  background: map.get(map.get($colors, brand), 500);
+  color: map.get($colors, white);
+}
+
+.product-detail__quantity,
+.cart-item__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.product-detail__quantity-button,
+.cart-item__button,
+.ui-modal__close {
+  width: 2.5rem;
+  height: 2.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: map.get($colors, white);
+  font-size: 1.1rem;
+  font-weight: 700;
+  transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+.product-detail__quantity-button:hover,
+.cart-item__button:hover,
+.ui-modal__close:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.product-detail__quantity-value {
+  width: 2rem;
+  text-align: center;
+  color: map.get($colors, white);
+  font-weight: 600;
+}
+
+.product-detail__cta-button {
+  width: 100%;
+  margin-top: 0.25rem;
+}
+
+.cart-page,
+.orders-page,
+.profile-page,
+.checkout-page {
+  display: grid;
+  gap: 2rem;
+}
+
+.cart-list,
+.orders-list,
+.checkout-fields,
+.admin-section {
+  display: grid;
+  gap: 1rem;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.25rem;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cart-item__title,
+.order-card__title,
+.checkout-summary__title,
+.admin-page__title {
+  margin: 0;
+  color: map.get($colors, white);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.cart-item__actions {
+  flex-wrap: wrap;
+}
+
+.cart-item__button--danger {
+  background: map.get(map.get($colors, red), 500);
+}
+
+.cart-item__button--danger:hover {
+  background: map.get(map.get($colors, red), 600);
+}
+
+.cart-summary,
+.checkout-summary,
+.checkout-address,
+.order-card,
+.product-detail__panel {
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.cart-summary__row,
+.checkout-summary__row,
+.order-card__item,
+.checkout-summary__line-item,
+.cart-item__line,
+.order-card__line,
+.product-detail__line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.checkout-summary__row--total {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cart-summary__title,
+.checkout-summary__title,
+.order-card__total {
+  margin: 0;
+  color: map.get($colors, white);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.cart-summary__total,
+.checkout-summary__total,
+.order-card__amount {
+  margin: 0;
+  color: map.get($colors, white);
+  font-size: 1.875rem;
+  font-weight: 700;
+}
+
+.cart-summary__button,
+.checkout-summary__button,
+.product-detail__cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, map.get(map.get($colors, brand), 500), map.get(map.get($colors, brand), 600));
+  color: map.get($colors, white);
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: transform 150ms ease, opacity 150ms ease, background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.cart-summary__button,
+.checkout-summary__button {
+  color: #020617;
+  background: map.get(map.get($colors, brand), 200);
+}
+
+.order-card__items {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: grid;
+  gap: 1rem;
+}
+
+.order-card__item-name,
+.checkout-summary__item-name,
+.cart-item__title {
+  color: map.get($colors, white);
+  font-weight: 500;
+}
+
+.order-card__item-price,
+.checkout-summary__item-price,
+.cart-item__amount {
+  color: map.get($colors, white);
+}
+
+.checkout-grid {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+.checkout-panel,
+.checkout-summary {
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.checkout-panel__title,
+.admin-form__title,
+.admin-page__section-title {
+  margin: 0;
+  color: map.get($colors, white);
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.checkout-input {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  background: rgba(2, 6, 23, 0.72);
+  color: map.get($colors, white);
+  outline: none;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+
+.checkout-input::placeholder {
+  color: map.get(map.get($colors, slate), 500);
+}
+
+.checkout-input:focus {
+  border-color: rgba(59, 130, 246, 0.75);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+}
+
+.checkout-summary__list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.checkout-summary__line {
+  height: 0.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.checkout-summary__muted,
+.order-card__muted,
+.cart-item__muted,
+.product-detail__price-old {
+  color: map.get(map.get($colors, slate), 500);
+  text-decoration: line-through;
+}
+
+@include mixins.up(md) {
+  .checkout-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

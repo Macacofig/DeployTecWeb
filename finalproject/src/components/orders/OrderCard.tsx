@@ -11,24 +11,20 @@ export function OrderCard({
 }: Props) {
 
   return (
-
-    <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
-
-      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-
+    <div className="order-card">
+      <div className="order-card__header">
         <div>
-
-          <h2 className="text-2xl font-semibold text-white">
+          <h2 className="order-card__title">
             Orden #{order.id}
           </h2>
 
-          <p className="mt-2 text-slate-300">
+          <p className="order-card__meta">
             Estado:
             {" "}
             {order.orderStatus ?? "Pendiente"}
           </p>
 
-          <p className="mt-1 text-slate-300">
+          <p className="order-card__meta">
             Pago:
             {" "}
             {order.paymentStatus ?? "Pendiente"}
@@ -38,7 +34,7 @@ export function OrderCard({
 
         <div>
 
-          <p className="text-3xl font-bold text-white">
+          <p className="order-card__amount">
             ${order.totalPrice}
           </p>
 
@@ -46,22 +42,21 @@ export function OrderCard({
 
       </div>
 
-      <div className="mt-8 space-y-4 border-t border-white/10 pt-6">
+      <div className="order-card__items">
 
         {order.orderItems?.map((item) => (
-
           <div
             key={item.id}
-            className="flex items-center justify-between"
+            className="order-card__item"
           >
 
             <div>
 
-              <p className="text-white">
+              <p className="order-card__item-name">
                 {item.product.title}
               </p>
 
-              <p className="text-sm text-slate-400">
+              <p className="order-card__meta">
                 Cantidad:
                 {" "}
                 {item.quantity}
@@ -69,7 +64,7 @@ export function OrderCard({
 
             </div>
 
-            <p className="text-white">
+            <p className="order-card__item-price">
               $
               {
                 (

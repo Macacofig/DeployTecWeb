@@ -6,10 +6,10 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="bg-slate-950 min-h-screen">
+    <div className="admin-shell">
       <Sidebar />
 
-      <main className="ml-64 min-h-screen overflow-hidden">
+      <main className="admin-content">
         {children}
       </main>
     </div>
