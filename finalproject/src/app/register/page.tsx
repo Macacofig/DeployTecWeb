@@ -7,6 +7,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useAuth } from "../../hooks/useAuth";
 
+const NAME_MAX_LENGTH = 30;
+const PHONE_PATTERN = /^[67]\d{7}$/;
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export default function RegisterPage() {
   const router = useRouter();
   const { register, loading, isAuthenticated } = useAuth();
@@ -28,13 +32,72 @@ export default function RegisterPage() {
     return <main className="auth-page"><div className="auth-status">Redirigiendo al inicio...</div></main>;
   }
 
+  function validateRegisterForm() {
+    const trimmedFirstName = firstName.trim();
+    const trimmedLastName = lastName.trim();
+    const trimmedEmail = email.trim();
+    const trimmedMobile = mobile.trim();
+    const trimmedPassword = password.trim();
+
+    setFirstName(trimmedFirstName);
+    setLastName(trimmedLastName);
+    setEmail(trimmedEmail);
+    setMobile(trimmedMobile);
+    setPassword(trimmedPassword);
+
+    if (!trimmedFirstName) {
+      return "El nombre es obligatorio.";
+    }
+
+    if (trimmedFirstName.length > NAME_MAX_LENGTH) {
+      return "El nombre no puede tener más de 30 caracteres.";
+    }
+
+    if (!trimmedLastName) {
+      return "El apellido es obligatorio.";
+    }
+
+    if (trimmedLastName.length > NAME_MAX_LENGTH) {
+      return "El apellido no puede tener más de 30 caracteres.";
+    }
+
+    if (!EMAIL_PATTERN.test(trimmedEmail)) {
+      return "Ingresa un correo electrónico válido.";
+    }
+
+    if (!PHONE_PATTERN.test(trimmedMobile)) {
+      return "El teléfono debe empezar con 6 o 7 y tener 8 dígitos.";
+    }
+
+    if (!trimmedPassword) {
+      return "La contraseña es obligatoria.";
+    }
+
+    return null;
+  }
+
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
+
+    const validationError = validateRegisterForm();
+
+    if (validationError) {
+      setFormState("error");
+      setError(validationError);
+      return;
+    }
+
     setFormState("submitting");
 
     try {
-      await register({ firstName, lastName, email, mobile, password });
+      await register({
+        firstName: firstName.trim(),
+        lastName: lastName.trim(),
+        email: email.trim(),
+        mobile: mobile.trim(),
+        password: password.trim(),
+      });
       setFormState("success");
       router.push("/");
     } catch (requestError) {
@@ -71,7 +134,7 @@ export default function RegisterPage() {
           </div>
         </aside>
 
-        <form onSubmit={handleSubmit} className="auth-form">
+        <form onSubmit={handleSubmit} className="auth-form" noValidate>
           <p className="auth-form__eyebrow">Registro</p>
           <h2 className="auth-form__title">Crea tu usuario</h2>
           <p className="auth-form__description">Completa tus datos para activar tu cuenta en ShopWave Fusion.</p>
@@ -80,28 +143,73 @@ export default function RegisterPage() {
             <div className="auth-field-group">
               <label className="auth-field">
                 <span className="auth-label">Nombre</span>
-                <input value={firstName} onChange={(event) => setFirstName(event.target.value)} type="text" className="auth-input" placeholder="Ana" />
+                <input
+                  value={firstName}
+                  onChange={(event) => setFirstName(event.target.value)}
+                  onBlur={() => setFirstName(firstName.trim())}
+                  type="text"
+                  className="auth-input"
+                  placeholder="Deivid"
+                  maxLength={NAME_MAX_LENGTH}
+                  required
+                />
               </label>
 
               <label className="auth-field">
                 <span className="auth-label">Apellido</span>
-                <input value={lastName} onChange={(event) => setLastName(event.target.value)} type="text" className="auth-input" placeholder="Lopez" />
+                <input
+                  value={lastName}
+                  onChange={(event) => setLastName(event.target.value)}
+                  onBlur={() => setLastName(lastName.trim())}
+                  type="text"
+                  className="auth-input"
+                  placeholder="Figueroa"
+                  maxLength={NAME_MAX_LENGTH}
+                  required
+                />
               </label>
             </div>
 
             <label className="auth-field">
               <span className="auth-label">Correo electrónico</span>
-              <input value={email} onChange={(event) => setEmail(event.target.value)} type="email" className="auth-input" placeholder="correo@empresa.com" />
+              <input
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+                onBlur={() => setEmail(email.trim())}
+                type="email"
+                className="auth-input"
+                placeholder="correo@empresa.com"
+                required
+              />
             </label>
 
             <label className="auth-field">
               <span className="auth-label">Teléfono</span>
-              <input value={mobile} onChange={(event) => setMobile(event.target.value)} type="text" className="auth-input" placeholder="300 000 0000" />
+              <input
+                value={mobile}
+                onChange={(event) => setMobile(event.target.value)}
+                onBlur={() => setMobile(mobile.trim())}
+                type="tel"
+                className="auth-input"
+                placeholder="66223344"
+                inputMode="numeric"
+                maxLength={8}
+                pattern="[67][0-9]{7}"
+                required
+              />
             </label>
 
             <label className="auth-field">
               <span className="auth-label">Contraseña</span>
-              <input value={password} onChange={(event) => setPassword(event.target.value)} type="password" className="auth-input" placeholder="********" />
+              <input
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
+                onBlur={() => setPassword(password.trim())}
+                type="password"
+                className="auth-input"
+                placeholder="********"
+                required
+              />
             </label>
           </div>
 
