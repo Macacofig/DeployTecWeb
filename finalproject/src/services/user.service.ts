@@ -2,7 +2,7 @@ import type { User } from "../models/user.model";
 import { apiClient } from "../lib/axios";
 
 export async function getUserProfile(): Promise<User> {
-  const response = await apiClient.get<User>("/auth/signin");
+  const response = await apiClient.get<User>("/users/profile");
   return response.data;
 }
 

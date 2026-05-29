@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,6 +15,21 @@ export default function ProductDetailPage() {
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
+
+  const availableSizes = useMemo(
+    () => product?.sizes?.filter((s) => s.quantity > 0) ?? [],
+    [product?.sizes]
+  );
+
+  const totalStock = product?.quantity ?? 0;
+  const stockStatus = totalStock > 0 ? "En stock" : "Sin stock";
+  const stockTone = totalStock > 0 ? "product-detail__stock-pill--success" : "product-detail__stock-pill--danger";
+  const createdAtLabel = product?.createdAt
+    ? new Intl.DateTimeFormat("es-BO", {
+        dateStyle: "medium",
+        timeStyle: "short",
+      }).format(new Date(product.createdAt))
+    : "No disponible";
 
   if (loading) {
     return (
@@ -43,8 +58,6 @@ export default function ProductDetailPage() {
       </main>
     );
   }
-
-  const availableSizes = product.sizes?.filter((s) => s.quantity > 0) ?? [];
 
   const handleAddToCart = async () => {
     if (availableSizes.length > 0 && !selectedSize) {
@@ -98,6 +111,9 @@ export default function ProductDetailPage() {
               {product.brand}
             </p>
             <h1 className="product-detail__title">{product.title}</h1>
+            <p className="product-detail__subtitle">
+              {product.category?.name ? `${product.category.name} · Nivel ${product.category.level}` : "Detalle de producto"}
+            </p>
           </div>
 
           <div className="product-detail__price-row">
@@ -111,11 +127,45 @@ export default function ProductDetailPage() {
 
           <p className="product-detail__description">{product.description}</p>
 
-          {product.color && (
-            <p className="product-detail__description">
-              <span className="product-detail__meta-label">Color:</span> {product.color}
+          <div className="product-detail__summary-grid">
+            <article className="product-detail__summary-card">
+              <span className="product-detail__meta-label">Estado</span>
+              <strong className={`product-detail__stock-pill ${stockTone}`}>{stockStatus}</strong>
+            </article>
+
+            <article className="product-detail__summary-card">
+              <span className="product-detail__meta-label">Stock total</span>
+              <strong>{totalStock} unidades</strong>
+            </article>
+
+            <article className="product-detail__summary-card">
+              <span className="product-detail__meta-label">Fecha</span>
+              <strong>{createdAtLabel}</strong>
+            </article>
+
+            <article className="product-detail__summary-card">
+              <span className="product-detail__meta-label">ID</span>
+              <strong>#{product.id}</strong>
+            </article>
+          </div>
+
+          <div className="product-detail__meta-list">
+            {product.color && (
+              <p className="product-detail__meta-item">
+                <span className="product-detail__meta-label">Color:</span> {product.color}
+              </p>
+            )}
+
+            {product.category?.name && (
+              <p className="product-detail__meta-item">
+                <span className="product-detail__meta-label">Categoría:</span> {product.category.name}
+              </p>
+            )}
+
+            <p className="product-detail__meta-item">
+              <span className="product-detail__meta-label">Cantidad máxima:</span> {product.quantity}
             </p>
-          )}
+          </div>
 
           {availableSizes.length > 0 && (
             <div>
@@ -133,6 +183,27 @@ export default function ProductDetailPage() {
               </div>
             </div>
           )}
+
+          {availableSizes.length > 0 && (
+            <div className="product-detail__size-detail">
+              <p className="product-detail__meta-label">Disponibilidad por talla</p>
+              <div className="product-detail__size-list">
+                {availableSizes.map((size) => (
+                  <span key={size.name} className="product-detail__size-chip">
+                    {size.name} · {size.quantity}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="product-detail__notice">
+            <p className="product-detail__meta-label">Información útil</p>
+            <p className="product-detail__description">
+              Esta vista sirve para usuario y admin: permite revisar el detalle comercial,
+              la disponibilidad y el stock antes de comprar o gestionar el producto.
+            </p>
+          </div>
 
           <div>
             <p className="product-detail__meta-label">Cantidad:</p>

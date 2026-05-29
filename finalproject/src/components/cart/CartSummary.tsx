@@ -1,5 +1,7 @@
 "use client";
 
+import { formatPrice } from "../../utils/currency.util";
+
 interface Props {
   totalPrice: number;
 }
@@ -17,7 +19,7 @@ export function CartSummary({
         </h2>
 
         <p className="cart-summary__total">
-          ${totalPrice}
+          {formatPrice(totalPrice)}
         </p>
 
       </div>

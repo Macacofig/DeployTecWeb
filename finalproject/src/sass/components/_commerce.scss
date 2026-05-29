@@ -90,6 +90,12 @@
   text-transform: uppercase;
 }
 
+.product-detail__subtitle {
+  margin: 0.5rem 0 0;
+  color: map.get(map.get($colors, slate), 400);
+  font-size: 0.95rem;
+}
+
 .product-detail__title {
   margin: 0;
   color: map.get($colors, white);
@@ -114,6 +120,73 @@
   color: map.get(map.get($colors, brand), 200);
   font-size: 1.875rem;
   font-weight: 700;
+}
+
+.product-detail__summary-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+}
+
+.product-detail__summary-card,
+.product-detail__notice,
+.product-detail__size-detail {
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.product-detail__summary-card strong {
+  display: block;
+  margin-top: 0.35rem;
+  color: map.get($colors, white);
+}
+
+.product-detail__meta-list {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.product-detail__meta-item {
+  margin: 0;
+  color: map.get(map.get($colors, slate), 300);
+  font-size: 0.95rem;
+}
+
+.product-detail__size-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.product-detail__size-chip {
+  padding: 0.45rem 0.8rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: map.get(map.get($colors, slate), 200);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.product-detail__stock-pill {
+  display: inline-flex;
+  width: fit-content;
+  padding: 0.35rem 0.7rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.product-detail__stock-pill--success {
+  background: rgba(34, 197, 94, 0.14);
+  color: rgb(134, 239, 172);
+}
+
+.product-detail__stock-pill--danger {
+  background: rgba(239, 68, 68, 0.14);
+  color: rgb(252, 165, 165);
 }
 
 .product-detail__size-grid {

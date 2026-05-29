@@ -1,4 +1,5 @@
 import type { CartItem } from "../../models/cart.model";
+import { formatPrice } from "../../utils/currency.util";
 
 interface Props {
   item: CartItem;
@@ -34,7 +35,7 @@ export function CartItemCard({
         </p>
 
         <p className="cart-item__meta">
-          Precio: ${price}
+          Precio: {formatPrice(price)}
         </p>
 
       </div>

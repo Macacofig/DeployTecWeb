@@ -3,6 +3,7 @@ import { apiClient } from "../lib/axios";
 import { clearStoredUser, removeToken, saveToken, setStoredUser } from "../utils/token.util";
 import type { AxiosError } from "axios";
 import type { ApiErrorPayload } from "../types/api-error-payload.type";
+import { getUserProfile } from "./user.service";
 
 function extractApiErrorMessage(err: unknown, fallback: string) {
   const axiosErr = err as AxiosError<ApiErrorPayload>;
@@ -76,8 +77,7 @@ export async function registerUser(user: User): Promise<AuthSession> {
 }
 
 export async function getCurrentUser() {
-  const response = await apiClient.get<User>("/auth/signin");
-  return response.data;
+  return getUserProfile();
 }
 
 export function signOut() {

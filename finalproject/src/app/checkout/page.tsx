@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { AuthGuard } from "../../guards/AuthGuard";
+import { formatPrice } from "../../utils/currency.util";
 
 import { useCart } from "../../hooks/useCart";
 
@@ -209,8 +210,7 @@ export default function CheckoutPage() {
                   </div>
 
                   <p className="text-white">
-                    $
-                    {
+                    {formatPrice(
                       (
                         item.discountedPrice ??
                         item.price ??
@@ -218,7 +218,7 @@ export default function CheckoutPage() {
                         item.product.price ??
                         0
                       ) * item.quantity
-                    }
+                    )}
                   </p>
 
                 </div>
@@ -233,7 +233,7 @@ export default function CheckoutPage() {
               </h3>
 
               <p className="text-3xl font-bold text-white">
-                ${totalPrice}
+                {formatPrice(totalPrice)}
               </p>
 
             </div>

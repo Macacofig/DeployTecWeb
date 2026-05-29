@@ -1,6 +1,7 @@
 "use client";
 
 import type { Order } from "../../models/order.model";
+import { formatPrice } from "../../utils/currency.util";
 
 interface Props {
   order: Order;
@@ -35,7 +36,7 @@ export function OrderCard({
         <div>
 
           <p className="order-card__amount">
-            ${order.totalPrice}
+            {formatPrice(order.totalPrice ?? 0)}
           </p>
 
         </div>
@@ -65,8 +66,7 @@ export function OrderCard({
             </div>
 
             <p className="order-card__item-price">
-              $
-              {
+              {formatPrice(
                 (
                   item.discountedPrice ??
                   item.price ??
@@ -74,7 +74,7 @@ export function OrderCard({
                   item.product.price ??
                   0
                 ) * item.quantity
-              }
+              )}
             </p>
 
           </div>

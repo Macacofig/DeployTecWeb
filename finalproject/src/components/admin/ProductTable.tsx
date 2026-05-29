@@ -8,6 +8,7 @@ import type { Product, ProductPage } from "@/models/product.model";
 import type { AxiosError } from "axios";
 import ProductService from "@/services/product.service";
 import type { ApiErrorPayload } from "@/types/api-error-payload.type";
+import { formatPrice } from "@/utils/currency.util";
 
 export default function ProductTable() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -51,7 +52,7 @@ export default function ProductTable() {
     { header: "Nombre", accessor: "title" as keyof Product },
     {
       header: "Precio",
-      accessor: (p: Product) => `$${Number(p.price).toFixed(2)}`,
+      accessor: (p: Product) => formatPrice(Number(p.price)),
     },
     { header: "Stock", accessor: "quantity" as keyof Product },
     {
