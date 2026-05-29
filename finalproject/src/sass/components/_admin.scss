@@ -1,8 +1,67 @@
 @use "sass:map";
 @use "../abstracts/variables" as *;
+@use "../abstracts/mixins";
 
 .admin-layout {
   display: grid;
+}
+
+.admin-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 35;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(2, 6, 23, 0.92);
+  backdrop-filter: blur(24px);
+}
+
+.admin-topbar__toggle {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.28rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.95rem;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.admin-topbar__toggle span {
+  display: block;
+  width: 1rem;
+  height: 2px;
+  margin: 0 auto;
+  border-radius: 9999px;
+  background: map.get($colors, white);
+}
+
+.admin-topbar__copy {
+  display: grid;
+  gap: 0.1rem;
+}
+
+.admin-topbar__eyebrow,
+.admin-topbar__title {
+  margin: 0;
+}
+
+.admin-topbar__eyebrow {
+  color: map.get(map.get($colors, slate), 500);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.admin-topbar__title {
+  color: map.get($colors, white);
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
 .admin-page {
@@ -28,6 +87,45 @@
   overflow-y: auto;
   border-right: 1px solid rgba(30, 41, 59, 1);
   background: #0f172a;
+  transform: translateX(-100%);
+  transition: transform 180ms ease;
+  z-index: 40;
+}
+
+.admin-sidebar--open {
+  transform: translateX(0);
+}
+
+.admin-sidebar__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: none;
+  border: 0;
+  background: rgba(2, 6, 23, 0.65);
+}
+
+.admin-sidebar__overlay--open {
+  display: block;
+}
+
+.admin-sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1rem 0;
+}
+
+.admin-sidebar__close {
+  width: 2.25rem;
+  height: 2.25rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: map.get($colors, white);
+  font-size: 1.25rem;
+  line-height: 1;
 }
 
 .admin-sidebar__title {
@@ -56,7 +154,7 @@
 }
 
 .admin-content {
-  margin-left: 16rem;
+  margin-left: 0;
   min-height: 100vh;
 }
 
@@ -345,4 +443,43 @@
 
 .ui-modal__close:hover {
   background: rgba(255, 255, 255, 0.1);
+}
+
+@include mixins.up(md) {
+  .admin-topbar,
+  .admin-sidebar__overlay,
+  .admin-sidebar__close {
+    display: none;
+  }
+
+  .admin-sidebar {
+    transform: translateX(0);
+  }
+
+  .admin-content {
+    margin-left: 16rem;
+  }
+
+  .admin-form__grid,
+  .checkout-summary__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .admin-card,
+  .admin-form,
+  .admin-table-shell,
+  .cart-summary,
+  .checkout-summary,
+  .checkout-address,
+  .order-card,
+  .product-detail__panel {
+    padding: 1.25rem;
+  }
+
+  .admin-form__grid,
+  .checkout-summary__list {
+    grid-template-columns: 1fr;
+  }
 }
