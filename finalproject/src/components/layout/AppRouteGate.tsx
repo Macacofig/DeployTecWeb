@@ -16,6 +16,7 @@ export default function AppRouteGate({ children }: { children: ReactNode }) {
   const { isAuthenticated, loading, user } = useAuth();
 
   const isPublicRoute = pathname ? PUBLIC_ROUTES.has(pathname) : false;
+  const isAdminRoute = pathname?.startsWith("/admin") ?? false;
 
   useEffect(() => {
     if (loading) {
@@ -42,6 +43,10 @@ export default function AppRouteGate({ children }: { children: ReactNode }) {
   }
 
   if (isPublicRoute) {
+    return <>{children}</>;
+  }
+
+  if (isAdminRoute) {
     return <>{children}</>;
   }
 

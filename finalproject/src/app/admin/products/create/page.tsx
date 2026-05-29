@@ -53,7 +53,7 @@ export default function CreateProductPage() {
     () => [
       {
         label: "Precio base",
-        value: `$${formData.price.toLocaleString("es-AR")}`,
+        value: `Bs${formData.price.toLocaleString("es-AR")}`,
       },
       {
         label: "Descuento",
@@ -61,7 +61,7 @@ export default function CreateProductPage() {
       },
       {
         label: "Precio final",
-        value: `$${discountedPrice.toLocaleString("es-AR")}`,
+        value: `Bs${discountedPrice.toLocaleString("es-AR")}`,
       },
       {
         label: "Stock",
