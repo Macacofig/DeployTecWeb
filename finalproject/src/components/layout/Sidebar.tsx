@@ -2,7 +2,8 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname,useRouter } from "next/navigation";
+import { useAuth } from "../../hooks/useAuth";
 
 const links = [
   { href: "/admin", label: "Dashboard" },
@@ -17,6 +18,12 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ open, onClose }: SidebarProps) {
+  const router = useRouter();
+  const {signOut } = useAuth();
+  const handleSignOut = () => {
+    signOut();
+    router.push("/");
+  };
   const pathname = usePathname();
 
   useEffect(() => {
@@ -50,6 +57,18 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
             {link.label}
           </Link>
         ))}
+        <div className="app-header__actions">
+          <Link href="/profile" className="app-header__button app-header__button--ghost">
+            Perfil
+          </Link>
+          <button
+            type="button"
+            onClick={handleSignOut}
+            className="app-header__button app-header__button--solid"
+          >
+            Cerrar sesión
+          </button>
+        </div>
       </nav>
       </aside>
     </>
