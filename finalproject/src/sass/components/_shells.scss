@@ -32,7 +32,7 @@
 .page-header__eyebrow,
 .section-eyebrow {
   margin: 0;
-  color: map.get(map.get($colors, brand), 200);
+  color: var(--color-text-muted);
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -42,7 +42,7 @@
 .page-header__title,
 .section-title {
   margin: 0.75rem 0 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 2.5rem;
   font-weight: 600;
   line-height: 1.05;
@@ -68,26 +68,26 @@
 .page-header__description,
 .section-description {
   margin: 0.5rem 0 0;
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-muted);
   font-size: 1rem;
   line-height: 1.75;
 }
 
 .surface-card,
 .surface-stack {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface);
   box-shadow: $shadow-soft;
   backdrop-filter: blur(24px);
 }
 
 .surface-card--soft {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--color-card-bg);
 }
 
 .surface-card--strong {
-  background: rgba(2, 6, 23, 0.72);
+  background: var(--color-card-bg);
 }
 
 .section-stack > * + * {
@@ -98,9 +98,9 @@
   position: relative;
   overflow: hidden;
   padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1.75rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-card-bg);
   box-shadow: $shadow-soft;
   backdrop-filter: blur(24px);
 }
@@ -110,8 +110,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at top right, rgba(96, 165, 250, 0.18), transparent 35%),
-    radial-gradient(circle at bottom left, rgba(99, 102, 241, 0.16), transparent 30%);
+    radial-gradient(circle at top right, var(--color-accent-light), transparent 35%),
+    radial-gradient(circle at bottom left, var(--color-accent-indigo), transparent 30%);
 }
 
 .hero-card__content {
@@ -128,10 +128,10 @@
   justify-content: center;
   gap: 0.35rem;
   padding: 0.4rem 0.75rem;
-  border: 1px solid rgba(147, 197, 253, 0.3);
+  border: 1px solid var(--color-accent-light);
   border-radius: 9999px;
-  background: rgba(96, 165, 250, 0.08);
-  color: map.get(map.get($colors, brand), 200);
+  background: var(--color-accent-light);
+  color: var(--color-text-primary);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -140,7 +140,7 @@
 
 .hero-card__title {
   margin: 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: clamp(2.5rem, 5vw, 4.25rem);
   font-weight: 600;
   line-height: 1;
@@ -150,7 +150,7 @@
 .hero-card__description {
   margin: 0;
   max-width: 42rem;
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-muted);
   font-size: 1rem;
   line-height: 1.75;
 }
@@ -164,15 +164,15 @@
 .hero-stat,
 .catalog-stat {
   padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1.25rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-card-overlay);
 }
 
 .hero-stat__label,
 .catalog-stat__label {
   margin: 0;
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -182,7 +182,7 @@
 .hero-stat__value,
 .catalog-stat__value {
   margin: 0.5rem 0 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -208,14 +208,14 @@
 
 .hero-card__action--primary,
 .section-action--primary {
-  background: linear-gradient(180deg, map.get(map.get($colors, brand), 500), map.get(map.get($colors, brand), 600));
+  background: linear-gradient(180deg, var(--color-accent-indigo), var(--color-accent));
   color: map.get($colors, white);
 }
 
 .hero-card__action--secondary,
 .section-action--secondary {
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: map.get($colors, white);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
   background: transparent;
 }
 
@@ -227,7 +227,7 @@
 }
 
 .section-link {
-  color: map.get(map.get($colors, brand), 300);
+  color: var(--color-accent-indigo);
   font-size: 0.92rem;
   font-weight: 600;
   text-decoration: underline;
@@ -235,15 +235,15 @@
 }
 
 .section-link:hover {
-  color: map.get(map.get($colors, brand), 200);
+  color: var(--color-accent);
 }
 
 .app-header {
   position: sticky;
   top: 0;
   z-index: 40;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(2, 6, 23, 0.8);
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-card-bg);
   backdrop-filter: blur(24px);
 }
 
@@ -265,9 +265,9 @@
   gap: 0.28rem;
   width: 2.75rem;
   height: 2.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--color-border);
   border-radius: 0.95rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface);
 }
 
 .app-header__mobile-toggle span {
@@ -276,7 +276,7 @@
   height: 2px;
   margin: 0 auto;
   border-radius: 9999px;
-  background: map.get($colors, white);
+  background: var(--color-text-primary);
 }
 
 .app-header__brand {
@@ -292,8 +292,8 @@
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 1rem;
-  background: rgba(59, 130, 246, 0.2);
-  color: map.get(map.get($colors, brand), 100);
+  background: var(--color-accent);
+  color: var(--color-text-primary);
   font-size: 1.05rem;
   font-weight: 700;
   box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.3);
@@ -307,7 +307,7 @@
 .app-header__brand-title,
 .app-header__user-name {
   margin: 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 0.95rem;
   font-weight: 600;
 }
@@ -315,7 +315,7 @@
 .app-header__brand-subtitle,
 .app-header__user-label {
   margin: 0;
-  color: map.get(map.get($colors, slate), 400);
+  color: var(--color-text-muted);
   font-size: 0.75rem;
 }
 
@@ -326,13 +326,13 @@
 }
 
 .app-header__nav-link {
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-secondary);
   font-size: 0.92rem;
   transition: color 150ms ease;
 }
 
 .app-header__nav-link:hover {
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
 }
 
 .app-header__actions {
@@ -358,19 +358,19 @@
 }
 
 .app-header__button--ghost {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: map.get(map.get($colors, slate), 200);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-secondary);
 }
 
 .app-header__button--ghost:hover,
 .app-header__button--solid:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: map.get($colors, white);
+  background: var(--color-surface-soft);
+  color: var(--color-text-primary);
 }
 
 .app-header__button--solid {
-  background: rgba(255, 255, 255, 0.1);
-  color: map.get($colors, white);
+  background: var(--color-border);
+  color: var(--color-text-primary);
 }
 
 .app-header__mobile-menu {
@@ -389,9 +389,9 @@
   display: grid;
   gap: 0.15rem;
   padding: 0.9rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface);
 }
 
 .app-header__mobile-user .app-header__user-name {
@@ -405,10 +405,10 @@
 
 .app-header__mobile-link {
   padding: 0.85rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.05);
-  color: map.get(map.get($colors, slate), 200);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
 }
 
 .app-header__mobile-actions {
@@ -418,7 +418,7 @@
 
 .admin-shell {
   min-height: 100vh;
-  background: #020617;
+  background: var(--color-bg);
 }
 
 .category-grid {
@@ -434,15 +434,15 @@
   justify-content: center;
   gap: 0.5rem;
   padding: 1.5rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1.25rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-card-bg);
   transition: border-color 150ms ease, background-color 150ms ease, transform 150ms ease;
 }
 
 .category-card:hover {
-  border-color: rgba(96, 165, 250, 0.4);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-accent);
+  background: var(--color-card-bg-light);
 }
 
 .category-card__emoji {
@@ -455,7 +455,7 @@
 }
 
 .category-card__label {
-  color: map.get(map.get($colors, slate), 200);
+  color: var(--color-text-secondary);
   font-size: 0.92rem;
   font-weight: 600;
 }
@@ -477,9 +477,9 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1.25rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface);
 }
 
 .search-bar__input {
@@ -487,13 +487,13 @@
   padding: 0.9rem 3rem 0.9rem 1rem;
   border: 0;
   background: transparent;
-  color: map.get(map.get($colors, slate), 200);
+  color: var(--color-text-primary);
   font-size: 0.92rem;
   outline: none;
 }
 
 .search-bar__input::placeholder {
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
 }
 
 .search-bar__button {
@@ -501,7 +501,7 @@
   right: 0.75rem;
   border: 0;
   background: transparent;
-  color: map.get(map.get($colors, slate), 400);
+  color: var(--color-text-secondary);
   transition: color 150ms ease, transform 150ms ease;
 }
 

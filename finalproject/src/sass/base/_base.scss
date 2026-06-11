@@ -1,12 +1,27 @@
 @use "../abstracts/variables" as *;
+@use "../abstracts/theme";
+
+:root {
+  @include theme.dark-mode-colors;
+}
+
+// Light mode
+@media (prefers-color-scheme: light) {
+  html:not([data-theme="dark"]) {
+    @include theme.light-mode-colors;
+  }
+}
+
+html[data-theme="light"] {
+  @include theme.light-mode-colors;
+}
 
 body {
   overflow-x: hidden;
-  color: #e2e8f0;
-  background:
-    radial-gradient(circle at top, rgba(59, 130, 246, 0.14), transparent 30%),
-    linear-gradient(180deg, #020617 0%, #0f172a 100%);
+  color: var(--color-text-primary);
+  background: var(--gradient-body);
   font-family: $font-sans;
+  transition: color 0.3s ease, background 0.3s ease;
 }
 
 .antialiased {

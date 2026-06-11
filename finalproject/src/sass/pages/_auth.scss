@@ -9,10 +9,8 @@
   place-items: center;
   padding: 2rem 1.5rem;
   isolation: isolate;
-  background:
-    radial-gradient(circle at top left, rgba(96, 165, 250, 0.14), transparent 30%),
-    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 34%),
-    linear-gradient(180deg, rgba(2, 6, 23, 0.92), rgba(15, 23, 42, 0.98));
+  background: var(--gradient-auth-page);
+  transition: background 0.3s ease;
 }
 
 .auth-page::before,
@@ -30,7 +28,7 @@
   left: -4rem;
   width: 18rem;
   height: 18rem;
-  background: rgba(59, 130, 246, 0.12);
+  background: var(--color-accent);
 }
 
 .auth-page::after {
@@ -38,7 +36,7 @@
   bottom: -7rem;
   width: 20rem;
   height: 20rem;
-  background: rgba(99, 102, 241, 0.1);
+  background: var(--color-accent-indigo);
 }
 
 .auth-card {
@@ -48,20 +46,21 @@
   overflow: hidden;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 2rem;
-  background: rgba(2, 6, 23, 0.72);
+  background: var(--color-card-bg);
   box-shadow: $shadow-soft;
   backdrop-filter: blur(28px);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .auth-panel {
   position: relative;
   padding: 3rem;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
-    radial-gradient(circle at top right, rgba(96, 165, 250, 0.08), transparent 40%);
+  border-right: 1px solid var(--color-border-light);
+  background: var(--color-panel-overlay),
+    radial-gradient(circle at top right, var(--color-accent-light), transparent 40%);
+  transition: border-color 0.3s ease;
 }
 
 .auth-panel__eyebrow {
@@ -71,12 +70,13 @@
   padding: 0.45rem 0.8rem;
   border: 1px solid rgba(147, 197, 253, 0.28);
   border-radius: 9999px;
-  background: rgba(96, 165, 250, 0.08);
+  background: var(--color-accent-light);
   color: map.get(map.get($colors, brand), 200);
   text-transform: uppercase;
   letter-spacing: 0.22em;
   font-size: 0.72rem;
   font-weight: 700;
+  transition: background-color 0.3s ease;
 }
 
 .auth-panel__title {
@@ -85,15 +85,17 @@
   font-size: 3rem;
   line-height: 1;
   letter-spacing: -0.04em;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
+  transition: color 0.3s ease;
 }
 
 .auth-panel__lead {
   margin-top: 1rem;
   max-width: 34rem;
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-muted);
   font-size: 1rem;
   line-height: 1.7;
+  transition: color 0.3s ease;
 }
 
 .auth-benefits {
@@ -105,32 +107,36 @@
 
 .auth-benefit {
   padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border-light);
   border-radius: 1.25rem;
-  background: rgba(2, 6, 23, 0.4);
+  background: var(--color-card-overlay);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .auth-benefit__label {
   margin: 0;
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .auth-benefit__value {
   margin: 0.55rem 0 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 1.05rem;
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .auth-benefit__text {
   margin: 0.35rem 0 0;
-  color: map.get(map.get($colors, slate), 400);
+  color: var(--color-text-secondary);
   font-size: 0.88rem;
   line-height: 1.5;
+  transition: color 0.3s ease;
 }
 
 .auth-panel__footer {
@@ -142,11 +148,12 @@
 
 .auth-pill {
   padding: 0.55rem 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border-light);
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.04);
-  color: map.get(map.get($colors, slate), 200);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
   font-size: 0.84rem;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .auth-form {
@@ -167,17 +174,19 @@
 
 .auth-form__title {
   margin: 0.9rem 0 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 2.25rem;
   line-height: 1.1;
   letter-spacing: -0.03em;
+  transition: color 0.3s ease;
 }
 
 .auth-form__description {
   margin: 0.9rem 0 0;
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-muted);
   font-size: 0.98rem;
   line-height: 1.65;
+  transition: color 0.3s ease;
 }
 
 .auth-fields {
@@ -192,30 +201,31 @@
 }
 
 .auth-label {
-  color: map.get(map.get($colors, slate), 200);
+  color: var(--color-text-secondary);
   font-size: 0.88rem;
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .auth-input {
   width: 100%;
   padding: 0.95rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1rem;
-  background: rgba(2, 6, 23, 0.72);
-  color: map.get($colors, white);
+  background: var(--color-card-bg);
+  color: var(--color-text-primary);
   outline: none;
-  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease, background-color 150ms ease;
+  transition: border-color 150ms ease, box-shadow 150ms ease, transform 150ms ease, background-color 150ms ease, color 150ms ease;
 }
 
 .auth-input::placeholder {
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
 }
 
 .auth-input:focus {
   border-color: rgba(96, 165, 250, 0.75);
   box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.16);
-  background: rgba(2, 6, 23, 0.9);
+  background: var(--color-card-bg-light);
 }
 
 .auth-error {
@@ -224,9 +234,10 @@
   border: 1px solid rgba(248, 113, 113, 0.3);
   border-radius: 1rem;
   background: rgba(248, 113, 113, 0.1);
-  color: map.get(map.get($colors, red), 200);
+  color: map.get(map.get($colors, red), 300);
   font-size: 0.92rem;
   line-height: 1.5;
+  transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
 .auth-button {
