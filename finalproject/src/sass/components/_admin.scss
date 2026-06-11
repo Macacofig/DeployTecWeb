@@ -14,9 +14,10 @@
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(2, 6, 23, 0.92);
+  border-bottom: 1px solid var(--color-border-light);
+  background: var(--color-card-bg-light);
   backdrop-filter: blur(24px);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .admin-topbar__toggle {
@@ -26,9 +27,10 @@
   gap: 0.28rem;
   width: 2.75rem;
   height: 2.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--color-border);
   border-radius: 0.95rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .admin-topbar__toggle span {
@@ -37,7 +39,8 @@
   height: 2px;
   margin: 0 auto;
   border-radius: 9999px;
-  background: map.get($colors, white);
+  background: var(--color-text-primary);
+  transition: background-color 0.3s ease;
 }
 
 .admin-topbar__copy {
@@ -51,17 +54,19 @@
 }
 
 .admin-topbar__eyebrow {
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .admin-topbar__title {
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 0.95rem;
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .admin-page {
@@ -89,13 +94,14 @@
 
 .admin-product-create__hero,
 .admin-product-create__preview {
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border-light);
   border-radius: 1.75rem;
   background:
-    radial-gradient(circle at top right, rgba(96, 165, 250, 0.12), transparent 32%),
-    rgba(255, 255, 255, 0.05);
+    radial-gradient(circle at top right, var(--color-accent-light), transparent 32%),
+    var(--color-surface);
   box-shadow: $shadow-soft;
   backdrop-filter: blur(24px);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .admin-product-create__hero {
@@ -123,8 +129,9 @@
 .admin-product-create__hero-title,
 .admin-form__section-title {
   margin: 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   letter-spacing: -0.03em;
+  transition: color 0.3s ease;
 }
 
 .admin-product-create__hero-title {
@@ -135,8 +142,9 @@
 .admin-product-create__hero-description {
   margin: 0;
   max-width: 42rem;
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-muted);
   line-height: 1.7;
+  transition: color 0.3s ease;
 }
 
 .admin-product-create__stats {
@@ -147,25 +155,28 @@
 
 .admin-product-create__stat {
   padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border-light);
   border-radius: 1.15rem;
-  background: rgba(2, 6, 23, 0.42);
+  background: var(--color-card-overlay);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .admin-product-create__stat-label {
   margin: 0;
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .admin-product-create__stat-value {
   margin: 0.45rem 0 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 1.05rem;
   font-weight: 600;
+  transition: color 0.3s ease;
 }
 
 .admin-product-create__layout {
@@ -185,7 +196,8 @@
 
 .admin-form__section + .admin-form__section {
   padding-top: 1rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--color-border-light);
+  transition: border-color 0.3s ease;
 }
 
 .admin-form__section-header {
@@ -229,9 +241,10 @@
 
 .admin-product-create__preview-card {
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border-light);
   border-radius: 1.25rem;
-  background: rgba(2, 6, 23, 0.48);
+  background: var(--color-card-overlay);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .admin-product-create__preview-image {
@@ -239,8 +252,9 @@
   place-items: center;
   min-height: 14rem;
   background:
-    linear-gradient(180deg, rgba(59, 130, 246, 0.12), rgba(15, 23, 42, 0.85)),
-    rgba(2, 6, 23, 0.65);
+    linear-gradient(180deg, var(--color-accent), var(--color-bg)),
+    var(--color-card-bg);
+  transition: background 0.3s ease;
 }
 
 .admin-product-create__preview-image img {
@@ -262,11 +276,12 @@
 }
 
 .admin-product-create__preview-image span {
-  color: map.get(map.get($colors, slate), 400);
+  color: var(--color-text-muted);
   font-size: 0.92rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .admin-product-create__preview-copy {
@@ -314,11 +329,12 @@
   flex: 0 0 auto;
   border: 1px solid rgba(96, 165, 250, 0.25);
   border-radius: 1.25rem;
-  background: rgba(96, 165, 250, 0.12);
+  background: var(--color-accent-light);
   color: map.get(map.get($colors, brand), 200);
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.08em;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .profile-page__summary-copy {
@@ -336,17 +352,19 @@
   display: grid;
   gap: 0.35rem;
   padding: 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border-light);
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--color-surface);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .profile-page__label {
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+  transition: color 0.3s ease;
 }
 
 .profile-page__value {
@@ -425,8 +443,8 @@
   width: 16rem;
   height: 100vh;
   overflow-y: auto;
-  border-right: 1px solid rgba(30, 41, 59, 1);
-  background: #0f172a;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
   transform: translateX(-100%);
   transition: transform 180ms ease;
   z-index: 40;
@@ -442,7 +460,7 @@
   z-index: 30;
   display: none;
   border: 0;
-  background: rgba(2, 6, 23, 0.65);
+  background: rgba(0, 0, 0, 0.55);
 }
 
 .admin-sidebar__overlay--open {
@@ -460,17 +478,17 @@
 .admin-sidebar__close {
   width: 2.25rem;
   height: 2.25rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--color-border);
   border-radius: 0.75rem;
-  background: rgba(255, 255, 255, 0.05);
-  color: map.get($colors, white);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
   font-size: 1.25rem;
   line-height: 1;
 }
 
 .admin-sidebar__title {
   margin: 0 0 1rem;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 1.1rem;
   font-weight: 600;
 }
@@ -497,14 +515,14 @@
 .admin-sidebar__link {
   padding: 0.75rem 0.9rem;
   border-radius: 0.75rem;
-  color: map.get(map.get($colors, slate), 400);
+  color: var(--color-text-secondary);
   transition: background-color 150ms ease, color 150ms ease;
 }
 
 .admin-sidebar__link:hover,
 .admin-sidebar__link--active {
-  background: rgba(30, 41, 59, 1);
-  color: map.get($colors, white);
+  background: var(--color-card-bg-light);
+  color: var(--color-text-primary);
 }
 
 .admin-content {
@@ -515,9 +533,9 @@
 .admin-card,
 .admin-form,
 .admin-table-shell {
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-card-bg);
 }
 
 .admin-card {
@@ -585,21 +603,21 @@
   width: 100%;
   min-height: 9rem;
   padding: 0.9rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1rem;
-  background: rgba(2, 6, 23, 0.72);
-  color: map.get($colors, white);
+  background: var(--color-card-bg);
+  color: var(--color-text-primary);
   outline: none;
   resize: vertical;
   transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
 }
 
 .admin-form__textarea::placeholder {
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
 }
 
 .admin-form__textarea:focus {
-  border-color: rgba(59, 130, 246, 0.75);
+  border-color: var(--color-accent-indigo);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
 }
 
@@ -636,14 +654,14 @@
 
 .ui-button {
   padding: 0.8rem 1rem;
-  background: linear-gradient(180deg, map.get(map.get($colors, brand), 500), map.get(map.get($colors, brand), 600));
+  background: linear-gradient(180deg, var(--color-accent-indigo), var(--color-accent));
   color: map.get($colors, white);
 }
 
 .admin-form__submit,
 .ui-button--primary {
   padding: 0.85rem 1rem;
-  background: linear-gradient(180deg, map.get(map.get($colors, brand), 500), map.get(map.get($colors, brand), 600));
+  background: linear-gradient(180deg, var(--color-accent-indigo), var(--color-accent));
   color: map.get($colors, white);
 }
 
@@ -652,16 +670,16 @@
 .ui-button--ghost,
 .ui-button--outline {
   padding: 0.85rem 1rem;
-  border-color: rgba(255, 255, 255, 0.15);
-  background: transparent;
-  color: map.get($colors, white);
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
 }
 
 .ui-button--outline:hover,
 .admin-form__cancel:hover,
 .ui-button--ghost:hover,
 .ui-button--secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--color-surface-soft);
 }
 
 .ui-button--danger {
@@ -690,23 +708,23 @@
 .filter-panel__input {
   width: 100%;
   padding: 0.9rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1rem;
-  background: rgba(2, 6, 23, 0.72);
-  color: map.get($colors, white);
+  background: var(--color-card-bg);
+  color: var(--color-text-primary);
   outline: none;
   transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
 }
 
 .ui-input__control::placeholder,
 .filter-panel__input::placeholder {
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
 }
 
 .ui-input__control:focus,
 .filter-panel__select:focus,
 .filter-panel__input:focus {
-  border-color: rgba(59, 130, 246, 0.75);
+  border-color: var(--color-accent-indigo);
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
 }
 
@@ -716,13 +734,13 @@
 
 .ui-table {
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1rem;
 }
 
 .ui-table__head,
 .ui-table__row:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--color-card-overlay);
 }
 
 .ui-table__th,
@@ -732,7 +750,7 @@
 }
 
 .ui-table__th {
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-secondary);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -740,14 +758,14 @@
 }
 
 .ui-table__td {
-  color: map.get(map.get($colors, slate), 200);
+  color: var(--color-text-secondary);
   font-size: 0.92rem;
 }
 
 .ui-table__line {
   height: 0.85rem;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-border);
 }
 
 .ui-modal {
@@ -763,9 +781,9 @@
 .ui-modal__panel {
   width: min(100%, 32rem);
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1.25rem;
-  background: rgba(15, 23, 42, 0.96);
+  background: var(--color-card-bg-light);
 }
 
 .ui-modal__header {
@@ -778,7 +796,7 @@
 
 .ui-modal__title {
   margin: 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 1.25rem;
   font-weight: 600;
 }
@@ -786,17 +804,17 @@
 .ui-modal__close {
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--color-border);
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.05);
-  color: map.get($colors, white);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
   font-size: 1.1rem;
   font-weight: 700;
   transition: background-color 150ms ease, border-color 150ms ease;
 }
 
 .ui-modal__close:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-surface-soft);
 }
 
 @include mixins.up(md) {

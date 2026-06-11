@@ -1,0 +1,113 @@
+// ============================================================================
+// THEME VARIABLES - Modo Claro / Oscuro
+// ============================================================================
+
+// VARIABLES PARA DARK MODE (por defecto)
+$color-bg: #020617;
+$color-bg-secondary: #0f172a;
+$color-surface: rgba(255, 255, 255, 0.05);
+$color-surface-soft: rgba(255, 255, 255, 0.08);
+$color-text-primary: #e2e8f0;
+$color-text-secondary: #cbd5e1;
+$color-text-muted: #94a3b8;
+$color-border: rgba(255, 255, 255, 0.1);
+$color-border-light: rgba(255, 255, 255, 0.08);
+$color-border-lighter: rgba(255, 255, 255, 0.05);
+$color-accent: rgba(59, 130, 246, 0.12);
+$color-accent-light: rgba(96, 165, 250, 0.08);
+$color-accent-lighter: rgba(96, 165, 250, 0.05);
+$color-accent-indigo: rgba(99, 102, 241, 0.1);
+
+$color-card-bg: rgba(2, 6, 23, 0.72);
+$color-card-bg-light: rgba(2, 6, 23, 0.92);
+$color-card-overlay: rgba(2, 6, 23, 0.4);
+
+$gradient-auth-page: radial-gradient(
+    circle at top left,
+    rgba(96, 165, 250, 0.14),
+    transparent 30%
+  ),
+  radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.12), transparent 34%),
+  linear-gradient(180deg, rgba(2, 6, 23, 0.92), rgba(15, 23, 42, 0.98));
+
+$gradient-body: radial-gradient(
+    circle at top,
+    rgba(59, 130, 246, 0.14),
+    transparent 30%
+  ),
+  linear-gradient(180deg, #020617 0%, #0f172a 100%);
+
+$color-panel-overlay: linear-gradient(
+  180deg,
+  rgba(255, 255, 255, 0.06),
+  rgba(255, 255, 255, 0.02)
+);
+
+// ============================================================================
+// LIGHT MODE MIXIN
+// ============================================================================
+@mixin dark-mode-colors {
+  --color-bg: #020617;
+  --color-bg-secondary: #0f172a;
+  --color-surface: rgba(255, 255, 255, 0.05);
+  --color-surface-soft: rgba(255, 255, 255, 0.08);
+  --color-text-primary: #e2e8f0;
+  --color-text-secondary: #cbd5e1;
+  --color-text-muted: #94a3b8;
+  --color-border: rgba(255, 255, 255, 0.1);
+  --color-border-light: rgba(255, 255, 255, 0.08);
+  --color-border-lighter: rgba(255, 255, 255, 0.05);
+  --color-accent: rgba(59, 130, 246, 0.12);
+  --color-accent-light: rgba(96, 165, 250, 0.08);
+  --color-accent-lighter: rgba(96, 165, 250, 0.05);
+  --color-accent-indigo: rgba(99, 102, 241, 0.1);
+  --color-card-bg: rgba(2, 6, 23, 0.72);
+  --color-card-bg-light: rgba(2, 6, 23, 0.92);
+  --color-card-overlay: rgba(2, 6, 23, 0.4);
+  --gradient-auth-page: var(--color-bg);
+  --gradient-body: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+  --color-panel-overlay: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.06),
+    rgba(255, 255, 255, 0.02)
+  );
+}
+
+@mixin light-mode-colors {
+  --color-bg: #f9fafb;
+  --color-bg-secondary: #f3f4f6;
+  --color-surface: rgba(0, 0, 0, 0.04);
+  --color-surface-soft: rgba(0, 0, 0, 0.05);
+  --color-text-primary: #111827;
+  --color-text-secondary: #374151;
+  --color-text-muted: #6b7280;
+  --color-border: rgba(0, 0, 0, 0.12);
+  --color-border-light: rgba(0, 0, 0, 0.08);
+  --color-border-lighter: rgba(0, 0, 0, 0.05);
+  --color-accent: rgba(59, 130, 246, 0.08);
+  --color-accent-light: rgba(96, 165, 250, 0.06);
+  --color-accent-lighter: rgba(96, 165, 250, 0.03);
+  --color-accent-indigo: rgba(99, 102, 241, 0.06);
+  --color-card-bg: rgba(255, 255, 255, 0.8);
+  --color-card-bg-light: rgba(255, 255, 255, 0.9);
+  --color-card-overlay: rgba(255, 255, 255, 0.5);
+  --gradient-auth-page: radial-gradient(
+      circle at top left,
+      rgba(96, 165, 250, 0.08),
+      transparent 30%
+    ),
+    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.06), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(249, 250, 251, 0.98));
+  --gradient-body: radial-gradient(
+      circle at top,
+      rgba(59, 130, 246, 0.08),
+      transparent 30%
+    ),
+    linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
+  --color-panel-overlay: linear-gradient(
+    180deg,
+    rgba(0, 0, 0, 0.02),
+    rgba(0, 0, 0, 0.01)
+  );
+}
+

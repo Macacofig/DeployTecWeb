@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { usePathname,useRouter } from "next/navigation";
 import { useAuth } from "../../hooks/useAuth";
+import { useTheme } from "../../context/ThemeContext";
 
 const links = [
   { href: "/admin", label: "Dashboard" },
@@ -18,6 +19,7 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ open, onClose }: SidebarProps) {
+  const { theme, toggleTheme } = useTheme();
   const router = useRouter();
   const {signOut } = useAuth();
   const handleSignOut = () => {
@@ -68,6 +70,13 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
               className="app-header__button app-header__button--solid"
             >
               Cerrar sesión
+            </button>
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="app-header__button app-header__button--ghost"
+            >
+              {theme === "dark" ? "Modo claro" : "Modo oscuro"}
             </button>
           </div>
         </nav>

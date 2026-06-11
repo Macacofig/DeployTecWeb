@@ -4,8 +4,11 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "../../hooks/useAuth";
+import { useTheme } from "../../context/ThemeContext";
+
 
 export default function AppHeader() {
+  const { theme, toggleTheme } = useTheme();
   const router = useRouter();
   const pathname = usePathname();
   const { user, isAuthenticated, loading, signOut } = useAuth();
@@ -75,6 +78,14 @@ export default function AppHeader() {
             className="app-header__button app-header__button--solid"
           >
             Cerrar sesión
+          </button>
+
+          <button
+            type="button"
+            onClick={toggleTheme}
+            className="app-header__button app-header__button--ghost"
+          >
+            {theme === "dark" ? "Modo claro" : "Modo oscuro"}
           </button>
         </div>
       </div>
