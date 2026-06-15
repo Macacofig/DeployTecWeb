@@ -61,12 +61,14 @@ export default function CartPage() {
                   item.quantity + 1
                 )
               }
-              onDecrease={() =>
-                updateItemQuantity(
-                  item.id!,
-                  item.quantity - 1
-                )
-              }
+              onDecrease={() => {
+                if (item.quantity > 1) {
+                  updateItemQuantity(
+                    item.id!,
+                    item.quantity - 1
+                  );
+                }
+              }}
               onRemove={() =>
                 removeItem(item.id!)
               }
@@ -75,7 +77,7 @@ export default function CartPage() {
 
         </section>
 
-        <CartSummary totalPrice={totalPrice} />
+        <CartSummary totalPrice={totalPrice} itemCount={items.length} />
       </main>
 
     </AuthGuard>
