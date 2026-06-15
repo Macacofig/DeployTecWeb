@@ -564,6 +564,65 @@
   color: map.get(map.get($colors, slate), 400);
 }
 
+.admin-stock-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  width: fit-content;
+}
+
+.admin-stock-badge__icon {
+  font-size: 1.1rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+.admin-stock-badge__content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.admin-stock-badge__status {
+  display: block;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.admin-stock-badge__value {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.9;
+  letter-spacing: 0.02em;
+}
+
+.admin-stock-badge--success {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.25);
+}
+
+.admin-stock-badge--warning {
+  background: rgba(251, 146, 60, 0.15);
+  color: #fb923c;
+  border: 1px solid rgba(251, 146, 60, 0.25);
+  animation: pulse-warning 2s infinite;
+}
+
+@keyframes pulse-warning {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
 .auth-status {
   margin: 0;
   color: map.get(map.get($colors, slate), 200);
@@ -835,6 +894,11 @@
   .admin-form__grid,
   .checkout-summary__list {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-product-create__layout {
+    grid-template-columns: 1.4fr 1fr;
+    gap: 1.5rem;
   }
 }
 

@@ -91,8 +91,55 @@ export default function CreateProductPage() {
     }));
   };
 
+  const validateForm = (): string | null => {
+    // Validar campos requeridos
+    if (!formData.title || formData.title.trim() === "") {
+      return "El nombre del producto es requerido";
+    }
+    if (!formData.topLevelCategory || formData.topLevelCategory.trim() === "") {
+      return "La categoría principal es requerida";
+    }
+    if (!formData.brand || formData.brand.trim() === "") {
+      return "La marca es requerida";
+    }
+    
+    // Validar precio
+    if (formData.price <= 0) {
+      return "El precio debe ser mayor a 0";
+    }
+    
+    // Validar cantidad
+    if (formData.quantity < 0) {
+      return "La cantidad no puede ser negativa";
+    }
+    
+    // Validar descuento
+    if (formData.discountPersent < 0 || formData.discountPersent > 100) {
+      return "El descuento debe estar entre 0 y 100";
+    }
+    
+    // Validar descripción
+    if (!formData.description || formData.description.trim() === "") {
+      return "La descripción es requerida";
+    }
+    
+    if (formData.description.trim().length < 10) {
+      return "La descripción debe tener al menos 10 caracteres";
+    }
+    
+    return null;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validar formulario
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      setFormState("error");
+      return;
+    }
 
     setLoading(true);
     setFormState("submitting");
@@ -173,8 +220,22 @@ export default function CreateProductPage() {
               </div>
 
               <div className="admin-form__grid">
-                <Input label="Nombre" name="title" value={formData.title} onChange={handleChange} required />
-                <Input label="Marca" name="brand" value={formData.brand || ""} onChange={handleChange} />
+                <Input
+                  label="Nombre"
+                  name="title"
+                  value={formData.title}
+                  onChange={handleChange}
+                  placeholder="Ej: Camiseta Nike Dri-Fit"
+                  required
+                />
+                <Input
+                  label="Marca"
+                  name="brand"
+                  value={formData.brand || ""}
+                  onChange={handleChange}
+                  placeholder="Ej: Nike"
+                  required
+                />
               </div>
             </div>
 
@@ -185,7 +246,7 @@ export default function CreateProductPage() {
               </div>
 
               <div className="admin-form__field">
-                <label className="admin-form__label">Descripción</label>
+                <label className="admin-form__label">Descripción (mínimo 10 caracteres)</label>
                 <textarea
                   name="description"
                   value={formData.description || ""}
@@ -193,6 +254,8 @@ export default function CreateProductPage() {
                   rows={5}
                   className="admin-form__textarea admin-form__textarea--large"
                   placeholder="Describe el producto, materiales, uso o detalles clave."
+                  minLength={10}
+                  required
                 />
               </div>
             </div>
@@ -204,14 +267,47 @@ export default function CreateProductPage() {
               </div>
 
               <div className="admin-form__grid admin-form__grid--three">
-                <Input label="Precio" name="price" type="number" value={String(formData.price)} onChange={handleChange} required />
-                <Input label="Descuento %" name="discountPersent" type="number" value={String(formData.discountPersent)} onChange={handleChange} />
+                <Input
+                  label="Precio (Bs)"
+                  name="price"
+                  type="number"
+                  value={String(formData.price)}
+                  onChange={handleChange}
+                  placeholder="0"
+                  min="0"
+                  required
+                />
+                <Input
+                  label="Descuento (0-100%)"
+                  name="discountPersent"
+                  type="number"
+                  value={String(formData.discountPersent)}
+                  onChange={handleChange}
+                  placeholder="0"
+                  min="0"
+                  max="100"
+                />
                 <Input label="Precio Final" value={String(discountedPrice)} disabled />
               </div>
 
               <div className="admin-form__grid">
-                <Input label="Cantidad" name="quantity" type="number" value={String(formData.quantity)} onChange={handleChange} required />
-                <Input label="Color" name="color" value={formData.color || ""} onChange={handleChange} />
+                <Input
+                  label="Cantidad en Stock"
+                  name="quantity"
+                  type="number"
+                  value={String(formData.quantity)}
+                  onChange={handleChange}
+                  placeholder="0"
+                  min="0"
+                  required
+                />
+                <Input
+                  label="Color"
+                  name="color"
+                  value={formData.color || ""}
+                  onChange={handleChange}
+                  placeholder="Ej: Rojo, Azul, Negro"
+                />
               </div>
             </div>
 
@@ -222,12 +318,37 @@ export default function CreateProductPage() {
               </div>
 
               <div className="admin-form__grid admin-form__grid--three">
-                <Input label="Categoría Principal" name="topLevelCategory" value={formData.topLevelCategory} onChange={handleChange} />
-                <Input label="Categoría Secundaria" name="secondLevelCategory" value={formData.secondLevelCategory} onChange={handleChange} />
-                <Input label="Categoría Terciaria" name="thirdLevelCategory" value={formData.thirdLevelCategory} onChange={handleChange} />
+                <Input
+                  label="Categoría Principal"
+                  name="topLevelCategory"
+                  value={formData.topLevelCategory}
+                  onChange={handleChange}
+                  placeholder="Ej: Ropa, Electrónica"
+                  required
+                />
+                <Input
+                  label="Categoría Secundaria"
+                  name="secondLevelCategory"
+                  value={formData.secondLevelCategory}
+                  onChange={handleChange}
+                  placeholder="Opcional"
+                />
+                <Input
+                  label="Categoría Terciaria"
+                  name="thirdLevelCategory"
+                  value={formData.thirdLevelCategory}
+                  onChange={handleChange}
+                  placeholder="Opcional"
+                />
               </div>
 
-              <Input label="URL Imagen" name="imageUrl" value={formData.imageUrl || ""} onChange={handleChange} />
+              <Input
+                label="URL Imagen"
+                name="imageUrl"
+                value={formData.imageUrl || ""}
+                onChange={handleChange}
+                placeholder="https://ejemplo.com/imagen.jpg"
+              />
             </div>
 
             {error && <p className="admin-form__error admin-product-create__error">{error}</p>}

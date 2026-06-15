@@ -46,7 +46,23 @@ export default function ProductTable() {
       alert("Error al eliminar el producto");
     }
   };
+  const getStockStatus = (quantity: number) => {
+    const LOW_STOCK_THRESHOLD = 4;
+    const isLow = quantity <= LOW_STOCK_THRESHOLD;
+    const status = isLow ? "Stock Bajo" : "En Stock";
+    const tone = isLow ? "admin-stock-badge--warning" : "admin-stock-badge--success";
+    const icon = isLow ? "⚠️" : "✓";
 
+    return (
+      <div className={`admin-stock-badge ${tone}`}>
+        <span className="admin-stock-badge__icon">{icon}</span>
+        <div className="admin-stock-badge__content">
+          <span className="admin-stock-badge__status">{status}</span>
+          <span className="admin-stock-badge__value">{quantity} u.</span>
+        </div>
+      </div>
+    );
+  };
   const columns = [
     { header: "ID", accessor: "id" as keyof Product },
     { header: "Nombre", accessor: "title" as keyof Product },
@@ -54,7 +70,10 @@ export default function ProductTable() {
       header: "Precio",
       accessor: (p: Product) => formatPrice(Number(p.price)),
     },
-    { header: "Stock", accessor: "quantity" as keyof Product },
+    {
+      header: "Stock",
+      accessor: (p: Product) => getStockStatus(p.quantity ?? 0),
+    },
     {
       header: "Acciones",
       accessor: (p: Product) => (

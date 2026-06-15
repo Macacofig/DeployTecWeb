@@ -23,8 +23,15 @@ export default function EditProductPage() {
   const [error, setError] = useState("");
 
   const [formData, setFormData] = useState<Partial<Product>>({
+    title: "",
     description: "",
+    price: 0,
+    discountedPrice: 0,
+    discountPersent: 0,
     quantity: 0,
+    brand: "",
+    color: "",
+    imageUrl: "",
   });
 
   useEffect(() => {
@@ -33,13 +40,13 @@ export default function EditProductPage() {
         const product = await ProductService.getProductById(productId);
         setFormData(product);
       } catch (err: unknown) {
-          let message = "Error al cargar el producto";
-          if (err instanceof Error) message = err.message;
-          const axiosErr = err as AxiosError<ApiErrorPayload>;
-          message = axiosErr?.response?.data?.message ?? message;
-          message = axiosErr?.response?.data?.error ?? message;
-          setError(message);
-        } finally {
+        let message = "Error al cargar el producto";
+        if (err instanceof Error) message = err.message;
+        const axiosErr = err as AxiosError<ApiErrorPayload>;
+        message = axiosErr?.response?.data?.message ?? message;
+        message = axiosErr?.response?.data?.error ?? message;
+        setError(message);
+      } finally {
         setLoading(false);
       }
     };
@@ -59,8 +66,41 @@ export default function EditProductPage() {
     }));
   };
 
+  const discountedPrice = formData.price
+    ? Math.round(formData.price - (formData.price * (formData.discountPersent ?? 0)) / 100)
+    : 0;
+
+  const validateForm = (): string | null => {
+    if (!formData.title || formData.title.trim() === "") {
+      return "El nombre del producto es requerido";
+    }
+    if (!formData.description || formData.description.trim() === "") {
+      return "La descripción es requerida";
+    }
+    if (formData.description.trim().length < 10) {
+      return "La descripción debe tener al menos 10 caracteres";
+    }
+    if (formData.price === undefined || formData.price <= 0) {
+      return "El precio debe ser mayor a 0";
+    }
+    if (formData.discountPersent === undefined || formData.discountPersent < 0 || formData.discountPersent > 100) {
+      return "El descuento debe estar entre 0 y 100";
+    }
+    if (formData.quantity === undefined || formData.quantity < 0) {
+      return "La cantidad no puede ser negativa";
+    }
+    return null;
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const validationError = validateForm();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
+
     setError("");
     setSubmitting(true);
 
@@ -105,26 +145,130 @@ export default function EditProductPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="admin-form surface-card">
-          <div className="admin-form__field">
-            <label className="admin-form__label">Descripción</label>
-            <textarea
-              name="description"
-              value={formData.description || ""}
-              onChange={handleInputChange}
-              className="admin-form__textarea"
-              rows={4}
-            />
+          <div className="admin-form__section">
+            <div className="admin-form__section-header">
+              <p className="admin-form__section-eyebrow">Información del producto</p>
+              <h3 className="admin-form__section-title">Editar detalles</h3>
+            </div>
+
+            <div className="admin-form__grid">
+              <Input
+                label="Nombre"
+                name="title"
+                value={formData.title || ""}
+                onChange={handleInputChange}
+                placeholder="Nombre del producto"
+                required
+              />
+              <Input
+                label="Marca"
+                name="brand"
+                value={formData.brand || ""}
+                onChange={handleInputChange}
+                placeholder="Ej: Nike"
+              />
+            </div>
           </div>
 
-          <div className="admin-form__grid">
-            <Input
-              label="Stock"
-              name="quantity"
-              type="number"
-              value={formData.quantity || ""}
-              onChange={handleInputChange}
-              required
-            />
+          <div className="admin-form__section">
+            <div className="admin-form__section-header">
+              <p className="admin-form__section-eyebrow">Descripción</p>
+              <h3 className="admin-form__section-title">Información comercial (mínimo 10 caracteres)</h3>
+            </div>
+
+            <div className="admin-form__field">
+              <label className="admin-form__label">Descripción</label>
+              <textarea
+                name="description"
+                value={formData.description || ""}
+                onChange={handleInputChange}
+                className="admin-form__textarea"
+                rows={5}
+                placeholder="Describe el producto..."
+                minLength={10}
+                required
+              />
+            </div>
+          </div>
+
+          <div className="admin-form__section">
+            <div className="admin-form__section-header">
+              <p className="admin-form__section-eyebrow">Precio y stock</p>
+              <h3 className="admin-form__section-title">Valores y disponibilidad</h3>
+            </div>
+
+            <div className="admin-form__grid admin-form__grid--three">
+              <Input
+                label="Precio (Bs)"
+                name="price"
+                type="number"
+                value={formData.price ?? ""}
+                onChange={handleInputChange}
+                placeholder="0"
+                min="0"
+                required
+              />
+              <Input
+                label="Descuento (0-100%)"
+                name="discountPersent"
+                type="number"
+                value={formData.discountPersent ?? ""}
+                onChange={handleInputChange}
+                placeholder="0"
+                min="0"
+                max="100"
+                required
+              />
+              <Input label="Precio Final" value={String(discountedPrice)} disabled />
+            </div>
+
+            <div className="admin-form__grid">
+              <Input
+                label="Cantidad en Stock"
+                name="quantity"
+                type="number"
+                value={formData.quantity ?? ""}
+                onChange={handleInputChange}
+                placeholder="0"
+                min="0"
+                required
+              />
+              <Input
+                label="Color"
+                name="color"
+                value={formData.color || ""}
+                onChange={handleInputChange}
+                placeholder="Ej: Rojo, Azul"
+              />
+            </div>
+          </div>
+
+          <div className="admin-form__section">
+            <div className="admin-form__section-header">
+              <p className="admin-form__section-eyebrow">Clasificación</p>
+              <h3 className="admin-form__section-title">Detalles de catálogo</h3>
+            </div>
+
+            <div className="admin-form__grid admin-form__grid--three">
+              <Input
+                label="URL Imagen"
+                name="imageUrl"
+                value={formData.imageUrl || ""}
+                onChange={handleInputChange}
+                placeholder="https://ejemplo.com/imagen.jpg"
+              />
+              <div className="admin-form__field">
+                <label className="admin-form__label">Categoría</label>
+                <p className="admin-form__text">{formData.category?.name || "Sin categoría asignada"}</p>
+              </div>
+              <Input
+                label="Color"
+                name="color"
+                value={formData.color || ""}
+                onChange={handleInputChange}
+                placeholder="Ej: Rojo, Azul"
+              />
+            </div>
           </div>
 
           {error && <p className="admin-form__error">{error}</p>}
