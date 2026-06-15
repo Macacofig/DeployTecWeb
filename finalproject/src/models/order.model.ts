@@ -1,5 +1,6 @@
 import type { CartItem } from "./cart.model";
 
+//falta ver
 export interface OrderAddress {
   firstName?: string;
   lastName?: string;
@@ -17,4 +18,6 @@ export interface Order {
   orderStatus?: string;
   paymentStatus?: string;
   shippingAddress?: OrderAddress;
+
+  createdAt?: string;
 }

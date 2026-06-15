@@ -12,54 +12,54 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, onAddToCart }: ProductCardProps) {
   return (
-    <div className="group relative rounded-2xl border border-white/10 bg-white/5 overflow-hidden hover:border-brand-400/40 hover:bg-white/10 transition-all duration-300">
-      <Link href={`/products/${product.id}`}>
-        <div className="relative aspect-square overflow-hidden bg-slate-900">
+    <div className="product-card">
+      <Link href={`/products/${product.id}`} className="product-card__link">
+        <div className="product-card__media">
           {product.imageUrl ? (
             <Image
               src={product.imageUrl}
               alt={product.title}
               fill
-              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              className="product-card__image"
               sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
             />
           ) : (
-            <div className="flex items-center justify-center h-full text-4xl"></div>
+            <div className="product-card__placeholder"></div>
           )}
           {product.discountPersent > 0 && (
-            <span className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+            <span className="product-card__badge">
               -{product.discountPersent}%
             </span>
           )}
         </div>
 
-        <div className="p-4">
-          <p className="text-xs font-medium uppercase tracking-[0.15em] text-brand-300 mb-1">
+        <div className="product-card__body">
+          <p className="product-card__brand">
             {product.brand}
           </p>
-          <h3 className="text-sm font-semibold text-white line-clamp-2 mb-2">{product.title}</h3>
-          <div className="flex items-center gap-2">
-            <span className="text-base font-bold text-brand-200">
+          <h3 className="product-card__title">{product.title}</h3>
+          <div className="product-card__price-row">
+            <span className="product-card__price">
               {formatPrice(product.discountedPrice)}
             </span>
             {product.discountPersent > 0 && (
-              <span className="text-sm text-slate-500 line-through">
+              <span className="product-card__price-old">
                 {formatPrice(product.price)}
               </span>
             )}
           </div>
-          <p className="text-xs text-slate-500 mt-1">
+          <p className="product-card__meta">
             {product.quantity > 0 ? `${product.quantity} disponibles` : "Sin stock"}
           </p>
         </div>
       </Link>
 
       {onAddToCart && (
-        <div className="px-4 pb-4">
+        <div className="product-card__cta">
           <button
             onClick={() => onAddToCart(product)}
             disabled={product.quantity === 0}
-            className="w-full py-2 px-4 bg-brand-500 text-white text-sm font-medium rounded-xl hover:bg-brand-400 active:scale-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+            className="product-card__cta-button"
           >
             {product.quantity === 0 ? "Sin stock" : "Agregar al carrito"}
           </button>

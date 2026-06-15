@@ -1,5 +1,7 @@
 import type { Product } from "./product.model";
 
+//falta entender e implementar
+// producto del carrito
 export interface CartItem {
   id?: number;
   product: Product;
@@ -10,6 +12,7 @@ export interface CartItem {
   discountedPrice?: number;
 }
 
+// carrito completo
 export interface Cart {
   id?: number;
   cartItems: CartItem[];

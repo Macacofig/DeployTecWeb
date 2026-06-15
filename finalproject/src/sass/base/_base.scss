@@ -1,0 +1,64 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/theme";
+
+:root {
+  @include theme.dark-mode-colors;
+}
+
+// Light mode
+@media (prefers-color-scheme: light) {
+  html:not([data-theme="dark"]) {
+    @include theme.light-mode-colors;
+  }
+}
+
+html[data-theme="light"] {
+  @include theme.light-mode-colors;
+}
+
+body {
+  overflow-x: hidden;
+  color: var(--color-text-primary);
+  background: var(--gradient-body);
+  font-family: $font-sans;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.object-cover {
+  object-fit: cover;
+}
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.line-through {
+  text-decoration: line-through;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}

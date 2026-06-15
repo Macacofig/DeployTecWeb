@@ -1,0 +1,55 @@
+@use "../abstracts/variables" as *;
+
+.app-shell {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.surface {
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  border-radius: 1.5rem;
+  box-shadow: $shadow-soft;
+  backdrop-filter: blur(24px);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.surface--soft {
+  background: var(--color-surface-soft);
+}
+
+.page-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+.page-container--wide {
+  max-width: 80rem;
+}
+
+.page-container--medium {
+  max-width: 72rem;
+}
+
+.page-container--narrow {
+  max-width: 64rem;
+}
+
+.page-stack > * + * {
+  margin-top: 1.5rem;
+}
+
+.sidebar-shell {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 16rem;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}

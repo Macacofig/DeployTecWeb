@@ -1,3 +1,4 @@
+//expresion regular para validar el formato de correo electrónico
 export function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 }

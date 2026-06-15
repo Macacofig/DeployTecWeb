@@ -22,8 +22,6 @@ export function CartItemCard({
     item.product.price ??
     0;
 
-  const subtotal = price * item.quantity;
-
   return (
 
     <div className="cart-item">
@@ -33,11 +31,11 @@ export function CartItemCard({
         </h2>
 
         <p className="cart-item__meta">
-          Precio unitario: {formatPrice(price)}
+          Cantidad: {item.quantity}
         </p>
 
         <p className="cart-item__meta">
-          Subtotal: {formatPrice(subtotal)}
+          Precio: {formatPrice(price)}
         </p>
 
       </div>
@@ -46,21 +44,14 @@ export function CartItemCard({
 
         <button
           onClick={onDecrease}
-          disabled={item.quantity <= 1}
           className="cart-item__button"
-          aria-label="Disminuir cantidad"
         >
           -
         </button>
 
-        <span className="cart-item__meta">
-          {item.quantity}
-        </span>
-
         <button
           onClick={onIncrease}
           className="cart-item__button"
-          aria-label="Aumentar cantidad"
         >
           +
         </button>

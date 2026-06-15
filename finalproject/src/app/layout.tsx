@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import "../sass/main.scss";
 import Providers from "./providers";
+import AppRouteGate from "../components/layout/AppRouteGate";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,7 +16,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "ShopWave Fusion",
-  description: "Frontend escalable de e-commerce con Next.js, Tailwind y JWT.",
+  description: "Frontend escalable de e-commerce con Next.js, Sass y JWT.",
 };
 
 export default function RootLayout({
@@ -25,8 +26,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="es" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="min-h-screen bg-slate-950 text-slate-50 antialiased">
-        <Providers>{children}</Providers>
+      <body className="app-shell antialiased">
+        <Providers>
+          <AppRouteGate>{children}</AppRouteGate>
+        </Providers>
       </body>
     </html>
   );

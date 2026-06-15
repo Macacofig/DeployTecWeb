@@ -20,17 +20,17 @@ export default function SearchBar({ initialValue = '', className = '' }: SearchB
   };
 
   return (
-    <form onSubmit={handleSubmit} className={`relative flex items-center ${className}`}>
+    <form onSubmit={handleSubmit} className={`search-bar ${className}`}>
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Buscar productos..."
-        className="w-full pl-4 pr-12 py-2.5 rounded-2xl border border-white/15 bg-white/5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-500"
+        className="search-bar__input"
       />
       <button
         type="submit"
-        className="absolute right-3 text-slate-400 hover:text-white transition-colors"
+        className="search-bar__button"
         aria-label="Buscar"
       >
       </button>

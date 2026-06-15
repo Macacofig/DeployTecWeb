@@ -139,11 +139,34 @@ public class ProductServiceImplementation implements ProductService {
 	public Product updateProduct(Long productId,Product req) throws ProductException {
 		Product product=findProductById(productId);
 		
-		if(req.getQuantity()!=0) {
+		if (req.getTitle() != null && !req.getTitle().isBlank()) {
+			product.setTitle(req.getTitle());
+		}
+		if (req.getDescription() != null && !req.getDescription().isBlank()) {
+			product.setDescription(req.getDescription());
+		}
+		if (req.getPrice() > 0) {
+			product.setPrice(req.getPrice());
+		}
+		if (req.getDiscountPersent() >= 0) {
+			product.setDiscountPersent(req.getDiscountPersent());
+		}
+		if (req.getDiscountedPrice() > 0) {
+			product.setDiscountedPrice(req.getDiscountedPrice());
+		} else if (req.getPrice() > 0) {
+			product.setDiscountedPrice(req.getPrice() - (req.getPrice() * req.getDiscountPersent()) / 100);
+		}
+		if (req.getQuantity() >= 0) {
 			product.setQuantity(req.getQuantity());
 		}
-		if(req.getDescription()!=null) {
-			product.setDescription(req.getDescription());
+		if (req.getBrand() != null && !req.getBrand().isBlank()) {
+			product.setBrand(req.getBrand());
+		}
+		if (req.getColor() != null && !req.getColor().isBlank()) {
+			product.setColor(req.getColor());
+		}
+		if (req.getImageUrl() != null && !req.getImageUrl().isBlank()) {
+			product.setImageUrl(req.getImageUrl());
 		}
 		
 		
@@ -197,13 +220,21 @@ public class ProductServiceImplementation implements ProductService {
 		List<Product> products = productRepository.filterProducts(category, minPrice, maxPrice, minDiscount, sort);
 		
 		
-		if (!colors.isEmpty()) {
+		if (colors != null && !colors.isEmpty()) {
 			products = products.stream()
 			        .filter(p -> colors.stream().anyMatch(c -> c.equalsIgnoreCase(p.getColor())))
 			        .collect(Collectors.toList());
 		
 		
 		} 
+
+		if (sizes != null && !sizes.isEmpty()) {
+			products = products.stream()
+			        .filter(p -> p.getSizes() != null && p.getSizes().stream()
+							.anyMatch(productSize -> sizes.stream()
+								.anyMatch(size -> size.equalsIgnoreCase(productSize.getName()))))
+			        .collect(Collectors.toList());
+		}
 
 		if(stock!=null) {
 

@@ -1,6 +1,7 @@
-import type { Product, ProductFilters, ProductPage } from "../models/product.model";
+import type { CreateProductRequest, Product, ProductFilters, ProductPage } from "../models/product.model";
 import { apiClient } from "../lib/axios";
 
+// Obtener productos con filtros o sin filtros
 const ProductService = {
   async getProducts(filters?: ProductFilters): Promise<ProductPage> {
     const params: Record<string, string> = {};
@@ -20,15 +21,58 @@ const ProductService = {
     return response.data;
   },
 
+  // Obtener un producto por su ID
   async getProductById(id: number): Promise<Product> {
     const response = await apiClient.get<Product>(`/products/${id}`);
     return response.data;
   },
 
+  // Buscar productos por ... - title,description, brand o category.name -> Una categoria 
   async searchProducts(query: string): Promise<Product[]> {
     const response = await apiClient.get<Product[]>("/products/search", {
       params: { q: query },
     });
+    return response.data;
+  },
+
+  // Actualizar un producto por su ID
+  async updateProduct(id: number, product: Product): Promise<Product> {
+    const response = await apiClient.put<Product>(
+      `/admin/products/${id}/update`,
+      product
+    );
+    return response.data;
+  },
+
+  // Eliminar un producto por su ID
+  async deleteProduct(id: number): Promise<{ message: string; success: boolean }> {
+    const response = await apiClient.delete<{ message: string; success: boolean }>(
+      `/admin/products/${id}/delete`
+    );
+    return response.data;
+  },
+
+  // Crear un nuevo producto
+  async createProduct(
+    product: CreateProductRequest
+  ): Promise<Product> {
+
+    const response = await apiClient.post<Product>(
+      "/admin/products/",
+      product
+    );
+    return response.data;
+  },
+
+  // Crear múltiples productos -> Falta implementar
+  async createMultipleProducts(
+    products: CreateProductRequest[]
+  ): Promise<{ message: string; success: boolean }> {
+    const response = await apiClient.post(
+      "/admin/products/creates",
+      products
+    );
+
     return response.data;
   },
 };

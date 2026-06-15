@@ -1,0 +1,360 @@
+@use "sass:map";
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins";
+
+.catalog-results__text {
+  margin: 0;
+  color: map.get(map.get($colors, slate), 400);
+  font-size: 0.92rem;
+}
+
+.filter-panel {
+  display: none;
+  gap: 1.25rem;
+}
+
+.filter-panel--open {
+  display: grid;
+}
+
+.filter-panel__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 0.95rem;
+  background: rgba(255, 255, 255, 0.05);
+  color: map.get(map.get($colors, slate), 200);
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+
+.filter-panel__toggle:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: map.get($colors, white);
+}
+
+.filter-panel__group {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.filter-panel__title {
+  margin: 0;
+  color: map.get(map.get($colors, slate), 400);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.filter-panel__inputs,
+.filter-panel__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.filter-panel__inputs > * {
+  flex: 1 1 calc(50% - 0.25rem);
+  min-width: 8rem;
+}
+
+.filter-panel__clear {
+  color: map.get(map.get($colors, red), 300);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-align: left;
+}
+
+.filter-panel__clear:hover {
+  color: map.get(map.get($colors, red), 200);
+}
+
+.filter-panel__select,
+.filter-panel__input {
+  appearance: none;
+}
+
+.product-grid,
+.catalog-pagination,
+.product-detail__size-grid,
+.checkout-summary__list,
+.admin-form__grid,
+.auth-benefits {
+  display: grid;
+  gap: 1rem;
+}
+
+.catalog-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.catalog-pagination--spaced {
+  margin-top: 2.5rem;
+}
+
+.catalog-pagination__button,
+.product-detail__size-button,
+.filter-panel__tag {
+  padding: 0.55rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: map.get(map.get($colors, slate), 300);
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
+}
+
+.catalog-pagination__button--active,
+.product-detail__size-button--active,
+.filter-panel__tag--active {
+  border-color: rgba(59, 130, 246, 0.9);
+  background: map.get(map.get($colors, brand), 500);
+  color: map.get($colors, white);
+}
+
+.product-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.product-grid--loading,
+.product-grid--empty {
+  display: block;
+}
+
+.product-grid__empty-title,
+.product-grid__empty-description {
+  margin: 0;
+}
+
+.product-grid__empty-title {
+  color: map.get($colors, white);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.product-grid__empty-description {
+  color: map.get(map.get($colors, slate), 400);
+  font-size: 0.92rem;
+}
+
+.product-skeleton {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.product-skeleton__media {
+  aspect-ratio: 1 / 1;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.product-skeleton__body {
+  padding: 1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.product-skeleton__line,
+.checkout-summary__line,
+.ui-table__line {
+  height: 0.85rem;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.product-skeleton__line--title {
+  width: 25%;
+  height: 2rem;
+}
+
+.product-skeleton__line--short {
+  width: 33%;
+}
+
+.product-skeleton__line--medium {
+  width: 66%;
+  height: 1rem;
+}
+
+.product-skeleton__line--narrow {
+  width: 25%;
+}
+
+.product-skeleton__line--hero {
+  width: 66%;
+  height: 2rem;
+}
+
+.product-card {
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  transition: border-color 150ms ease, background-color 150ms ease, transform 150ms ease;
+}
+
+.product-card:hover {
+  border-color: rgba(96, 165, 250, 0.4);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-1px);
+}
+
+.product-card__link {
+  display: block;
+}
+
+.product-card__media {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  background: #0f172a;
+}
+
+.product-card__image {
+  object-fit: cover;
+  transition: transform 500ms ease;
+}
+
+.product-card:hover .product-card__image {
+  transform: scale(1.05);
+}
+
+.product-card__placeholder {
+  height: 100%;
+}
+
+.product-card__badge,
+.product-detail__badge {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid rgba(147, 197, 253, 0.3);
+  border-radius: 9999px;
+  background: rgba(96, 165, 250, 0.08);
+  color: map.get(map.get($colors, brand), 200);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.product-card__body {
+  padding: 1rem;
+}
+
+.product-card__brand {
+  margin: 0 0 0.25rem;
+  color: map.get(map.get($colors, brand), 300);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.product-card__title {
+  margin: 0 0 0.5rem;
+  color: map.get($colors, white);
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.product-card__price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.product-card__price {
+  margin: 0;
+  color: map.get(map.get($colors, brand), 200);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.product-card__price-old,
+.checkout-summary__muted,
+.order-card__muted,
+.cart-item__muted,
+.product-detail__price-old {
+  color: map.get(map.get($colors, slate), 500);
+  text-decoration: line-through;
+}
+
+.product-card__meta {
+  margin: 0.25rem 0 0;
+  color: map.get(map.get($colors, slate), 500);
+  font-size: 0.75rem;
+}
+
+.product-card__cta {
+  padding: 0 1rem 1rem;
+}
+
+.product-card__cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, map.get(map.get($colors, brand), 500), map.get(map.get($colors, brand), 600));
+  color: map.get($colors, white);
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: transform 150ms ease, opacity 150ms ease, background-color 150ms ease, border-color 150ms ease, color 150ms ease;
+}
+
+.product-card__cta-button:hover {
+  transform: translateY(-1px);
+}
+
+.product-card__cta-button:disabled,
+.catalog-pagination__button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+@include mixins.up(md) {
+  .product-grid,
+  .checkout-summary__list,
+  .admin-form__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@include mixins.up(lg) {
+  .product-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
