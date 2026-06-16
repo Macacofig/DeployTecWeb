@@ -23,7 +23,7 @@ export function CartItemCard({
   const subtotal =
     item.discountedPrice ??
     item.price ??
-    unitPrice * item.quantity;
+    0;
 
   return (
 

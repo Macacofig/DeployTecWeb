@@ -126,14 +126,12 @@ export function CartProvider({
     () =>
       items.reduce((sum, item) => {
 
-        const price =
+        const subtotal =
           item.discountedPrice ??
           item.price ??
-          item.product.discountedPrice ??
-          item.product.price ??
           0;
 
-        return sum + price * item.quantity;
+        return sum + subtotal;
 
       }, 0),
     [items],
