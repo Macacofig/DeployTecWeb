@@ -5,7 +5,7 @@ import { getToken } from "../utils/token.util";
 // URL base backend
 const baseURL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:8081";
 
-//Instancia axios custom
+// Creamos instancia axios custom
 export const apiClient = axios.create({
   baseURL,
   // permite cookies/sesiones
@@ -18,10 +18,8 @@ apiClient.interceptors.request.use((config) => {
 
   if (token) {
     config.headers = config.headers ?? {};
-    // agregamos auth automática con prefijo Bearer
-    config.headers.Authorization = token.startsWith("Bearer ")
-      ? token
-      : `Bearer ${token}`;
+    // agregamos auth automática
+    config.headers.Authorization = token;
   }
 
   return config;
