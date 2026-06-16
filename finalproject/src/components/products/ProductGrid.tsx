@@ -22,7 +22,7 @@ function SkeletonCard() {
   );
 }
 
-export default function ProductGrid({ products, loading = false, onAddToCart }: ProductGridProps) {
+export default function ProductGrid({ products = [], loading = false, onAddToCart }: ProductGridProps) {
   if (loading) {
     return (
       <div className="product-grid product-grid--loading">
@@ -31,7 +31,7 @@ export default function ProductGrid({ products, loading = false, onAddToCart }: 
     );
   }
 
-  if (products.length === 0) {
+  if (!products || products.length === 0) {
     return (
       <div className="product-grid--empty empty-state">
         <p className="product-grid__empty-title">No se encontraron productos</p>

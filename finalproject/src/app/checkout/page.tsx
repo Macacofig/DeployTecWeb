@@ -32,6 +32,7 @@ export default function CheckoutPage() {
     city: "",
     state: "",
     zipCode: "",
+    mobile: "",
   });
 
   async function handleCheckout() {
@@ -41,18 +42,18 @@ export default function CheckoutPage() {
       setFormState("submitting");
 
       await createOrder({
-        orderItems: items,
-
-        totalPrice,
-
-        shippingAddress: {
-          firstName: form.firstName,
-          lastName: form.lastName,
-          streetAddress: form.streetAddress,
-          city: form.city,
-          state: form.state,
-          zipCode: form.zipCode,
-        },
+        firstName: form.firstName,
+        lastName: form.lastName,
+        streetAddress: form.streetAddress,
+        city: form.city,
+        state: form.state,
+        zipCode: form.zipCode,
+        mobile: form.mobile,
+        paymentMethod: "CREDIT_CARD",
+        status: "PLACED",
+        paymentId: "123456789",
+        cardholderName: `${form.firstName} ${form.lastName}`,
+        cardNumber: "**** **** **** 1234",
       });
 
       clearLocalCart();
@@ -72,152 +73,119 @@ export default function CheckoutPage() {
   return (
     <AuthGuard>
 
-      <main className="mx-auto min-h-screen w-full max-w-5xl px-6 py-10 lg:px-10">
+      <main className="page-shell page-shell--medium checkout-page">
 
-        <header>
-
-          <p className="text-sm font-medium uppercase tracking-[0.2em] text-brand-200">
+        <header className="checkout-page__header">
+          <p className="page-header__eyebrow">
             Checkout
           </p>
 
-          <h1 className="mt-3 text-4xl font-semibold text-white">
+          <h1 className="page-header__title">
             Finalizar compra
           </h1>
 
-          <p className="mt-2 text-slate-300">
+          <p className="page-header__description">
             Completa tu información para crear la orden.
           </p>
-
         </header>
 
-        <section className="mt-8 grid gap-8 lg:grid-cols-2">
+        <div className="checkout-grid">
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
+          <div className="checkout-panel">
 
-            <h2 className="text-2xl font-semibold text-white">
+            <h2 className="checkout-panel__title">
               Dirección
             </h2>
 
-            <div className="mt-6 space-y-4">
+            <div className="checkout-fields">
 
               <input
                 type="text"
                 placeholder="Nombre"
                 value={form.firstName}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    firstName: e.target.value,
-                  })
-                }
-                className="w-full rounded-xl bg-black/20 p-4 text-white outline-none"
+                onChange={(e) => setForm({ ...form, firstName: e.target.value })}
+                className="checkout-input"
               />
 
               <input
                 type="text"
                 placeholder="Apellido"
                 value={form.lastName}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    lastName: e.target.value,
-                  })
-                }
-                className="w-full rounded-xl bg-black/20 p-4 text-white outline-none"
+                onChange={(e) => setForm({ ...form, lastName: e.target.value })}
+                className="checkout-input"
+              />
+
+              <input
+                type="text"
+                placeholder="Teléfono"
+                value={form.mobile}
+                onChange={(e) => setForm({ ...form, mobile: e.target.value })}
+                className="checkout-input"
               />
 
               <input
                 type="text"
                 placeholder="Dirección"
                 value={form.streetAddress}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    streetAddress: e.target.value,
-                  })
-                }
-                className="w-full rounded-xl bg-black/20 p-4 text-white outline-none"
+                onChange={(e) => setForm({ ...form, streetAddress: e.target.value })}
+                className="checkout-input"
               />
 
               <input
                 type="text"
                 placeholder="Ciudad"
                 value={form.city}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    city: e.target.value,
-                  })
-                }
-                className="w-full rounded-xl bg-black/20 p-4 text-white outline-none"
+                onChange={(e) => setForm({ ...form, city: e.target.value })}
+                className="checkout-input"
               />
 
               <input
                 type="text"
-                placeholder="Estado"
+                placeholder="Estado / Departamento"
                 value={form.state}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    state: e.target.value,
-                  })
-                }
-                className="w-full rounded-xl bg-black/20 p-4 text-white outline-none"
+                onChange={(e) => setForm({ ...form, state: e.target.value })}
+                className="checkout-input"
               />
 
               <input
                 type="text"
-                placeholder="ZIP"
+                placeholder="Código postal"
                 value={form.zipCode}
-                onChange={(e) =>
-                  setForm({
-                    ...form,
-                    zipCode: e.target.value,
-                  })
-                }
-                className="w-full rounded-xl bg-black/20 p-4 text-white outline-none"
+                onChange={(e) => setForm({ ...form, zipCode: e.target.value })}
+                className="checkout-input"
               />
 
             </div>
 
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-8">
+          <div className="checkout-summary">
 
-            <h2 className="text-2xl font-semibold text-white">
+            <h2 className="checkout-panel__title">
               Resumen
             </h2>
 
-            <div className="mt-6 space-y-4">
+            <div className="checkout-fields">
 
               {items.map((item) => (
-
                 <div
                   key={item.id}
-                  className="flex items-center justify-between"
+                  className="cart-summary__row"
                 >
-
                   <div>
-
-                    <p className="text-white">
+                    <p className="order-card__item-name">
                       {item.product.title}
                     </p>
-
-                    <p className="text-sm text-slate-400">
+                    <p className="cart-item__meta">
                       Cantidad: {item.quantity}
                     </p>
-
                   </div>
 
-                  <p className="text-white">
+                  <p className="order-card__item-price">
                     {formatPrice(
-                      (
-                        item.discountedPrice ??
-                        item.price ??
-                        item.product.discountedPrice ??
-                        item.product.price ??
-                        0
-                      ) * item.quantity
+                      item.discountedPrice ??
+                      item.price ??
+                      0
                     )}
                   </p>
 
@@ -226,31 +194,26 @@ export default function CheckoutPage() {
 
             </div>
 
-            <div className="mt-8 flex items-center justify-between border-t border-white/10 pt-6">
-
-              <h3 className="text-2xl font-semibold text-white">
+            <div className="checkout-summary__row--total cart-summary__row">
+              <h3 className="cart-summary__title">
                 Total
               </h3>
-
-              <p className="text-3xl font-bold text-white">
+              <p className="cart-summary__total">
                 {formatPrice(totalPrice)}
               </p>
-
             </div>
 
             <button
               onClick={handleCheckout}
-              disabled={loading}
-              className="mt-8 w-full rounded-xl bg-brand-200 px-6 py-4 font-semibold text-black transition hover:opacity-90 disabled:opacity-50"
+              disabled={loading || items.length === 0}
+              className="cart-summary__button"
             >
-              {loading
-                ? "Procesando..."
-                : "Crear orden"}
+              {loading ? "Procesando..." : "Crear orden"}
             </button>
 
           </div>
 
-        </section>
+        </div>
 
       </main>
 

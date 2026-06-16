@@ -1,5 +1,4 @@
 import type { Order } from "../models/order.model";
-//falta entender e implementar
 import { apiClient } from "../lib/axios";
 
 export async function getOrders(): Promise<Order[]> {
@@ -16,7 +15,7 @@ export async function createOrder(
 ): Promise<Order> {
 
   const response = await apiClient.post<Order>(
-    "/orders",
+    "/orders/",
     order
   );
 
