@@ -50,7 +50,7 @@ export default function CheckoutPage() {
         zipCode: form.zipCode,
         mobile: form.mobile,
         paymentMethod: "CREDIT_CARD",
-        status: "PENDING",
+        status: "PLACED",
         paymentId: "123456789",
         cardholderName: `${form.firstName} ${form.lastName}`,
         cardNumber: "**** **** **** 1234",
