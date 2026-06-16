@@ -1,11 +1,19 @@
 import type { Order } from "../models/order.model";
-//falta entender e implementar
 import { apiClient } from "../lib/axios";
+import { getToken } from "../utils/token.util";
+
+function getBearerHeaders() {
+  const token = getToken();
+  return token
+    ? { Authorization: `Bearer ${token}` }
+    : {};
+}
 
 export async function getOrders(): Promise<Order[]> {
 
   const response = await apiClient.get<Order[]>(
-    "/orders"
+    "/orders",
+    { headers: getBearerHeaders() }
   );
 
   return response.data;
@@ -17,7 +25,8 @@ export async function createOrder(
 
   const response = await apiClient.post<Order>(
     "/orders",
-    order
+    order,
+    { headers: getBearerHeaders() }
   );
 
   return response.data;
@@ -26,7 +35,8 @@ export async function createOrder(
 export async function getUserOrders(): Promise<Order[]> {
 
   const response = await apiClient.get<Order[]>(
-    "/orders/user"
+    "/orders/user",
+    { headers: getBearerHeaders() }
   );
 
   return response.data;
@@ -37,7 +47,8 @@ export async function getOrderById(
 ): Promise<Order> {
 
   const response = await apiClient.get<Order>(
-    `/orders/${orderId}`
+    `/orders/${orderId}`,
+    { headers: getBearerHeaders() }
   );
 
   return response.data;
