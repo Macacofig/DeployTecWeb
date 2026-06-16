@@ -1,7 +1,6 @@
 "use client";
-//falta entender e implementar
 import type { ReactNode } from "react";
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 import type { Cart, CartItem } from "../models/cart.model";
 
@@ -59,22 +58,27 @@ export function CartProvider({
   async function reloadCart() {
 
     if (!hasToken()) {
-
       setItems([]);
-
       setLoading(false);
-
       return;
     }
 
     setLoading(true);
 
-    const cart: Cart = await getCart();
-
-    setItems(cart.cartItems ?? []);
-
-    setLoading(false);
+    try {
+      const cart: Cart = await getCart();
+      setItems(cart.cartItems ?? []);
+    } catch {
+      setItems([]);
+    } finally {
+      setLoading(false);
+    }
   }
+
+  // Carga el carrito automáticamente al montar el provider
+  useEffect(() => {
+    reloadCart();
+  }, []);
 
   async function addItem(
     productId: number,
@@ -118,7 +122,6 @@ export function CartProvider({
   }
 
   function clearLocalCart() {
-
     setItems([]);
   }
 
