@@ -24,11 +24,12 @@ export default function OrdersPage() {
 
         const data = await getUserOrders();
 
-        setOrders(data);
+        setOrders(Array.isArray(data) ? data : []);
 
       } catch (error) {
 
         console.error(error);
+        setOrders([]);
 
       } finally {
 
