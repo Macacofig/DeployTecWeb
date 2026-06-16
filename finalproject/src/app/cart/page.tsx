@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 import { AuthGuard } from "../../guards/AuthGuard";
 
@@ -13,6 +14,8 @@ import { CartSummary } from "../../components/cart/CartSummary";
 
 export default function CartPage() {
 
+  const pathname = usePathname();
+
   const {
     items,
     totalPrice,
@@ -23,7 +26,7 @@ export default function CartPage() {
 
   useEffect(() => {
     reloadCart();
-  }, []);
+  }, [pathname]);
 
   return (
     <AuthGuard>

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 
+import { usePathname } from "next/navigation";
+
 import { AuthGuard } from "../../guards/AuthGuard";
 
 import type { Order } from "../../models/order.model";
@@ -16,9 +18,13 @@ export default function OrdersPage() {
 
   const [loading, setLoading] = useState(true);
 
+  const pathname = usePathname();
+
   useEffect(() => {
 
     async function loadOrders() {
+
+      setLoading(true);
 
       try {
 
@@ -39,7 +45,7 @@ export default function OrdersPage() {
 
     loadOrders();
 
-  }, []);
+  }, [pathname]);
 
   return (
     <AuthGuard>
