@@ -1,4 +1,9 @@
 
+export interface ProductSize {
+  name: string;
+  quantity: number;
+}
+
 //producto que viene del backend
 export interface Product {
   id: number;
@@ -12,7 +17,7 @@ export interface Product {
   brand?: string;
   color?: string;
 
-  sizes?: [{ name: string ; quantity: number }];
+  sizes?: ProductSize[];
 
   imageUrl?: string;
 
@@ -70,7 +75,7 @@ export interface CreateProductRequest {
 
   color?: string;
 
-  sizes: string[];
+  size: ProductSize[];
 
   imageUrl?: string;
 

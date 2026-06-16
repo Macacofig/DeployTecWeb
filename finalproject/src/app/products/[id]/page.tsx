@@ -15,6 +15,8 @@ export default function ProductDetailPage() {
   const [selectedSize, setSelectedSize] = useState<string>("");
   const [quantity, setQuantity] = useState(1);
   const [adding, setAdding] = useState(false);
+  const [cartMessage, setCartMessage] = useState("");
+  const [cartMessageType, setCartMessageType] = useState<"success" | "error">("success");
 
   const availableSizes = useMemo(
     () => product?.sizes?.filter((s) => s.quantity > 0) ?? [],
@@ -61,14 +63,19 @@ export default function ProductDetailPage() {
 
   const handleAddToCart = async () => {
     if (availableSizes.length > 0 && !selectedSize) {
-      alert("Por favor selecciona una talla");
+      setCartMessageType("error");
+      setCartMessage("Por favor selecciona una talla");
       return;
     }
     setAdding(true);
+    setCartMessage("");
     try {
       await addItem(product.id, quantity, selectedSize || undefined);
+      setCartMessageType("success");
+      setCartMessage("Producto agregado al carrito");
     } catch {
-      alert("Error al agregar al carrito. Inicia sesión primero.");
+      setCartMessageType("error");
+      setCartMessage("Error al agregar al carrito. Inicia sesión primero.");
     } finally {
       setAdding(false);
     }
@@ -232,6 +239,12 @@ export default function ProductDetailPage() {
           >
             {adding ? "Agregando..." : product.quantity === 0 ? "Sin stock" : "Agregar al carrito"}
           </button>
+
+          {cartMessage && (
+            <p className={`product-detail__cart-message product-detail__cart-message--${cartMessageType}`}>
+              {cartMessage}
+            </p>
+          )}
         </div>
       </div>
     </main>

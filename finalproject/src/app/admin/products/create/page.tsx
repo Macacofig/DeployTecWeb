@@ -12,7 +12,7 @@ import { AdminGuard } from "@/guards/AdminGuard";
 
 import ProductService from "@/services/product.service";
 
-import type { CreateProductRequest } from "@/models/product.model";
+import type { CreateProductRequest, ProductSize } from "@/models/product.model";
 import type { ApiErrorPayload } from "@/types/api-error-payload.type";
 import type { ProductHighlight } from "@/types/product-highlight.type";
 import type { ProductNumericField } from "@/types/product-numeric-field.type";
@@ -34,7 +34,7 @@ export default function CreateProductPage() {
     quantity: 0,
     brand: "",
     color: "",
-    sizes: [],
+    size: [{ name: "", quantity: 0 }],
     imageUrl: "",
     topLevelCategory: "",
     secondLevelCategory: "",
@@ -91,6 +91,38 @@ export default function CreateProductPage() {
     }));
   };
 
+  const handleSizeChange = (
+    index: number,
+    field: keyof ProductSize,
+    value: string
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      size: prev.size.map((item, itemIndex) =>
+        itemIndex === index
+          ? {
+              ...item,
+              [field]: field === "quantity" ? Number(value) : value,
+            }
+          : item
+      ),
+    }));
+  };
+
+  const addSizeRow = () => {
+    setFormData((prev) => ({
+      ...prev,
+      size: [...prev.size, { name: "", quantity: 0 }],
+    }));
+  };
+
+  const removeSizeRow = (index: number) => {
+    setFormData((prev) => ({
+      ...prev,
+      size: prev.size.filter((_, itemIndex) => itemIndex !== index),
+    }));
+  };
+
   const validateForm = (): string | null => {
     // Validar campos requeridos
     if (!formData.title || formData.title.trim() === "") {
@@ -111,6 +143,18 @@ export default function CreateProductPage() {
     // Validar cantidad
     if (formData.quantity < 0) {
       return "La cantidad no puede ser negativa";
+    }
+
+    const sizesWithData = formData.size.filter(
+      (item) => item.name.trim() !== "" || item.quantity > 0
+    );
+
+    const hasInvalidSize = sizesWithData.some(
+      (item) => item.name.trim() === "" || item.quantity <= 0
+    );
+
+    if (hasInvalidSize) {
+      return "Cada talla debe tener nombre y cantidad mayor a 0";
     }
     
     // Validar descuento
@@ -150,6 +194,7 @@ export default function CreateProductPage() {
     try {
       const payload = {
         ...formData,
+        size: formData.size.filter((item) => item.name.trim() !== ""),
         discountedPrice,
       };
 
@@ -309,6 +354,40 @@ export default function CreateProductPage() {
                   placeholder="Ej: Rojo, Azul, Negro"
                 />
               </div>
+
+              <div className="admin-form__field">
+                <label className="admin-form__label">Tallas</label>
+                <div className="admin-product-create__sizes">
+                  {formData.size.map((item, index) => (
+                    <div key={index} className="admin-form__grid admin-form__grid--three">
+                      <Input
+                        label="Nombre de talla"
+                        value={item.name}
+                        onChange={(event) => handleSizeChange(index, "name", event.target.value)}
+                        placeholder="Ej: m, l, xl"
+                      />
+                      <Input
+                        label="Cantidad"
+                        type="number"
+                        value={String(item.quantity)}
+                        onChange={(event) => handleSizeChange(index, "quantity", event.target.value)}
+                        placeholder="0"
+                        min="0"
+                      />
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => removeSizeRow(index)}
+                      >
+                        Quitar
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+                <Button type="button" variant="outline" onClick={addSizeRow}>
+                  Agregar talla
+                </Button>
+              </div>
             </div>
 
             <div className="admin-form__section">
@@ -399,6 +478,17 @@ export default function CreateProductPage() {
               <div className="admin-product-create__preview-item">
                 <span>Stock</span>
                 <strong>{formData.quantity || 0} unidades</strong>
+              </div>
+              <div className="admin-product-create__preview-item">
+                <span>Tallas</span>
+                <strong>
+                  {formData.size.filter((item) => item.name.trim() !== "").length > 0
+                    ? formData.size
+                        .filter((item) => item.name.trim() !== "")
+                        .map((item) => `${item.name}: ${item.quantity}`)
+                        .join(", ")
+                    : "No definidas"}
+                </strong>
               </div>
             </div>
           </aside>

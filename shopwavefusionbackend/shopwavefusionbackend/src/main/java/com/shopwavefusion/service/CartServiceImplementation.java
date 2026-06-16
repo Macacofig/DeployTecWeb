@@ -7,6 +7,7 @@ import com.shopwavefusion.modal.Cart;
 import com.shopwavefusion.modal.CartItem;
 import com.shopwavefusion.modal.Product;
 import com.shopwavefusion.modal.User;
+import com.shopwavefusion.repository.CartItemRepository;
 import com.shopwavefusion.repository.CartRepository;
 import com.shopwavefusion.request.AddItemRequest;
 
@@ -14,13 +15,15 @@ import com.shopwavefusion.request.AddItemRequest;
 public class CartServiceImplementation implements CartService{
 	
 	private CartRepository cartRepository;
+	private CartItemRepository cartItemRepository;
 	private CartItemService cartItemService;
 	private ProductService productService;
 	
 	
-	public CartServiceImplementation(CartRepository cartRepository,CartItemService cartItemService,
+	public CartServiceImplementation(CartRepository cartRepository,CartItemRepository cartItemRepository,CartItemService cartItemService,
 			ProductService productService) {
 		this.cartRepository=cartRepository;
+		this.cartItemRepository=cartItemRepository;
 		this.productService=productService;
 		this.cartItemService=cartItemService;
 	}
@@ -76,6 +79,13 @@ public class CartServiceImplementation implements CartService{
 			
 			 createdCartItem=cartItemService.createCartItem(cartItem);
 			cart.getCartItems().add(createdCartItem);
+		}
+		else {
+			int quantity=isPresent.getQuantity()+req.getQuantity();
+			isPresent.setQuantity(quantity);
+			isPresent.setPrice(quantity*product.getPrice());
+			isPresent.setDiscountedPrice(quantity*product.getDiscountedPrice());
+			createdCartItem=cartItemRepository.save(isPresent);
 		}
 		
 		

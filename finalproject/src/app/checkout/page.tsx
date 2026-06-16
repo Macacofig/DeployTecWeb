@@ -12,6 +12,16 @@ import { useCart } from "../../hooks/useCart";
 
 import { createOrder } from "../../services/order.service";
 
+const initialCheckoutForm = {
+  firstName: "",
+  lastName: "",
+  streetAddress: "",
+  city: "",
+  state: "",
+  zipCode: "",
+  mobile: "",
+};
+
 export default function CheckoutPage() {
 
   const router = useRouter();
@@ -24,22 +34,16 @@ export default function CheckoutPage() {
 
   const [formState, setFormState] = useState<FormState>("idle");
   const loading = formState === "submitting";
+  const [message, setMessage] = useState("");
 
-  const [form, setForm] = useState({
-    firstName: "",
-    lastName: "",
-    streetAddress: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    mobile: "",
-  });
+  const [form, setForm] = useState(initialCheckoutForm);
 
   async function handleCheckout() {
 
     try {
 
       setFormState("submitting");
+      setMessage("");
 
       await createOrder({
         firstName: form.firstName,
@@ -57,16 +61,17 @@ export default function CheckoutPage() {
       });
 
       clearLocalCart();
+      setForm(initialCheckoutForm);
 
       setFormState("success");
-      router.push("/orders");
+      setMessage("Checkout hecho. Tu pedido fue creado correctamente.");
 
     } catch (error) {
 
       console.error(error);
 
       setFormState("error");
-      alert("Error al crear la orden");
+      setMessage("Error al crear la orden. Revisa los datos e intenta nuevamente.");
     }
   }
 
@@ -167,6 +172,12 @@ export default function CheckoutPage() {
 
             <div className="checkout-fields">
 
+              {items.length === 0 && (
+                <p className="checkout-summary__meta">
+                  No hay productos en el carrito.
+                </p>
+              )}
+
               {items.map((item) => (
                 <div
                   key={item.id}
@@ -210,6 +221,22 @@ export default function CheckoutPage() {
             >
               {loading ? "Procesando..." : "Crear orden"}
             </button>
+
+            {message && (
+              <p className={`checkout-message checkout-message--${formState === "success" ? "success" : "error"}`}>
+                {message}
+              </p>
+            )}
+
+            {formState === "success" && (
+              <button
+                type="button"
+                onClick={() => router.push("/orders")}
+                className="checkout-summary__button checkout-summary__button--secondary"
+              >
+                Ver pedidos
+              </button>
+            )}
 
           </div>
 

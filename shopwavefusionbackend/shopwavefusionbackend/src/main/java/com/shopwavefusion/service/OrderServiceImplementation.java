@@ -16,6 +16,7 @@ import com.shopwavefusion.modal.Order;
 import com.shopwavefusion.modal.OrderItem;
 import com.shopwavefusion.modal.User;
 import com.shopwavefusion.repository.AddressRepository;
+import com.shopwavefusion.repository.CartRepository;
 import com.shopwavefusion.repository.OrderItemRepository;
 import com.shopwavefusion.repository.OrderRepository;
 import com.shopwavefusion.repository.UserRepository;
@@ -28,16 +29,18 @@ public class OrderServiceImplementation implements OrderService {
 	
 	private OrderRepository orderRepository;
 	private CartService cartService;
+	private CartRepository cartRepository;
 	private AddressRepository addressRepository;
 	private UserRepository userRepository;
 	private OrderItemService orderItemService;
 	private OrderItemRepository orderItemRepository;
 	
-	public OrderServiceImplementation(OrderRepository orderRepository,CartService cartService,
+	public OrderServiceImplementation(OrderRepository orderRepository,CartService cartService,CartRepository cartRepository,
 			AddressRepository addressRepository,UserRepository userRepository,
 			OrderItemService orderItemService,OrderItemRepository orderItemRepository) {
 		this.orderRepository=orderRepository;
 		this.cartService=cartService;
+		this.cartRepository=cartRepository;
 		this.addressRepository=addressRepository;
 		this.userRepository=userRepository;
 		this.orderItemService=orderItemService;
@@ -104,6 +107,13 @@ public class OrderServiceImplementation implements OrderService {
 			item.setOrder(savedOrder);
 			orderItemRepository.save(item);
 		}
+
+		cart.getCartItems().clear();
+		cart.setTotalPrice(0);
+		cart.setTotalDiscountedPrice(0);
+		cart.setDiscounte(0);
+		cart.setTotalItem(0);
+		cartRepository.save(cart);
 		
 		return savedOrder;
 		
