@@ -15,14 +15,15 @@ export function CartItemCard({
   onRemove,
 }: Props) {
 
-  const price =
-    item.discountedPrice ??
-    item.price ??
+  const unitPrice =
     item.product.discountedPrice ??
     item.product.price ??
     0;
 
-  const subtotal = price * item.quantity;
+  const subtotal =
+    item.discountedPrice ??
+    item.price ??
+    unitPrice * item.quantity;
 
   return (
 
@@ -33,7 +34,7 @@ export function CartItemCard({
         </h2>
 
         <p className="cart-item__meta">
-          Precio unitario: {formatPrice(price)}
+          Precio unitario: {formatPrice(unitPrice)}
         </p>
 
         <p className="cart-item__meta">
