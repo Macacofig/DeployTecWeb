@@ -29,7 +29,7 @@ export default function CheckoutPage() {
   const {
     items,
     totalPrice,
-    clearLocalCart,
+    reloadCart,
   } = useCart();
 
   const [formState, setFormState] = useState<FormState>("idle");
@@ -60,7 +60,7 @@ export default function CheckoutPage() {
         cardNumber: "**** **** **** 1234",
       });
 
-      clearLocalCart();
+      await reloadCart();
       setForm(initialCheckoutForm);
 
       setFormState("success");
@@ -231,7 +231,10 @@ export default function CheckoutPage() {
             {formState === "success" && (
               <button
                 type="button"
-                onClick={() => router.push("/orders")}
+                onClick={() => {
+                  router.refresh();
+                  router.push("/orders");
+                }}
                 className="checkout-summary__button checkout-summary__button--secondary"
               >
                 Ver pedidos
