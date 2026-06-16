@@ -297,6 +297,9 @@
 }
 
 .cart-item__button--danger {
+  width: auto;
+  padding: 0 1rem;
+  font-size: 0.82rem;
   background: map.get(map.get($colors, red), 500);
 }
 

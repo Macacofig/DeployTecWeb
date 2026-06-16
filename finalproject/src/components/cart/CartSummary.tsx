@@ -1,13 +1,16 @@
 "use client";
 
+import Link from "next/link";
 import { formatPrice } from "../../utils/currency.util";
 
 interface Props {
   totalPrice: number;
+  itemCount?: number;
 }
 
 export function CartSummary({
   totalPrice,
+  itemCount = 0,
 }: Props) {
 
   return (
@@ -24,11 +27,14 @@ export function CartSummary({
 
       </div>
 
-      <button
-        className="cart-summary__button"
+      <Link
+        href="/checkout"
+        className={`cart-summary__button${itemCount === 0 ? " cart-summary__button--disabled" : ""}`}
+        aria-disabled={itemCount === 0}
+        onClick={(e) => itemCount === 0 && e.preventDefault()}
       >
         Ir al checkout
-      </button>
+      </Link>
 
     </section>
   );

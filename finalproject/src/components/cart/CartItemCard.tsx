@@ -15,11 +15,14 @@ export function CartItemCard({
   onRemove,
 }: Props) {
 
-  const price =
-    item.discountedPrice ??
-    item.price ??
+  const unitPrice =
     item.product.discountedPrice ??
     item.product.price ??
+    0;
+
+  const subtotal =
+    item.discountedPrice ??
+    item.price ??
     0;
 
   return (
@@ -31,11 +34,11 @@ export function CartItemCard({
         </h2>
 
         <p className="cart-item__meta">
-          Cantidad: {item.quantity}
+          Precio unitario: {formatPrice(unitPrice)}
         </p>
 
         <p className="cart-item__meta">
-          Precio: {formatPrice(price)}
+          Subtotal: {formatPrice(subtotal)}
         </p>
 
       </div>
@@ -44,14 +47,21 @@ export function CartItemCard({
 
         <button
           onClick={onDecrease}
+          disabled={item.quantity <= 1}
           className="cart-item__button"
+          aria-label="Disminuir cantidad"
         >
           -
         </button>
 
+        <span className="cart-item__meta">
+          {item.quantity}
+        </span>
+
         <button
           onClick={onIncrease}
           className="cart-item__button"
+          aria-label="Aumentar cantidad"
         >
           +
         </button>
