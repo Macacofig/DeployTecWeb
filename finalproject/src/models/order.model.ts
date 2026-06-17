@@ -9,13 +9,28 @@ export interface OrderAddress {
   zipCode?: string;
 }
 
+export interface OrderUser {
+  id?: number;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+}
+
 export interface Order {
   id?: number;
+  user?: OrderUser;
   orderItems?: CartItem[];
   totalPrice?: number;
   totalItem?: number;
   orderStatus?: string;
   paymentStatus?: string;
+  paymentDetails?: {
+    paymentMethod?: string;
+    status?: string;
+    paymentId?: string;
+    cardholderName?: string;
+    cardNumber?: string;
+  };
   shippingAddress?: OrderAddress;
   createdAt?: string;
 

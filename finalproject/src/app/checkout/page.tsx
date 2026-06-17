@@ -41,6 +41,21 @@ export default function CheckoutPage() {
   async function handleCheckout() {
 
     try {
+      const requiredFields = [
+        form.firstName,
+        form.lastName,
+        form.mobile,
+        form.streetAddress,
+        form.city,
+        form.state,
+        form.zipCode,
+      ];
+
+      if (requiredFields.some((field) => field.trim() === "")) {
+        setFormState("error");
+        setMessage("Completa todos los campos antes de crear la orden.");
+        return;
+      }
 
       setFormState("submitting");
       setMessage("");

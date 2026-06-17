@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
@@ -19,6 +18,7 @@ export default function CartPage() {
   const {
     items,
     totalPrice,
+    loading,
     reloadCart,
     updateItemQuantity,
     removeItem,
@@ -47,13 +47,19 @@ export default function CartPage() {
 
         <section className="cart-list">
 
-          {items.length === 0 && (
+          {loading && (
+            <div className="surface-card admin-card">
+              Cargando carrito...
+            </div>
+          )}
+
+          {!loading && items.length === 0 && (
             <div className="surface-card admin-card">
               Tu carrito está vacío.
             </div>
           )}
 
-          {items.map((item) => (
+          {!loading && items.map((item) => (
 
             <CartItemCard
               key={item.id}

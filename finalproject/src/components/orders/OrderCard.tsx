@@ -28,7 +28,7 @@ export function OrderCard({
           <p className="order-card__meta">
             Pago:
             {" "}
-            {order.paymentStatus ?? "Pendiente"}
+            {order.paymentDetails?.status ?? order.paymentStatus ?? "Pendiente"}
           </p>
 
         </div>
@@ -67,13 +67,9 @@ export function OrderCard({
 
             <p className="order-card__item-price">
               {formatPrice(
-                (
-                  item.discountedPrice ??
+                item.discountedPrice ??
                   item.price ??
-                  item.product.discountedPrice ??
-                  item.product.price ??
-                  0
-                ) * item.quantity
+                  ((item.product.discountedPrice ?? item.product.price ?? 0) * item.quantity)
               )}
             </p>
 

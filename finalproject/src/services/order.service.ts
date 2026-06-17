@@ -4,7 +4,7 @@ import { apiClient } from "../lib/axios";
 export async function getOrders(): Promise<Order[]> {
 
   const response = await apiClient.get<Order[]>(
-    "/orders"
+    "/admin/orders/"
   );
 
   return response.data;
