@@ -963,3 +963,139 @@
     text-align: left;
   }
 }
+
+.admin-dashboard-stats {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.admin-stat-card {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.admin-stat-card__label {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.admin-stat-card__value {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.admin-quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.admin-quick-link {
+  flex: 1 1 auto;
+  text-align: center;
+  text-decoration: none;
+}
+
+.admin-detail-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+
+.admin-detail-btn:hover {
+  background: var(--color-surface-soft);
+}
+
+.admin-order-detail-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 1rem;
+}
+
+.admin-order-detail-label {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.admin-order-detail-value {
+  margin: 0.25rem 0 0;
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.admin-order-items {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.admin-order-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border-light);
+  border-radius: 1rem;
+  background: var(--color-surface);
+}
+
+.admin-order-item__img {
+  width: 4rem;
+  height: 4rem;
+  object-fit: cover;
+  border-radius: 0.75rem;
+  flex-shrink: 0;
+}
+
+.admin-order-item__info {
+  flex: 1;
+  display: grid;
+  gap: 0.2rem;
+}
+
+.admin-order-item__name {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.admin-order-item__meta {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+}
+
+.admin-order-item__price {
+  flex-shrink: 0;
+}
+
+@include mixins.up(md) {
+  .admin-dashboard-stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

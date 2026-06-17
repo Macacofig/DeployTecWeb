@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import Table from "@/components/ui/Table";
 import { AdminGuard } from "@/guards/AdminGuard";
@@ -24,7 +25,6 @@ function getCustomerLabel(order: Order) {
 
 function formatDate(value?: string) {
   if (!value) return "Sin fecha";
-
   return new Intl.DateTimeFormat("es-BO", {
     dateStyle: "medium",
     timeStyle: "short",
@@ -32,6 +32,7 @@ function formatDate(value?: string) {
 }
 
 export default function AdminOrdersPage() {
+  const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -41,7 +42,6 @@ export default function AdminOrdersPage() {
       try {
         setLoading(true);
         setError("");
-
         const data = await getOrders();
         setOrders(Array.isArray(data) ? data : []);
       } catch (err) {
@@ -52,7 +52,6 @@ export default function AdminOrdersPage() {
         setLoading(false);
       }
     }
-
     loadOrders();
   }, []);
 
@@ -84,6 +83,17 @@ export default function AdminOrdersPage() {
     {
       header: "Fecha",
       accessor: (order: Order) => formatDate(order.createdAt),
+    },
+    {
+      header: "Acciones",
+      accessor: (order: Order) => (
+        <button
+          className="admin-detail-btn"
+          onClick={() => router.push(`/admin/orders/${order.id}`)}
+        >
+          Ver detalles
+        </button>
+      ),
     },
   ];
 
