@@ -119,7 +119,7 @@
 .admin-product-create__eyebrow,
 .admin-form__section-eyebrow {
   margin: 0;
-  color: var(--color-primary);
+  color: map.get(map.get($colors, brand), 200);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -333,10 +333,10 @@
   width: 4rem;
   height: 4rem;
   flex: 0 0 auto;
-  border: 1px solid var(--color-border-light);
+  border: 1px solid rgba(96, 165, 250, 0.25);
   border-radius: 1.25rem;
   background: var(--color-accent-light);
-  color: var(--color-primary);
+  color: map.get(map.get($colors, brand), 200);
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -449,8 +449,8 @@
   width: 16rem;
   height: 100vh;
   overflow-y: auto;
-  border-right: 1px solid var(--color-sidebar-border);
-  background: var(--color-sidebar-bg);
+  border-right: 1px solid var(--color-border);
+  background: var(--color-bg-secondary);
   transform: translateX(-100%);
   transition: transform 180ms ease;
   z-index: 40;
@@ -525,13 +525,10 @@
   transition: background-color 150ms ease, color 150ms ease;
 }
 
-.admin-sidebar__link:hover {
-  background: var(--color-sidebar-hover);
-}
-
+.admin-sidebar__link:hover,
 .admin-sidebar__link--active {
-  background: var(--color-sidebar-active);
-  color: var(--color-sidebar-active-text);
+  background: var(--color-card-bg-light);
+  color: var(--color-text-primary);
 }
 
 .admin-content {
@@ -545,7 +542,6 @@
   border: 1px solid var(--color-border);
   border-radius: 1.5rem;
   background: var(--color-card-bg);
-  box-shadow: var(--shadow-card);
 }
 
 .admin-card {
@@ -612,8 +608,8 @@
 }
 
 .admin-stock-badge--success {
-  background: var(--color-success-bg);
-  color: var(--color-success-text);
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
   border: 1px solid rgba(34, 197, 94, 0.25);
 }
 
@@ -693,7 +689,7 @@
 .admin-form__error,
 .ui-input__error,
 .status-banner--error {
-  color: var(--color-danger-text);
+  color: map.get(map.get($colors, red), 300);
   font-size: 0.9rem;
 }
 
@@ -723,15 +719,15 @@
 
 .ui-button {
   padding: 0.8rem 1rem;
-  background: var(--color-primary);
-  color: #FFFFFF;
+  background: linear-gradient(180deg, var(--color-accent-indigo), var(--color-accent));
+  color: map.get($colors, white);
 }
 
 .admin-form__submit,
 .ui-button--primary {
   padding: 0.85rem 1rem;
-  background: var(--color-primary);
-  color: #FFFFFF;
+  background: linear-gradient(180deg, var(--color-accent-indigo), var(--color-accent));
+  color: map.get($colors, white);
 }
 
 .ui-button--secondary,
@@ -753,8 +749,8 @@
 
 .ui-button--danger {
   padding: 0.85rem 1rem;
-  background: var(--color-danger-text);
-  color: #FFFFFF;
+  background: map.get(map.get($colors, red), 600);
+  color: map.get($colors, white);
 }
 
 .ui-button:disabled,

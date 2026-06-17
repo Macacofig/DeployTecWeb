@@ -78,7 +78,7 @@
   border: 1px solid var(--color-border);
   border-radius: 1.5rem;
   background: var(--color-surface);
-  box-shadow: var(--shadow-card);
+  box-shadow: $shadow-soft;
   backdrop-filter: blur(24px);
 }
 
@@ -101,7 +101,7 @@
   border: 1px solid var(--color-border);
   border-radius: 1.75rem;
   background: var(--color-card-bg);
-  box-shadow: var(--shadow-card);
+  box-shadow: $shadow-soft;
   backdrop-filter: blur(24px);
 }
 
@@ -131,7 +131,7 @@
   border: 1px solid var(--color-border-light);
   border-radius: 9999px;
   background: var(--color-accent);
-  color: var(--color-primary);
+  color: var(--color-text-primary);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -208,8 +208,8 @@
 
 .hero-card__action--primary,
 .section-action--primary {
-  background: var(--color-primary);
-  color: #FFFFFF;
+  background: linear-gradient(180deg, var(--color-accent-indigo), var(--color-accent));
+  color: map.get($colors, white);
 }
 
 .hero-card__action--secondary,
@@ -296,7 +296,7 @@
   color: var(--color-text-primary);
   font-size: 1.05rem;
   font-weight: 700;
-  box-shadow: inset 0 0 0 1px rgba(79, 70, 229, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.3);
 }
 
 .app-header__brand-copy {
@@ -437,7 +437,6 @@
   border: 1px solid var(--color-border);
   border-radius: 1.25rem;
   background: var(--color-card-bg);
-  box-shadow: var(--shadow-card);
   transition: border-color 150ms ease, background-color 150ms ease, transform 150ms ease;
 }
 
