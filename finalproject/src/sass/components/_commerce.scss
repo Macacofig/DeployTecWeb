@@ -23,7 +23,7 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem;
-  color: map.get(map.get($colors, slate), 400);
+  color: var(--color-text-muted);
   font-size: 0.88rem;
 }
 
@@ -35,16 +35,16 @@
 
 .product-detail__breadcrumb-link:hover,
 .breadcrumb__link:hover {
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
 }
 
 .product-detail__gallery {
   position: relative;
   overflow: hidden;
   aspect-ratio: 1 / 1;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-card-bg);
 }
 
 .product-detail__image {
@@ -55,7 +55,7 @@
   height: 100%;
   display: grid;
   place-items: center;
-  color: map.get(map.get($colors, slate), 400);
+  color: var(--color-text-muted);
   font-size: 3.75rem;
 }
 
@@ -71,10 +71,10 @@
   justify-content: center;
   gap: 0.35rem;
   padding: 0.4rem 0.75rem;
-  border: 1px solid rgba(147, 197, 253, 0.3);
+  border: 1px solid var(--color-border-light);
   border-radius: 9999px;
-  background: rgba(96, 165, 250, 0.08);
-  color: map.get(map.get($colors, brand), 200);
+  background: var(--color-accent);
+  color: var(--color-primary);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -83,7 +83,7 @@
 
 .product-detail__brand {
   margin: 0;
-  color: map.get(map.get($colors, brand), 200);
+  color: var(--color-primary);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -92,13 +92,13 @@
 
 .product-detail__subtitle {
   margin: 0.5rem 0 0;
-  color: map.get(map.get($colors, slate), 400);
+  color: var(--color-text-muted);
   font-size: 0.95rem;
 }
 
 .product-detail__title {
   margin: 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: clamp(2rem, 3vw, 2.75rem);
   font-weight: 600;
   line-height: 1.1;
@@ -110,14 +110,14 @@
 .order-card__meta,
 .checkout-summary__meta {
   margin: 0;
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-secondary);
   font-size: 0.95rem;
   line-height: 1.7;
 }
 
 .product-detail__price {
   margin: 0;
-  color: map.get(map.get($colors, brand), 200);
+  color: var(--color-primary);
   font-size: 1.875rem;
   font-weight: 700;
 }
@@ -132,15 +132,15 @@
 .product-detail__notice,
 .product-detail__size-detail {
   padding: 1rem 1.1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border-light);
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--color-card-bg);
 }
 
 .product-detail__summary-card strong {
   display: block;
   margin-top: 0.35rem;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
 }
 
 .product-detail__meta-list {
@@ -150,7 +150,7 @@
 
 .product-detail__meta-item {
   margin: 0;
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-secondary);
   font-size: 0.95rem;
 }
 
@@ -163,8 +163,8 @@
 .product-detail__size-chip {
   padding: 0.45rem 0.8rem;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.08);
-  color: map.get(map.get($colors, slate), 200);
+  background: var(--color-surface-soft);
+  color: var(--color-text-secondary);
   font-size: 0.85rem;
   font-weight: 600;
 }
@@ -199,10 +199,10 @@
 .filter-panel__tag,
 .catalog-pagination__button {
   padding: 0.55rem 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--color-border);
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.04);
-  color: map.get(map.get($colors, slate), 300);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
   font-size: 0.82rem;
   font-weight: 600;
   transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
@@ -211,9 +211,9 @@
 .product-detail__size-button--active,
 .filter-panel__tag--active,
 .catalog-pagination__button--active {
-  border-color: rgba(59, 130, 246, 0.9);
-  background: map.get(map.get($colors, brand), 500);
-  color: map.get($colors, white);
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #FFFFFF;
 }
 
 .product-detail__quantity,
@@ -224,29 +224,27 @@
 }
 
 .product-detail__quantity-button,
-.cart-item__button,
-.ui-modal__close {
+.cart-item__button {
   width: 2.5rem;
   height: 2.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--color-border);
   border-radius: 0.9rem;
-  background: rgba(255, 255, 255, 0.05);
-  color: map.get($colors, white);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
   font-size: 1.1rem;
   font-weight: 700;
   transition: background-color 150ms ease, border-color 150ms ease;
 }
 
 .product-detail__quantity-button:hover,
-.cart-item__button:hover,
-.ui-modal__close:hover {
-  background: rgba(255, 255, 255, 0.1);
+.cart-item__button:hover {
+  background: var(--color-surface-soft);
 }
 
 .product-detail__quantity-value {
   width: 2rem;
   text-align: center;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-weight: 600;
 }
 
@@ -297,9 +295,9 @@
   justify-content: space-between;
   gap: 1.25rem;
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1.25rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-card-bg);
 }
 
 .cart-item__title,
@@ -307,7 +305,7 @@
 .checkout-summary__title,
 .admin-page__title {
   margin: 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -320,11 +318,13 @@
   width: auto;
   padding: 0 1rem;
   font-size: 0.82rem;
-  background: map.get(map.get($colors, red), 500);
+  background: var(--color-danger-bg);
+  color: var(--color-danger-text);
+  border: 1px solid transparent;
 }
 
 .cart-item__button--danger:hover {
-  background: map.get(map.get($colors, red), 600);
+  background: var(--color-danger-hover);
 }
 
 .cart-summary,
@@ -333,9 +333,9 @@
 .order-card,
 .product-detail__panel {
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-card-bg);
 }
 
 .cart-summary__row,
@@ -354,14 +354,14 @@
 .checkout-summary__row--total {
   margin-top: 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-border);
 }
 
 .cart-summary__title,
 .checkout-summary__title,
 .order-card__total {
   margin: 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -370,7 +370,7 @@
 .checkout-summary__total,
 .order-card__amount {
   margin: 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 1.875rem;
   font-weight: 700;
 }
@@ -386,8 +386,8 @@
   padding: 0.85rem 1rem;
   border: 1px solid transparent;
   border-radius: 1rem;
-  background: linear-gradient(180deg, map.get(map.get($colors, brand), 500), map.get(map.get($colors, brand), 600));
-  color: map.get($colors, white);
+  background: var(--color-primary);
+  color: #FFFFFF;
   font-size: 0.92rem;
   font-weight: 600;
   transition: transform 150ms ease, opacity 150ms ease, background-color 150ms ease, border-color 150ms ease, color 150ms ease;
@@ -395,14 +395,14 @@
 
 .cart-summary__button,
 .checkout-summary__button {
-  color: #020617;
-  background: map.get(map.get($colors, brand), 200);
+  color: #FFFFFF;
+  background: var(--color-primary);
 }
 
 .checkout-summary__button--secondary {
-  color: map.get($colors, white);
+  color: var(--color-secondary-button-text);
   background: transparent;
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: var(--color-secondary-button-border);
 }
 
 .checkout-message {
@@ -420,15 +420,15 @@
 }
 
 .checkout-message--error {
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  background: rgba(239, 68, 68, 0.12);
-  color: #fecaca;
+  border: 1px solid var(--color-danger-bg);
+  background: var(--color-danger-bg);
+  color: var(--color-danger-text);
 }
 
 .order-card__items {
   margin-top: 1.5rem;
   padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-border);
   display: grid;
   gap: 1rem;
 }
@@ -436,14 +436,14 @@
 .order-card__item-name,
 .checkout-summary__item-name,
 .cart-item__title {
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-weight: 500;
 }
 
 .order-card__item-price,
 .checkout-summary__item-price,
 .cart-item__amount {
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
 }
 
 .checkout-grid {
@@ -455,16 +455,16 @@
 .checkout-panel,
 .checkout-summary {
   padding: 1.5rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1.5rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-card-bg);
 }
 
 .checkout-panel__title,
 .admin-form__title,
 .admin-page__section-title {
   margin: 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 1.5rem;
   font-weight: 600;
 }
@@ -472,21 +472,21 @@
 .checkout-input {
   width: 100%;
   padding: 0.9rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1rem;
-  background: rgba(2, 6, 23, 0.72);
-  color: map.get($colors, white);
+  background: var(--color-card-bg);
+  color: var(--color-text-primary);
   outline: none;
   transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
 }
 
 .checkout-input::placeholder {
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
 }
 
 .checkout-input:focus {
-  border-color: rgba(59, 130, 246, 0.75);
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.14);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.14);
 }
 
 .checkout-summary__list {
@@ -496,14 +496,14 @@
 .checkout-summary__line {
   height: 0.85rem;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-border-light);
 }
 
 .checkout-summary__muted,
 .order-card__muted,
 .cart-item__muted,
 .product-detail__price-old {
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
   text-decoration: line-through;
 }
 

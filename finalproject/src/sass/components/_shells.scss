@@ -78,7 +78,7 @@
   border: 1px solid var(--color-border);
   border-radius: 1.5rem;
   background: var(--color-surface);
-  box-shadow: $shadow-soft;
+  box-shadow: var(--shadow-card);
   backdrop-filter: blur(24px);
 }
 
@@ -101,7 +101,7 @@
   border: 1px solid var(--color-border);
   border-radius: 1.75rem;
   background: var(--color-card-bg);
-  box-shadow: $shadow-soft;
+  box-shadow: var(--shadow-card);
   backdrop-filter: blur(24px);
 }
 
@@ -128,10 +128,10 @@
   justify-content: center;
   gap: 0.35rem;
   padding: 0.4rem 0.75rem;
-  border: 1px solid var(--color-accent-light);
+  border: 1px solid var(--color-border-light);
   border-radius: 9999px;
-  background: var(--color-accent-light);
-  color: var(--color-text-primary);
+  background: var(--color-accent);
+  color: var(--color-primary);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -208,8 +208,8 @@
 
 .hero-card__action--primary,
 .section-action--primary {
-  background: linear-gradient(180deg, var(--color-accent-indigo), var(--color-accent));
-  color: map.get($colors, white);
+  background: var(--color-primary);
+  color: #FFFFFF;
 }
 
 .hero-card__action--secondary,
@@ -296,7 +296,7 @@
   color: var(--color-text-primary);
   font-size: 1.05rem;
   font-weight: 700;
-  box-shadow: inset 0 0 0 1px rgba(96, 165, 250, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(79, 70, 229, 0.3);
 }
 
 .app-header__brand-copy {
@@ -437,6 +437,7 @@
   border: 1px solid var(--color-border);
   border-radius: 1.25rem;
   background: var(--color-card-bg);
+  box-shadow: var(--shadow-card);
   transition: border-color 150ms ease, background-color 150ms ease, transform 150ms ease;
 }
 
@@ -549,9 +550,9 @@
 .status-banner {
   padding: 1rem 1.25rem;
   border-radius: 1rem;
-  border: 1px solid rgba(248, 113, 113, 0.25);
-  background: rgba(248, 113, 113, 0.1);
-  color: map.get(map.get($colors, red), 200);
+  border: 1px solid var(--color-border);
+  background: var(--color-card-bg);
+  color: var(--color-text-secondary);
   font-size: 0.92rem;
   line-height: 1.6;
 }
@@ -560,7 +561,7 @@
   min-height: 100vh;
   display: grid;
   place-items: center;
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-muted);
 }
 
 @include mixins.up(md) {

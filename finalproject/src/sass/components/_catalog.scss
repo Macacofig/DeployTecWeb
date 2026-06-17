@@ -4,7 +4,7 @@
 
 .catalog-results__text {
   margin: 0;
-  color: map.get(map.get($colors, slate), 400);
+  color: var(--color-text-muted);
   font-size: 0.92rem;
 }
 
@@ -23,18 +23,18 @@
   gap: 0.5rem;
   margin-bottom: 1rem;
   padding: 0.7rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--color-border);
   border-radius: 0.95rem;
-  background: rgba(255, 255, 255, 0.05);
-  color: map.get(map.get($colors, slate), 200);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
   font-size: 0.92rem;
   font-weight: 600;
   transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
 }
 
 .filter-panel__toggle:hover {
-  background: rgba(255, 255, 255, 0.1);
-  color: map.get($colors, white);
+  background: var(--color-surface-soft);
+  color: var(--color-text-primary);
 }
 
 .filter-panel__group {
@@ -44,7 +44,7 @@
 
 .filter-panel__title {
   margin: 0;
-  color: map.get(map.get($colors, slate), 400);
+  color: var(--color-text-muted);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -64,7 +64,7 @@
 }
 
 .filter-panel__clear {
-  color: map.get(map.get($colors, red), 300);
+  color: var(--color-danger-text);
   font-size: 0.9rem;
   font-weight: 600;
   text-decoration: underline;
@@ -72,7 +72,7 @@
 }
 
 .filter-panel__clear:hover {
-  color: map.get(map.get($colors, red), 200);
+  color: var(--color-danger-hover, #FECACA);
 }
 
 .filter-panel__select,
@@ -105,10 +105,10 @@
 .product-detail__size-button,
 .filter-panel__tag {
   padding: 0.55rem 0.9rem;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--color-border);
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.04);
-  color: map.get(map.get($colors, slate), 300);
+  background: var(--color-surface);
+  color: var(--color-text-secondary);
   font-size: 0.82rem;
   font-weight: 600;
   transition: border-color 150ms ease, background-color 150ms ease, color 150ms ease;
@@ -117,9 +117,9 @@
 .catalog-pagination__button--active,
 .product-detail__size-button--active,
 .filter-panel__tag--active {
-  border-color: rgba(59, 130, 246, 0.9);
-  background: map.get(map.get($colors, brand), 500);
-  color: map.get($colors, white);
+  border-color: var(--color-primary);
+  background: var(--color-primary);
+  color: #FFFFFF;
 }
 
 .product-grid {
@@ -137,27 +137,27 @@
 }
 
 .product-grid__empty-title {
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 1.05rem;
   font-weight: 600;
 }
 
 .product-grid__empty-description {
-  color: map.get(map.get($colors, slate), 400);
+  color: var(--color-text-muted);
   font-size: 0.92rem;
 }
 
 .product-skeleton {
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border-light);
   border-radius: 1.25rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-card-bg);
   animation: pulse 1.8s ease-in-out infinite;
 }
 
 .product-skeleton__media {
   aspect-ratio: 1 / 1;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-border-light);
 }
 
 .product-skeleton__body {
@@ -171,7 +171,7 @@
 .ui-table__line {
   height: 0.85rem;
   border-radius: 9999px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-border);
 }
 
 .product-skeleton__line--title {
@@ -199,15 +199,15 @@
 
 .product-card {
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   border-radius: 1.25rem;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-card-bg);
   transition: border-color 150ms ease, background-color 150ms ease, transform 150ms ease;
 }
 
 .product-card:hover {
-  border-color: rgba(96, 165, 250, 0.4);
-  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--color-border-light);
+  background: var(--color-card-bg-light);
   transform: translateY(-1px);
 }
 
@@ -219,7 +219,7 @@
   position: relative;
   overflow: hidden;
   aspect-ratio: 1 / 1;
-  background: #0f172a;
+  background: var(--color-surface-soft);
 }
 
 .product-card__image {
@@ -245,10 +245,10 @@
   justify-content: center;
   gap: 0.35rem;
   padding: 0.4rem 0.75rem;
-  border: 1px solid rgba(147, 197, 253, 0.3);
+  border: 1px solid var(--color-border-light);
   border-radius: 9999px;
-  background: rgba(96, 165, 250, 0.08);
-  color: map.get(map.get($colors, brand), 200);
+  background: var(--color-accent);
+  color: var(--color-primary);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -261,7 +261,7 @@
 
 .product-card__brand {
   margin: 0 0 0.25rem;
-  color: map.get(map.get($colors, brand), 300);
+  color: var(--color-primary);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.15em;
@@ -270,7 +270,7 @@
 
 .product-card__title {
   margin: 0 0 0.5rem;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 0.92rem;
   font-weight: 600;
   line-height: 1.35;
@@ -284,7 +284,7 @@
 
 .product-card__price {
   margin: 0;
-  color: map.get(map.get($colors, brand), 200);
+  color: var(--color-primary);
   font-size: 1rem;
   font-weight: 700;
 }
@@ -294,13 +294,13 @@
 .order-card__muted,
 .cart-item__muted,
 .product-detail__price-old {
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
   text-decoration: line-through;
 }
 
 .product-card__meta {
   margin: 0.25rem 0 0;
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
   font-size: 0.75rem;
 }
 
@@ -317,8 +317,8 @@
   padding: 0.85rem 1rem;
   border: 1px solid transparent;
   border-radius: 1rem;
-  background: linear-gradient(180deg, map.get(map.get($colors, brand), 500), map.get(map.get($colors, brand), 600));
-  color: map.get($colors, white);
+  background: var(--color-primary);
+  color: #FFFFFF;
   font-size: 0.92rem;
   font-weight: 600;
   transition: transform 150ms ease, opacity 150ms ease, background-color 150ms ease, border-color 150ms ease, color 150ms ease;

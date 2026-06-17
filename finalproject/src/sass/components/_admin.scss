@@ -119,7 +119,7 @@
 .admin-product-create__eyebrow,
 .admin-form__section-eyebrow {
   margin: 0;
-  color: map.get(map.get($colors, brand), 200);
+  color: var(--color-primary);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -333,10 +333,10 @@
   width: 4rem;
   height: 4rem;
   flex: 0 0 auto;
-  border: 1px solid rgba(96, 165, 250, 0.25);
+  border: 1px solid var(--color-border-light);
   border-radius: 1.25rem;
   background: var(--color-accent-light);
-  color: map.get(map.get($colors, brand), 200);
+  color: var(--color-primary);
   font-size: 1.25rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -375,7 +375,7 @@
 
 .profile-page__value {
   margin: 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 0.98rem;
   font-weight: 600;
   line-height: 1.5;
@@ -392,20 +392,20 @@
 
 .admin-product-create__preview-name {
   margin: 0;
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 1.15rem;
   font-weight: 600;
 }
 
 .admin-product-create__preview-brand {
   margin: 0;
-  color: map.get(map.get($colors, slate), 400);
+  color: var(--color-text-muted);
   font-size: 0.92rem;
 }
 
 .admin-product-create__preview-description {
   margin: 0.3rem 0 0;
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-secondary);
   line-height: 1.7;
 }
 
@@ -420,13 +420,13 @@
   justify-content: space-between;
   gap: 1rem;
   padding: 0.85rem 1rem;
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--color-border-light);
   border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--color-card-bg);
 }
 
 .admin-product-create__preview-item span {
-  color: map.get(map.get($colors, slate), 500);
+  color: var(--color-text-muted);
   font-size: 0.82rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -434,7 +434,7 @@
 }
 
 .admin-product-create__preview-item strong {
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
   font-size: 0.92rem;
   font-weight: 600;
   text-align: right;
@@ -449,8 +449,8 @@
   width: 16rem;
   height: 100vh;
   overflow-y: auto;
-  border-right: 1px solid var(--color-border);
-  background: var(--color-bg-secondary);
+  border-right: 1px solid var(--color-sidebar-border);
+  background: var(--color-sidebar-bg);
   transform: translateX(-100%);
   transition: transform 180ms ease;
   z-index: 40;
@@ -525,10 +525,13 @@
   transition: background-color 150ms ease, color 150ms ease;
 }
 
-.admin-sidebar__link:hover,
+.admin-sidebar__link:hover {
+  background: var(--color-sidebar-hover);
+}
+
 .admin-sidebar__link--active {
-  background: var(--color-card-bg-light);
-  color: var(--color-text-primary);
+  background: var(--color-sidebar-active);
+  color: var(--color-sidebar-active-text);
 }
 
 .admin-content {
@@ -542,6 +545,7 @@
   border: 1px solid var(--color-border);
   border-radius: 1.5rem;
   background: var(--color-card-bg);
+  box-shadow: var(--shadow-card);
 }
 
 .admin-card {
@@ -565,9 +569,9 @@
 }
 
 .admin-table-loading {
-  border-color: rgba(148, 163, 184, 0.2);
-  background: rgba(255, 255, 255, 0.04);
-  color: map.get(map.get($colors, slate), 400);
+  border-color: var(--color-border-light);
+  background: var(--color-card-bg);
+  color: var(--color-text-muted);
 }
 
 .admin-stock-badge {
@@ -608,14 +612,14 @@
 }
 
 .admin-stock-badge--success {
-  background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
+  background: var(--color-success-bg);
+  color: var(--color-success-text);
   border: 1px solid rgba(34, 197, 94, 0.25);
 }
 
 .admin-stock-badge--warning {
-  background: rgba(251, 146, 60, 0.15);
-  color: #fb923c;
+  background: rgba(251, 146, 60, 0.12);
+  color: #ea580c;
   border: 1px solid rgba(251, 146, 60, 0.25);
   animation: pulse-warning 2s infinite;
 }
@@ -631,7 +635,7 @@
 
 .auth-status {
   margin: 0;
-  color: map.get(map.get($colors, slate), 200);
+  color: var(--color-text-secondary);
   font-size: 0.95rem;
   line-height: 1.6;
 }
@@ -659,7 +663,7 @@
 
 .admin-form__label,
 .ui-input__label {
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-secondary);
   font-size: 0.88rem;
   font-weight: 600;
 }
@@ -689,7 +693,7 @@
 .admin-form__error,
 .ui-input__error,
 .status-banner--error {
-  color: map.get(map.get($colors, red), 300);
+  color: var(--color-danger-text);
   font-size: 0.9rem;
 }
 
@@ -719,15 +723,15 @@
 
 .ui-button {
   padding: 0.8rem 1rem;
-  background: linear-gradient(180deg, var(--color-accent-indigo), var(--color-accent));
-  color: map.get($colors, white);
+  background: var(--color-primary);
+  color: #FFFFFF;
 }
 
 .admin-form__submit,
 .ui-button--primary {
   padding: 0.85rem 1rem;
-  background: linear-gradient(180deg, var(--color-accent-indigo), var(--color-accent));
-  color: map.get($colors, white);
+  background: var(--color-primary);
+  color: #FFFFFF;
 }
 
 .ui-button--secondary,
@@ -749,8 +753,8 @@
 
 .ui-button--danger {
   padding: 0.85rem 1rem;
-  background: map.get(map.get($colors, red), 600);
-  color: map.get($colors, white);
+  background: var(--color-danger-text);
+  color: #FFFFFF;
 }
 
 .ui-button:disabled,

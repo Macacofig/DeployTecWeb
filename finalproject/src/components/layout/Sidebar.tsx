@@ -61,7 +61,7 @@ export default function Sidebar({ open, onClose }: SidebarProps) {
           ))}
 
           <div className="admin-sidebar__actions">
-            <Link href="/profile" className="app-header__button app-header__button--ghost">
+            <Link href="/admin/profile" className="app-header__button app-header__button--ghost">
               Perfil
             </Link>
             <button
