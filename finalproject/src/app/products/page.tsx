@@ -19,12 +19,19 @@ function ProductsContent() {
   });
 
   useEffect(() => {
-    if (searchQuery) {
-      setFilters((prev) => ({ ...prev, searchQuery: searchQuery, pageNumber: 0 }));
-    } else {
-      setFilters((prev) => ({ ...prev, searchQuery: undefined }));
-    }
-  }, [searchQuery, setFilters]);
+    setFilters((prev) => {
+      if (prev.searchQuery === searchQuery && prev.category === categoryParam) {
+        return prev;
+      }
+
+      return {
+        ...prev,
+        category: categoryParam,
+        searchQuery,
+        pageNumber: 0,
+      };
+    });
+  }, [categoryParam, searchQuery, setFilters]);
 
   const handlePageChange = (page: number) => {
     setFilters((prev) => ({ ...prev, pageNumber: page }));

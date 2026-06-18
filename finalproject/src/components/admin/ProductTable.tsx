@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Table from "@/components/ui/Table";
 import Button from "@/components/ui/Button";
+import Modal from "@/components/ui/Modal";
 import type { Product } from "@/models/product.model";
 import type { AxiosError } from "axios";
 import ProductService from "@/services/product.service";
@@ -15,6 +16,9 @@ const ADMIN_PRODUCTS_PAGE_SIZE = 100;
 export default function ProductTable() {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
+  const [productToDelete, setProductToDelete] = useState<Product | null>(null);
+  const [deleting, setDeleting] = useState(false);
+  const [deleteMessage, setDeleteMessage] = useState("");
 
   useEffect(() => {
     let ignore = false;
@@ -65,18 +69,32 @@ export default function ProductTable() {
     };
   }, []);
 
-  const handleDelete = async (id: number) => {
-    if (!confirm("¿Estás seguro de que deseas eliminar este producto?")) {
+  const closeDeleteModal = () => {
+    if (deleting) {
+      return;
+    }
+
+    setProductToDelete(null);
+    setDeleteMessage("");
+  };
+
+  const handleDelete = async () => {
+    if (!productToDelete) {
       return;
     }
 
     try {
-      await ProductService.deleteProduct(id);
-      setProducts((currentProducts) => currentProducts.filter((p) => p.id !== id));
-      alert("Producto eliminado exitosamente");
+      setDeleting(true);
+      setDeleteMessage("");
+      await ProductService.deleteProduct(productToDelete.id);
+      setProducts((currentProducts) => currentProducts.filter((p) => p.id !== productToDelete.id));
+      setProductToDelete(null);
+      setDeleteMessage(`Producto "${productToDelete.title}" eliminado correctamente.`);
     } catch (err: unknown) {
       console.error("Error al eliminar producto:", err);
-      alert("Error al eliminar el producto");
+      setDeleteMessage("Error al eliminar el producto. Intenta nuevamente.");
+    } finally {
+      setDeleting(false);
     }
   };
 
@@ -119,7 +137,10 @@ export default function ProductTable() {
           <Button
             variant="outline"
             className="ui-button--danger"
-            onClick={() => handleDelete(p.id)}
+            onClick={() => {
+              setDeleteMessage("");
+              setProductToDelete(p);
+            }}
           >
             Eliminar
           </Button>
@@ -133,14 +154,63 @@ export default function ProductTable() {
   }
 
   return (
-    <div className="admin-table-shell admin-products-table-shell">
-      <div className="admin-table-shell__inner admin-products-table-shell__inner">
-        <Table
-          columns={columns}
-          data={products}
-          keyExtractor={(p) => String(p.id)}
-        />
+    <>
+      {deleteMessage && !productToDelete && (
+        <p className="admin-products-table__message">
+          {deleteMessage}
+        </p>
+      )}
+
+      <div className="admin-table-shell admin-products-table-shell">
+        <div className="admin-table-shell__inner admin-products-table-shell__inner">
+          <Table
+            columns={columns}
+            data={products}
+            keyExtractor={(p) => String(p.id)}
+          />
+        </div>
       </div>
-    </div>
+
+      <Modal
+        isOpen={Boolean(productToDelete)}
+        onClose={closeDeleteModal}
+        title="Eliminar producto"
+      >
+        <div className="admin-delete-modal">
+          <p className="admin-delete-modal__text">
+            ¿Estás seguro de que deseas eliminar este producto?
+          </p>
+
+          <p className="admin-delete-modal__product">
+            {productToDelete?.title}
+          </p>
+
+          {deleteMessage && (
+            <p className="admin-delete-modal__error">
+              {deleteMessage}
+            </p>
+          )}
+
+          <div className="admin-delete-modal__actions">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={closeDeleteModal}
+              disabled={deleting}
+            >
+              Cancelar
+            </Button>
+            <Button
+              type="button"
+              variant="danger"
+              onClick={handleDelete}
+              disabled={deleting}
+            >
+              {deleting ? "Eliminando..." : "Eliminar"}
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </>
   );
 }

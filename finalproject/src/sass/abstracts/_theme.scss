@@ -71,6 +71,8 @@ $color-panel-overlay: linear-gradient(
   --color-button-primary-to: #2563eb;
   --color-button-primary-hover-from: #2563eb;
   --color-button-primary-hover-to: #1d4ed8;
+  --color-message-success-text: #bbf7d0;
+  --color-message-error-text: #fecaca;
   --gradient-auth-page: var(--color-bg);
   --gradient-body: linear-gradient(180deg, #020617 0%, #0f172a 100%);
   --color-panel-overlay: linear-gradient(
@@ -105,6 +107,8 @@ $color-panel-overlay: linear-gradient(
   --color-button-primary-to: #075985;
   --color-button-primary-hover-from: #075985;
   --color-button-primary-hover-to: #0c4a6e;
+  --color-message-success-text: #166534;
+  --color-message-error-text: #991b1b;
   --color-primary: #0284c7;
   --color-primary-hover: #0369a1;
   --color-primary-active: #075985;
