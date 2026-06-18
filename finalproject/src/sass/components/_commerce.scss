@@ -273,6 +273,16 @@
   color: #fecaca;
 }
 
+.product-detail__buy-box {
+  position: sticky;
+  top: 6rem;
+  padding: 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1.5rem;
+  background: var(--color-card-bg);
+  box-shadow: 0 4px 16px -4px rgba(0, 0, 0, 0.1);
+}
+
 .cart-page,
 .orders-page,
 .profile-page,
@@ -514,5 +524,11 @@
     grid-template-columns: 1fr 1fr;
     align-items: start;
     gap: 3rem;
+  }
+}
+
+@include mixins.up(lg) {
+  .product-detail__layout {
+    grid-template-columns: 1fr 1fr 300px;
   }
 }

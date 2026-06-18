@@ -45,6 +45,7 @@ export interface ProductPage {
 
 // filtros para pedir productos al backend
 export interface ProductFilters {
+  searchQuery?: string;
   category?: string;
   colors?: string;
   sizes?: string;

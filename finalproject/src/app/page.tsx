@@ -9,7 +9,6 @@ import ProductService from "../services/product.service";
 import type { Product } from "../models/product.model";
 
 import ProductGrid from "../components/products/ProductGrid";
-import SearchBar from "../components/products/SearchBar";
 import HomeHero from "../components/layout/HomeHero";
 
 const CATEGORIES = [
@@ -48,10 +47,6 @@ export default function HomePage() {
     <main className="page-shell page-shell--wide products-page">
       <div className="section-stack">
         <HomeHero featuredCount={featuredProducts.length} />
-
-        <div className="search-bar-shell search-bar-shell--wide">
-          <SearchBar />
-        </div>
       </div>
 
       <section className="section-stack">

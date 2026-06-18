@@ -20,7 +20,9 @@ function ProductsContent() {
 
   useEffect(() => {
     if (searchQuery) {
-      setFilters((prev) => ({ ...prev, category: searchQuery, pageNumber: 0 }));
+      setFilters((prev) => ({ ...prev, searchQuery: searchQuery, pageNumber: 0 }));
+    } else {
+      setFilters((prev) => ({ ...prev, searchQuery: undefined }));
     }
   }, [searchQuery, setFilters]);
 

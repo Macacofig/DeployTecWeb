@@ -31,7 +31,9 @@ export default function ProductGrid({ products = [], loading = false, onAddToCar
     );
   }
 
-  if (!products || products.length === 0) {
+  const safeProducts = Array.isArray(products) ? products : [];
+
+  if (safeProducts.length === 0) {
     return (
       <div className="product-grid--empty empty-state">
         <p className="product-grid__empty-title">No se encontraron productos</p>
@@ -42,7 +44,7 @@ export default function ProductGrid({ products = [], loading = false, onAddToCar
 
   return (
     <div className="product-grid">
-      {products.map((product) => (
+      {safeProducts.map((product) => (
         <ProductCard key={product.id} product={product} onAddToCart={onAddToCart} />
       ))}
     </div>

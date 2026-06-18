@@ -82,7 +82,7 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <main className="page-shell page-shell--narrow product-detail">
+    <main className="page-shell page-shell--wide product-detail">
       <nav className="breadcrumb">
         <Link href="/" className="breadcrumb__link">Inicio</Link>
         <span>/</span>
@@ -92,6 +92,7 @@ export default function ProductDetailPage() {
       </nav>
 
       <div className="product-detail__layout">
+        {/* Columna 1: Galería */}
         <div className="product-detail__gallery">
           {product.imageUrl ? (
             <Image
@@ -100,7 +101,7 @@ export default function ProductDetailPage() {
               fill
               className="product-detail__image"
               priority
-              sizes="(max-width: 768px) 100vw, 50vw"
+              sizes="(max-width: 768px) 100vw, 33vw"
             />
           ) : (
             <div className="product-detail__placeholder">🛍️</div>
@@ -112,13 +113,13 @@ export default function ProductDetailPage() {
           )}
         </div>
 
+        {/* Columna 2: Detalles e información */}
         <div className="product-detail__info">
           <div className="product-detail__header">
             <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.5rem" }}>
               <p className="product-detail__brand">
                 {product.brand}
               </p>
-              <strong className={`product-detail__stock-pill ${stockTone}`}>{stockStatus}</strong>
             </div>
             <h1 className="product-detail__title">{product.title}</h1>
             <p className="product-detail__subtitle">
@@ -145,13 +146,19 @@ export default function ProductDetailPage() {
                 <span className="product-detail__meta-label" style={{ fontWeight: 600, color: "var(--color-text-primary)" }}>Color:</span> {product.color}
               </p>
             )}
-            <p className="product-detail__meta-item">
-              <span className="product-detail__meta-label" style={{ fontWeight: 600, color: "var(--color-text-primary)" }}>Disponibilidad:</span> {totalStock} unidades
-            </p>
           </div>
+        </div>
+
+        {/* Columna 3: Buy Box (Agregado al carrito) */}
+        <div className="product-detail__buy-box">
+          <strong className={`product-detail__stock-pill ${stockTone}`} style={{ marginBottom: "1rem" }}>{stockStatus}</strong>
+          
+          <p className="product-detail__meta-item" style={{ marginBottom: "1rem", marginTop: "0.5rem" }}>
+            <span className="product-detail__meta-label" style={{ fontWeight: 600, color: "var(--color-text-primary)" }}>Disponibilidad:</span> {totalStock} unidades
+          </p>
 
           {availableSizes.length > 0 && (
-            <div style={{ marginTop: "1rem" }}>
+            <div style={{ marginTop: "1rem", marginBottom: "1.5rem" }}>
               <p className="product-detail__meta-label" style={{ fontWeight: 600, color: "var(--color-text-primary)", marginBottom: "0.5rem" }}>Selecciona tu talla:</p>
               <div className="product-detail__size-grid">
                 {availableSizes.map((s) => (
@@ -167,7 +174,7 @@ export default function ProductDetailPage() {
             </div>
           )}
 
-          <div style={{ marginTop: "1.5rem", padding: "1.5rem", borderRadius: "1rem", background: "var(--color-card-bg)", border: "1px solid var(--color-border-light)" }}>
+          <div style={{ borderTop: "1px solid var(--color-border-light)", paddingTop: "1.5rem" }}>
             <p className="product-detail__meta-label" style={{ fontWeight: 600, color: "var(--color-text-primary)", marginBottom: "0.75rem" }}>Cantidad:</p>
             <div className="product-detail__quantity" style={{ marginBottom: "1.5rem" }}>
               <button
