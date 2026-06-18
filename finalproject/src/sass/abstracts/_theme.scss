@@ -74,40 +74,59 @@ $color-panel-overlay: linear-gradient(
 }
 
 @mixin light-mode-colors {
-  --color-bg: #f9fafb;
-  --color-bg-secondary: #f3f4f6;
-  --color-surface: rgba(0, 0, 0, 0.04);
-  --color-surface-soft: rgba(0, 0, 0, 0.05);
-  --color-text-primary: #111827;
-  --color-text-secondary: #374151;
-  --color-text-muted: #6b7280;
-  --color-border: rgba(0, 0, 0, 0.12);
-  --color-border-light: rgba(0, 0, 0, 0.08);
-  --color-border-lighter: rgba(0, 0, 0, 0.05);
-  --color-accent: rgba(59, 130, 246, 0.08);
-  --color-accent-light: rgba(96, 165, 250, 0.06);
-  --color-accent-lighter: rgba(96, 165, 250, 0.03);
-  --color-accent-indigo: rgba(99, 102, 241, 0.06);
-  --color-card-bg: rgba(255, 255, 255, 0.8);
-  --color-card-bg-light: rgba(255, 255, 255, 0.9);
-  --color-card-overlay: rgba(255, 255, 255, 0.5);
-  --gradient-auth-page: radial-gradient(
-      circle at top left,
-      rgba(96, 165, 250, 0.08),
-      transparent 30%
-    ),
-    radial-gradient(circle at bottom right, rgba(59, 130, 246, 0.06), transparent 34%),
-    linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(249, 250, 251, 0.98));
-  --gradient-body: radial-gradient(
-      circle at top,
-      rgba(59, 130, 246, 0.08),
-      transparent 30%
-    ),
-    linear-gradient(180deg, #f9fafb 0%, #f3f4f6 100%);
+  --color-bg: #bae6fd;
+  --color-bg-secondary: #e0f2fe;
+  --color-surface: #dbeafe;
+  --color-surface-soft: #bae6fd;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #1e293b;
+  --color-text-muted: #334155;
+  --color-border: #7dd3fc;
+  --color-border-light: #bae6fd;
+  --color-border-lighter: rgba(125, 211, 252, 0.5);
+  --color-accent: rgba(2, 132, 199, 0.15);
+  --color-accent-light: rgba(2, 132, 199, 0.1);
+  --color-accent-lighter: rgba(2, 132, 199, 0.05);
+  --color-accent-indigo: rgba(2, 132, 199, 0.2);
+  --color-card-bg: #e0f2fe;
+  --color-card-bg-light: #dbeafe;
+  --color-card-overlay: rgba(224, 242, 254, 0.85);
+  --color-primary: #0284c7;
+  --color-primary-hover: #0369a1;
+  --color-primary-active: #075985;
+  --color-sidebar-bg: #7dd3fc;
+  --color-sidebar-border: #38bdf8;
+  --color-sidebar-hover: #38bdf8;
+  --color-sidebar-active: #0284c7;
+  --color-sidebar-active-text: #ffffff;
+  --color-danger-bg: #fecaca;
+  --color-danger-text: #b91c1c;
+  --color-danger-hover: #fca5a5;
+  --color-success-bg: #bbf7d0;
+  --color-success-text: #166534;
+  --color-success-button: #22c55e;
+  --color-secondary-button-bg: #7dd3fc;
+  --color-secondary-button-border: #38bdf8;
+  --color-secondary-button-text: #0f172a;
+  --color-secondary-button-hover: #38bdf8;
+  --color-quick-button-bg: #7dd3fc;
+  --color-quick-button-text: #075985;
+  --color-quick-button-hover: #38bdf8;
+  --shadow-card: 0 4px 15px rgba(2, 132, 199, 0.15);
+  --gradient-auth-page: linear-gradient(
+    180deg,
+    #bae6fd 0%,
+    #7dd3fc 100%
+  );
+  --gradient-body: linear-gradient(
+    180deg,
+    #bae6fd 0%,
+    #7dd3fc 100%
+  );
   --color-panel-overlay: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.02),
-    rgba(0, 0, 0, 0.01)
+    rgba(2, 132, 199, 0.1),
+    rgba(2, 132, 199, 0.05)
   );
 }
 

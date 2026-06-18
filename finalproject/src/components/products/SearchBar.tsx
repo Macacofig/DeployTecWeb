@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, useEffect, useRef } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 interface SearchBarProps {
   initialValue?: string;
@@ -11,12 +11,43 @@ interface SearchBarProps {
 export default function SearchBar({ initialValue = '', className = '' }: SearchBarProps) {
   const [query, setQuery] = useState(initialValue);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const isFirstMount = useRef(true);
+
+  useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+
+    const timeoutId = setTimeout(() => {
+      const trimmedQuery = query.trim();
+      const params = new URLSearchParams(searchParams.toString());
+
+      if (trimmedQuery) {
+        params.set('search', trimmedQuery);
+      } else {
+        params.delete('search');
+      }
+
+      router.push(`/products?${params.toString()}`);
+    }, 400); // 400ms debounce
+
+    return () => clearTimeout(timeoutId);
+  }, [query, router, searchParams]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (query.trim()) {
-      router.push(`/products?search=${encodeURIComponent(query.trim())}`);
+    const trimmedQuery = query.trim();
+    const params = new URLSearchParams(searchParams.toString());
+    
+    if (trimmedQuery) {
+      params.set('search', trimmedQuery);
+    } else {
+      params.delete('search');
     }
+    
+    router.push(`/products?${params.toString()}`);
   };
 
   return (

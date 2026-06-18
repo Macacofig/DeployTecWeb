@@ -356,37 +356,50 @@ export default function CreateProductPage() {
               </div>
 
               <div className="admin-form__field">
-                <label className="admin-form__label">Tallas</label>
-                <div className="admin-product-create__sizes">
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+                  <label className="admin-form__label" style={{ margin: 0 }}>Variantes de Talla y Stock</label>
+                  <Button type="button" variant="outline" onClick={addSizeRow} style={{ padding: "0.4rem 0.8rem", fontSize: "0.8rem" }}>
+                    + Agregar talla
+                  </Button>
+                </div>
+                
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", borderRadius: "0.75rem", padding: "1rem", background: "var(--color-surface-soft)" }}>
+                  {formData.size.length === 0 && (
+                    <p style={{ margin: 0, fontSize: "0.85rem", color: "var(--color-text-muted)", textAlign: "center", padding: "1rem" }}>No has agregado tallas.</p>
+                  )}
                   {formData.size.map((item, index) => (
-                    <div key={index} className="admin-form__grid admin-form__grid--three">
-                      <Input
-                        label="Nombre de talla"
-                        value={item.name}
-                        onChange={(event) => handleSizeChange(index, "name", event.target.value)}
-                        placeholder="Ej: m, l, xl"
-                      />
-                      <Input
-                        label="Cantidad"
-                        type="number"
-                        value={String(item.quantity)}
-                        onChange={(event) => handleSizeChange(index, "quantity", event.target.value)}
-                        placeholder="0"
-                        min="0"
-                      />
-                      <Button
+                    <div key={index} style={{ display: "grid", gridTemplateColumns: "1fr 1fr auto", gap: "1rem", alignItems: "center", background: "var(--color-card-bg)", padding: "0.5rem 1rem", borderRadius: "0.5rem", border: "1px solid var(--color-border-light)" }}>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+                        <span style={{ fontSize: "0.75rem", color: "var(--color-text-muted)", fontWeight: 600 }}>Talla:</span>
+                        <input
+                          style={{ width: "100%", background: "transparent", border: "none", outline: "none", fontSize: "0.9rem", color: "var(--color-text-primary)" }}
+                          value={item.name}
+                          onChange={(event) => handleSizeChange(index, "name", event.target.value)}
+                          placeholder="Ej: S, M, L..."
+                        />
+                      </div>
+                      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", borderLeft: "1px solid var(--color-border-light)", paddingLeft: "1rem" }}>
+                        <span style={{ fontSize: "0.75rem", color: "var(--color-text-muted)", fontWeight: 600 }}>Cant:</span>
+                        <input
+                          type="number"
+                          style={{ width: "100%", background: "transparent", border: "none", outline: "none", fontSize: "0.9rem", color: "var(--color-text-primary)" }}
+                          value={String(item.quantity)}
+                          onChange={(event) => handleSizeChange(index, "quantity", event.target.value)}
+                          placeholder="0"
+                          min="0"
+                        />
+                      </div>
+                      <button
                         type="button"
-                        variant="outline"
                         onClick={() => removeSizeRow(index)}
+                        style={{ background: "transparent", border: "none", color: "var(--color-danger-text)", cursor: "pointer", fontSize: "1.2rem", lineHeight: 1, padding: "0.2rem 0.5rem", borderRadius: "0.25rem", transition: "background 0.2s" }}
+                        title="Quitar variante"
                       >
-                        Quitar
-                      </Button>
+                        ×
+                      </button>
                     </div>
                   ))}
                 </div>
-                <Button type="button" variant="outline" onClick={addSizeRow}>
-                  Agregar talla
-                </Button>
               </div>
             </div>
 

@@ -19,12 +19,30 @@ export function useProducts(initialFilters?: ProductFilters) {
     setLoading(true);
     setError(null);
     try {
-      const result = await ProductService.getProducts(filters);
-      
-      setProducts(result.content); //guardar productos
-      // divide el resultado en content y el resto, y guarda el resto en pagination
-      const { content: _content, ...rest } = result;
-      setPagination(rest); // guardar paginacion
+      if (filters.searchQuery) {
+        // Usa el endpoint de búsqueda
+        const result: any = await ProductService.searchProducts(filters.searchQuery);
+        const productsArray = Array.isArray(result) ? result : (result?.content || []);
+        
+        setProducts(productsArray);
+        setPagination(
+          result?.content !== undefined 
+            ? { ...result, content: undefined } 
+            : {
+                totalPages: 1,
+                totalElements: productsArray.length,
+                number: 0,
+                size: productsArray.length || 1,
+                last: true,
+              }
+        );
+      } else {
+        // Usa el endpoint de filtros normal
+        const result = await ProductService.getProducts(filters);
+        setProducts(result.content);
+        const { content: _content, ...rest } = result;
+        setPagination(rest);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : "No fue posible cargar los productos");
     } finally {

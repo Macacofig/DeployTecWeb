@@ -98,14 +98,12 @@ export default function ProductTable() {
   }
 
   return (
-    <div className="admin-table-shell">
-      <div className="admin-table-shell__inner">
-        <Table
-          columns={columns}
-          data={products}
-          keyExtractor={(p) => String(p.id ?? Math.random())}
-        />
-      </div>
+    <div style={{ overflowX: "auto" }}>
+      <Table
+        columns={columns}
+        data={products}
+        keyExtractor={(p) => String(p.id ?? Math.random())}
+      />
     </div>
   );
 }

@@ -28,7 +28,7 @@
   left: -4rem;
   width: 18rem;
   height: 18rem;
-  background: var(--color-accent);
+  background: var(--color-accent-indigo);
 }
 
 .auth-page::after {
@@ -51,7 +51,6 @@
   background: var(--color-card-bg);
   box-shadow: $shadow-soft;
   backdrop-filter: blur(28px);
-  transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .auth-panel {
@@ -269,7 +268,7 @@
 
 .auth-footnote {
   margin: 1rem 0 0;
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-muted);
   font-size: 0.92rem;
   line-height: 1.6;
 }
@@ -281,11 +280,11 @@
 }
 
 .auth-link:hover {
-  color: map.get(map.get($colors, brand), 100);
+  color: var(--color-primary-hover);
 }
 
 .auth-status {
-  color: map.get(map.get($colors, slate), 300);
+  color: var(--color-text-muted);
 }
 
 .auth-field-group {
@@ -307,7 +306,7 @@
 
   .auth-panel {
     border-right: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid var(--color-border-light);
   }
 }
 
