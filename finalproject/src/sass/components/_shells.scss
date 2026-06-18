@@ -527,7 +527,7 @@
 }
 
 .catalog-sidebar {
-  flex: 0 0 14rem;
+  flex: none;
 }
 
 .catalog-content {
@@ -588,6 +588,10 @@
 
   .catalog-layout {
     flex-direction: row;
+  }
+
+  .catalog-sidebar {
+    flex: 0 0 14rem;
   }
 }
 

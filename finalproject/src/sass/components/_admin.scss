@@ -555,7 +555,7 @@
 }
 
 .admin-table-shell__inner {
-  min-width: 100%;
+  min-width: 48rem;
 }
 
 .admin-table-actions {
@@ -958,7 +958,8 @@
     flex-direction: column;
   }
 
-  .admin-product-create__preview-item {
+  .admin-product-create__preview-item,
+  .admin-order-item {
     align-items: start;
     flex-direction: column;
   }
