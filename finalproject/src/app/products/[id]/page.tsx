@@ -113,13 +113,16 @@ export default function ProductDetailPage() {
         </div>
 
         <div className="product-detail__info">
-          <div>
-            <p className="product-detail__brand">
-              {product.brand}
-            </p>
+          <div className="product-detail__header">
+            <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginBottom: "0.5rem" }}>
+              <p className="product-detail__brand">
+                {product.brand}
+              </p>
+              <strong className={`product-detail__stock-pill ${stockTone}`}>{stockStatus}</strong>
+            </div>
             <h1 className="product-detail__title">{product.title}</h1>
             <p className="product-detail__subtitle">
-              {product.category?.name ? `${product.category.name} · Nivel ${product.category.level}` : "Detalle de producto"}
+              {product.category?.name ? `${product.category.name}` : "Detalle de producto"}
             </p>
           </div>
 
@@ -132,51 +135,24 @@ export default function ProductDetailPage() {
             )}
           </div>
 
-          <p className="product-detail__description">{product.description}</p>
-
-          <div className="product-detail__summary-grid">
-            <article className="product-detail__summary-card">
-              <span className="product-detail__meta-label">Estado</span>
-              <strong className={`product-detail__stock-pill ${stockTone}`}>{stockStatus}</strong>
-            </article>
-
-            <article className="product-detail__summary-card">
-              <span className="product-detail__meta-label">Stock total</span>
-              <strong>{totalStock} unidades</strong>
-            </article>
-
-            <article className="product-detail__summary-card">
-              <span className="product-detail__meta-label">Fecha</span>
-              <strong>{createdAtLabel}</strong>
-            </article>
-
-            <article className="product-detail__summary-card">
-              <span className="product-detail__meta-label">ID</span>
-              <strong>#{product.id}</strong>
-            </article>
+          <div style={{ borderTop: "1px solid var(--color-border)", paddingTop: "1.5rem" }}>
+            <p className="product-detail__description">{product.description}</p>
           </div>
 
-          <div className="product-detail__meta-list">
+          <div className="product-detail__meta-list" style={{ marginTop: "0.5rem" }}>
             {product.color && (
               <p className="product-detail__meta-item">
-                <span className="product-detail__meta-label">Color:</span> {product.color}
+                <span className="product-detail__meta-label" style={{ fontWeight: 600, color: "var(--color-text-primary)" }}>Color:</span> {product.color}
               </p>
             )}
-
-            {product.category?.name && (
-              <p className="product-detail__meta-item">
-                <span className="product-detail__meta-label">Categoría:</span> {product.category.name}
-              </p>
-            )}
-
             <p className="product-detail__meta-item">
-              <span className="product-detail__meta-label">Cantidad máxima:</span> {product.quantity}
+              <span className="product-detail__meta-label" style={{ fontWeight: 600, color: "var(--color-text-primary)" }}>Disponibilidad:</span> {totalStock} unidades
             </p>
           </div>
 
           {availableSizes.length > 0 && (
-            <div>
-              <p className="product-detail__meta-label">Talla:</p>
+            <div style={{ marginTop: "1rem" }}>
+              <p className="product-detail__meta-label" style={{ fontWeight: 600, color: "var(--color-text-primary)", marginBottom: "0.5rem" }}>Selecciona tu talla:</p>
               <div className="product-detail__size-grid">
                 {availableSizes.map((s) => (
                   <button
@@ -184,37 +160,16 @@ export default function ProductDetailPage() {
                     onClick={() => setSelectedSize(s.name)}
                     className={`product-detail__size-button ${selectedSize === s.name ? "product-detail__size-button--active" : ""}`}
                   >
-                    {s.name}
+                    {s.name} <span style={{ fontSize: "0.75rem", opacity: 0.8 }}>({s.quantity})</span>
                   </button>
                 ))}
               </div>
             </div>
           )}
 
-          {availableSizes.length > 0 && (
-            <div className="product-detail__size-detail">
-              <p className="product-detail__meta-label">Disponibilidad por talla</p>
-              <div className="product-detail__size-list">
-                {availableSizes.map((size) => (
-                  <span key={size.name} className="product-detail__size-chip">
-                    {size.name} · {size.quantity}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          <div className="product-detail__notice">
-            <p className="product-detail__meta-label">Información útil</p>
-            <p className="product-detail__description">
-              Esta vista sirve para usuario y admin: permite revisar el detalle comercial,
-              la disponibilidad y el stock antes de comprar o gestionar el producto.
-            </p>
-          </div>
-
-          <div>
-            <p className="product-detail__meta-label">Cantidad:</p>
-            <div className="product-detail__quantity">
+          <div style={{ marginTop: "1.5rem", padding: "1.5rem", borderRadius: "1rem", background: "var(--color-card-bg)", border: "1px solid var(--color-border-light)" }}>
+            <p className="product-detail__meta-label" style={{ fontWeight: 600, color: "var(--color-text-primary)", marginBottom: "0.75rem" }}>Cantidad:</p>
+            <div className="product-detail__quantity" style={{ marginBottom: "1.5rem" }}>
               <button
                 onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                 className="product-detail__quantity-button"
@@ -228,23 +183,22 @@ export default function ProductDetailPage() {
               >
                 +
               </button>
-              <span className="product-detail__meta">({product.quantity} disponibles)</span>
             </div>
+
+            <button
+              onClick={handleAddToCart}
+              disabled={product.quantity === 0 || adding}
+              className="product-detail__cta-button"
+            >
+              {adding ? "Agregando..." : product.quantity === 0 ? "Sin stock" : "Agregar al carrito"}
+            </button>
+
+            {cartMessage && (
+              <p className={`product-detail__cart-message product-detail__cart-message--${cartMessageType}`} style={{ marginTop: "1rem" }}>
+                {cartMessage}
+              </p>
+            )}
           </div>
-
-          <button
-            onClick={handleAddToCart}
-            disabled={product.quantity === 0 || adding}
-            className="product-detail__cta-button"
-          >
-            {adding ? "Agregando..." : product.quantity === 0 ? "Sin stock" : "Agregar al carrito"}
-          </button>
-
-          {cartMessage && (
-            <p className={`product-detail__cart-message product-detail__cart-message--${cartMessageType}`}>
-              {cartMessage}
-            </p>
-          )}
         </div>
       </div>
     </main>
