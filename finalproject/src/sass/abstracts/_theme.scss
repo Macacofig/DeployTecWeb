@@ -74,59 +74,59 @@ $color-panel-overlay: linear-gradient(
 }
 
 @mixin light-mode-colors {
-  --color-bg: #EEF2FF;
-  --color-bg-secondary: #F8FAFC;
-  --color-surface: #F8FAFC;
-  --color-surface-soft: #EEF2FF;
-  --color-text-primary: #0F172A;
-  --color-text-secondary: #334155;
-  --color-text-muted: #64748B;
-  --color-border: #CBD5E1;
-  --color-border-light: #E2E8F0;
-  --color-border-lighter: rgba(203, 213, 225, 0.4);
-  --color-accent: rgba(79, 70, 229, 0.08);
-  --color-accent-light: rgba(79, 70, 229, 0.06);
-  --color-accent-lighter: rgba(79, 70, 229, 0.03);
-  --color-accent-indigo: rgba(79, 70, 229, 0.1);
-  --color-card-bg: #F8FAFC;
-  --color-card-bg-light: #FFFFFF;
-  --color-card-overlay: rgba(248, 250, 252, 0.8);
-  --color-primary: #4F46E5;
-  --color-primary-hover: #4338CA;
-  --color-primary-active: #3730A3;
-  --color-sidebar-bg: #E2E8F0;
-  --color-sidebar-border: #CBD5E1;
-  --color-sidebar-hover: #C7D2FE;
-  --color-sidebar-active: #4F46E5;
-  --color-sidebar-active-text: #FFFFFF;
-  --color-danger-bg: #FEE2E2;
-  --color-danger-text: #DC2626;
-  --color-danger-hover: #FECACA;
-  --color-success-bg: #DCFCE7;
-  --color-success-text: #15803D;
-  --color-success-button: #22C55E;
-  --color-secondary-button-bg: #EEF2FF;
-  --color-secondary-button-border: #CBD5E1;
-  --color-secondary-button-text: #0F172A;
-  --color-secondary-button-hover: #C7D2FE;
-  --color-quick-button-bg: #E0E7FF;
-  --color-quick-button-text: #3730A3;
-  --color-quick-button-hover: #C7D2FE;
-  --shadow-card: 0 4px 12px rgba(15, 23, 42, 0.06);
+  --color-bg: #bae6fd;
+  --color-bg-secondary: #e0f2fe;
+  --color-surface: #dbeafe;
+  --color-surface-soft: #bae6fd;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #1e293b;
+  --color-text-muted: #334155;
+  --color-border: #7dd3fc;
+  --color-border-light: #bae6fd;
+  --color-border-lighter: rgba(125, 211, 252, 0.5);
+  --color-accent: rgba(2, 132, 199, 0.15);
+  --color-accent-light: rgba(2, 132, 199, 0.1);
+  --color-accent-lighter: rgba(2, 132, 199, 0.05);
+  --color-accent-indigo: rgba(2, 132, 199, 0.2);
+  --color-card-bg: #e0f2fe;
+  --color-card-bg-light: #dbeafe;
+  --color-card-overlay: rgba(224, 242, 254, 0.85);
+  --color-primary: #0284c7;
+  --color-primary-hover: #0369a1;
+  --color-primary-active: #075985;
+  --color-sidebar-bg: #7dd3fc;
+  --color-sidebar-border: #38bdf8;
+  --color-sidebar-hover: #38bdf8;
+  --color-sidebar-active: #0284c7;
+  --color-sidebar-active-text: #ffffff;
+  --color-danger-bg: #fecaca;
+  --color-danger-text: #b91c1c;
+  --color-danger-hover: #fca5a5;
+  --color-success-bg: #bbf7d0;
+  --color-success-text: #166534;
+  --color-success-button: #22c55e;
+  --color-secondary-button-bg: #7dd3fc;
+  --color-secondary-button-border: #38bdf8;
+  --color-secondary-button-text: #0f172a;
+  --color-secondary-button-hover: #38bdf8;
+  --color-quick-button-bg: #7dd3fc;
+  --color-quick-button-text: #075985;
+  --color-quick-button-hover: #38bdf8;
+  --shadow-card: 0 4px 15px rgba(2, 132, 199, 0.15);
   --gradient-auth-page: linear-gradient(
     180deg,
-    #EEF2FF 0%,
-    #E0E7FF 100%
+    #bae6fd 0%,
+    #7dd3fc 100%
   );
   --gradient-body: linear-gradient(
     180deg,
-    #EEF2FF 0%,
-    #E0E7FF 100%
+    #bae6fd 0%,
+    #7dd3fc 100%
   );
   --color-panel-overlay: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.02),
-    rgba(0, 0, 0, 0.01)
+    rgba(2, 132, 199, 0.1),
+    rgba(2, 132, 199, 0.05)
   );
 }
 

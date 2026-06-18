@@ -209,7 +209,7 @@
 .hero-card__action--primary,
 .section-action--primary {
   background: linear-gradient(180deg, var(--color-accent-indigo), var(--color-accent));
-  color: map.get($colors, white);
+  color: var(--color-text-primary);
 }
 
 .hero-card__action--secondary,
