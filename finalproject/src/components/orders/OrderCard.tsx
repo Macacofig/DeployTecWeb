@@ -2,6 +2,7 @@
 
 import type { Order } from "../../models/order.model";
 import { formatPrice } from "../../utils/currency.util";
+import { formatOrderStatus, formatPaymentStatus } from "../../utils/order-format.util";
 
 interface Props {
   order: Order;
@@ -22,13 +23,13 @@ export function OrderCard({
           <p className="order-card__meta">
             Estado:
             {" "}
-            {order.orderStatus ?? "Pendiente"}
+            {formatOrderStatus(order.orderStatus)}
           </p>
 
           <p className="order-card__meta">
             Pago:
             {" "}
-            {order.paymentDetails?.status ?? order.paymentStatus ?? "Pendiente"}
+            {formatPaymentStatus(order.paymentDetails?.status ?? order.paymentStatus)}
           </p>
 
         </div>

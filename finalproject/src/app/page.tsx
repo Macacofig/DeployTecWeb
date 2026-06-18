@@ -11,13 +11,6 @@ import type { Product } from "../models/product.model";
 import ProductGrid from "../components/products/ProductGrid";
 import HomeHero from "../components/layout/HomeHero";
 
-const CATEGORIES = [
-  { label: "Ropa", value: "Clothing", emoji: "👕" },
-  { label: "Electrónica", value: "Electronics", emoji: "📱" },
-  { label: "Calzado", value: "Shoes", emoji: "👟" },
-  { label: "Accesorios", value: "Accessories", emoji: "💍" },
-];
-
 export default function HomePage() {
   const [featuredProducts, setFeaturedProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -51,55 +44,9 @@ export default function HomePage() {
 
       <section className="section-stack">
         <div className="catalog-toolbar">
-          <div className="page-header">
-            <p className="page-header__eyebrow">
-              Categorías
-            </p>
-
-              <h2 className="section-title section-title--compact">
-              Explora por tipo de producto
-            </h2>
-          </div>
-
-          <Link
-            href="/products"
-            className="section-action section-action--secondary"
-          >
-            Ver catálogo completo
-          </Link>
-        </div>
-
-        <div className="category-grid">
-          {CATEGORIES.map((cat) => (
-            <Link
-              key={cat.value}
-              href={`/products?category=${cat.value}`}
-              className="category-card"
-            >
-              <span className="category-card__emoji">
-                {cat.emoji}
-              </span>
-
-              <span className="category-card__label">
-                {cat.label}
-              </span>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="section-stack">
-        <div className="catalog-toolbar">
               <h2 className="section-title section-title--compact">
             Productos Destacados
           </h2>
-
-          <Link
-            href="/products"
-            className="section-action section-action--secondary"
-          >
-            Ver todos →
-          </Link>
         </div>
 
         <ProductGrid

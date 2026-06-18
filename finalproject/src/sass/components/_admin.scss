@@ -119,7 +119,7 @@
 .admin-product-create__eyebrow,
 .admin-form__section-eyebrow {
   margin: 0;
-  color: map.get(map.get($colors, brand), 200);
+  color: var(--color-admin-eyebrow);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.2em;
@@ -558,6 +558,27 @@
   min-width: 48rem;
 }
 
+.admin-products-section {
+  width: 100%;
+  min-width: 0;
+}
+
+.admin-products-table-shell {
+  width: 100%;
+  max-height: min(34rem, 68vh);
+  background: var(--color-card-bg);
+}
+
+.admin-products-table-shell__inner {
+  width: 100%;
+}
+
+.admin-products-table__loading {
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+}
+
 .admin-table-actions {
   display: flex;
   flex-wrap: wrap;
@@ -721,15 +742,21 @@
 
 .ui-button {
   padding: 0.8rem 1rem;
-  background: linear-gradient(180deg, var(--color-accent-indigo), var(--color-accent));
+  background: linear-gradient(180deg, var(--color-button-primary-from), var(--color-button-primary-to));
   color: map.get($colors, white);
 }
 
 .admin-form__submit,
 .ui-button--primary {
   padding: 0.85rem 1rem;
-  background: linear-gradient(180deg, var(--color-accent-indigo), var(--color-accent));
+  background: linear-gradient(180deg, var(--color-button-primary-from), var(--color-button-primary-to));
   color: map.get($colors, white);
+}
+
+.admin-form__submit:hover:not(:disabled),
+.ui-button--primary:hover:not(:disabled) {
+  background: linear-gradient(180deg, var(--color-button-primary-hover-from), var(--color-button-primary-hover-to));
+  transform: translateY(-1px);
 }
 
 .ui-button--secondary,
@@ -807,9 +834,25 @@
   border-radius: 1rem;
 }
 
+.ui-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
 .ui-table__head,
 .ui-table__row:hover {
   background: var(--color-card-overlay);
+}
+
+.ui-table__head {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.ui-table__row {
+  background: var(--color-surface);
+  transition: background-color 150ms ease;
 }
 
 .ui-table__th,

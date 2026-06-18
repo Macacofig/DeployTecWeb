@@ -9,10 +9,8 @@ interface Props {
 }
 
 const SORT_OPTIONS = [
-  { label: "Relevancia", value: "" },
   { label: "Menor precio", value: "price_low" },
   { label: "Mayor precio", value: "price_high" },
-  { label: "Descuento", value: "discount" },
 ];
 
 const SIZE_OPTIONS = ["XS", "S", "M", "L", "XL", "XXL"];

@@ -117,7 +117,7 @@
 
 .product-detail__price {
   margin: 0;
-  color: map.get(map.get($colors, brand), 200);
+  color: var(--color-product-price);
   font-size: 1.875rem;
   font-weight: 700;
 }

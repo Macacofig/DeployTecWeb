@@ -10,7 +10,7 @@ export default function AdminProductsPage() {
           <h1 className="page-header__title">Gestión de productos</h1>
           <p className="page-header__description">Estructura para crear, editar, eliminar y publicar catálogo.</p>
         </header>
-        <section>
+        <section className="admin-products-section">
           <ProductTable />
         </section>
       </main>

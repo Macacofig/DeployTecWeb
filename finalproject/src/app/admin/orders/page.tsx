@@ -8,6 +8,7 @@ import { AdminGuard } from "@/guards/AdminGuard";
 import type { Order } from "@/models/order.model";
 import { getOrders } from "@/services/order.service";
 import { formatPrice } from "@/utils/currency.util";
+import { formatOrderStatus, formatPaymentStatus } from "@/utils/order-format.util";
 
 function getCustomerLabel(order: Order) {
   const fullName = [
@@ -66,11 +67,11 @@ export default function AdminOrdersPage() {
     },
     {
       header: "Estado",
-      accessor: (order: Order) => order.orderStatus ?? "Pendiente",
+      accessor: (order: Order) => formatOrderStatus(order.orderStatus),
     },
     {
       header: "Pago",
-      accessor: (order: Order) => order.paymentDetails?.status ?? order.paymentStatus ?? "Pendiente",
+      accessor: (order: Order) => formatPaymentStatus(order.paymentDetails?.status ?? order.paymentStatus),
     },
     {
       header: "Items",

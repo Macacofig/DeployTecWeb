@@ -15,13 +15,18 @@
 
 .filter-panel--open {
   display: grid;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 1.15rem;
+  background: var(--color-panel-overlay), var(--color-card-bg);
+  box-shadow: $shadow-sm;
 }
 
 .filter-panel__toggle {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
   padding: 0.7rem 1rem;
   border: 1px solid var(--color-border);
   border-radius: 0.95rem;
@@ -40,6 +45,15 @@
 .filter-panel__group {
   display: grid;
   gap: 0.75rem;
+  padding: 0.9rem;
+  border: 1px solid var(--color-border-light);
+  border-radius: 0.9rem;
+  background: var(--color-card-overlay);
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.filter-panel__group:hover {
+  border-color: var(--color-border);
 }
 
 .filter-panel__title {
@@ -284,7 +298,7 @@
 
 .product-card__price {
   margin: 0;
-  color: map.get(map.get($colors, brand), 200);
+  color: var(--color-product-price);
   font-size: 1rem;
   font-weight: 700;
 }

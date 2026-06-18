@@ -7,6 +7,7 @@ import { AdminGuard } from "@/guards/AdminGuard";
 import type { Order } from "@/models/order.model";
 import { getOrderById } from "@/services/order.service";
 import { formatPrice } from "@/utils/currency.util";
+import { formatOrderStatus, formatPaymentStatus } from "@/utils/order-format.util";
 
 function formatDate(value?: string) {
   if (!value) return "Sin fecha";
@@ -84,12 +85,12 @@ export default function AdminOrderDetailPage() {
                 </div>
                 <div>
                   <p className="admin-order-detail-label">Estado</p>
-                  <p className="admin-order-detail-value">{order.orderStatus ?? "-"}</p>
+                  <p className="admin-order-detail-value">{formatOrderStatus(order.orderStatus)}</p>
                 </div>
                 <div>
                   <p className="admin-order-detail-label">Pago</p>
                   <p className="admin-order-detail-value">
-                    {order.paymentDetails?.status ?? order.paymentStatus ?? "-"}
+                    {formatPaymentStatus(order.paymentDetails?.status ?? order.paymentStatus)}
                   </p>
                 </div>
                 <div>
